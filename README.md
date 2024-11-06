@@ -6,12 +6,14 @@
 * Zhe Wang: https://github.com/ZheWang7
 * Scott Angelides: https://github.com/JustCookieDough
 
+
 ## TODOs by Fri 8 Nov
 1. [ ] Use cases described and user interations identified - James
 2. [ ] All the Views sketched - Denis
 3. [ ] Entities decided - James
 4. [ ] A first "team use case" implemented, tested, and pushed to repo - 
 5. [ ] Be able to make calls to the API your team has chosen - 
+
 
 ## Project Blueprint
 ### Team Name: 
