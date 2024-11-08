@@ -44,3 +44,21 @@ The program will create `Ghost Nodes` for these articles.
 * Abstracts away difficult to handle features of MediaWiki sites such as redirects or deprecated pages.
 #### [Another API for graph (TBD)]()
 (Add once determined)
+
+
+## CA Structures of Use Cases
+### Search
+![image](images/search_ca.png)
+1. When the user types in the subject in the textbox and click **Search**, the content in the textbox
+will be passed to the `SearchController`.
+2. The `SearchController` will wrap the input into a `SearchInputData` object,
+which will be used by the `SearchInputBoundary` interface. \
+
+**(I'm not sure if the `SearchInputData` is necessary because the data is really just a String of the subject name.
+I'll ask the TA on Monday)**
+
+3. `SearchInteractor` implements the `SearchInputBoundary` interface, which calls the MediaWiki API.
+to fetch the corresponding webpage. The fetched result will be stored in `Webpage`.
+4. `SearchInteractor` then returns `SearchOutputBoundary`.
+5. `SearchPresenter`, which implements the `SearchOutputBoundary` interface, will then update the `ViewModel`.
+6. `ViewModel` fires the changes to display the webpage on the `View`.
