@@ -52,7 +52,7 @@ The program will create `Ghost Nodes` for these articles.
 1. When the user types in the subject in the textbox and click **Search**, the content in the textbox
 will be passed to the `SearchController`.
 2. The `SearchController` will wrap the input into a `SearchInputData` object,
-which will be used by the `SearchInputBoundary` interface. \
+which will be used by the `SearchInputBoundary` interface.
 
 **(I'm not sure if the `SearchInputData` is necessary because the data is really just a String of the subject name.
 I'll ask the TA on Monday)**
