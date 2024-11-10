@@ -8,9 +8,9 @@
 
 
 ## TODOs by Fri 8 Nov
-1. [ ] Use cases described and user interations identified - James
-2. [ ] All the Views sketched - Denis
-3. [ ] Entities decided - James
+1. [X] Use cases described and user interations identified - James
+2. [X] All the Views sketched - Denis
+3. [X] Entities decided - James
 4. [ ] A first "team use case" implemented, tested, and pushed to repo - 
 5. [ ] Be able to make calls to the API your team has chosen - 
 
@@ -62,3 +62,11 @@ to fetch the corresponding webpage. The fetched result will be stored in `Webpag
 4. `SearchInteractor` then returns `SearchOutputBoundary`.
 5. `SearchPresenter`, which implements the `SearchOutputBoundary` interface, will then update the `ViewModel`.
 6. `ViewModel` fires the changes to display the webpage on the `View`.
+
+### Add
+The structure of the **Add** use case would be similar to that of **Search**.
+The potential entities involved are `Node` (the node representing a webpage), and
+`WikiHistory` (storing the Wikipedia Rabbit Hole).
+
+### Save
+![image](images/save_ca.png)
