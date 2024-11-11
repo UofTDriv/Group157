@@ -11,8 +11,12 @@
 1. [X] Use cases described and user interations identified - James
 2. [X] All the Views sketched - Denis
 3. [X] Entities decided - James
+
+## TODOs by Sun 17 Nov
 4. [ ] A first "team use case" implemented, tested, and pushed to repo - 
+   * Controller, input data, interactor, output data, presenter, in memory database (if needed)
 5. [ ] Be able to make calls to the API your team has chosen - 
+6. [ ] Functioning view and view model
 
 
 ## Project Blueprint
