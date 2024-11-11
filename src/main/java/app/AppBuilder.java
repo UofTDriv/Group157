@@ -1,4 +1,4 @@
-package main.java.app;
+package app;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of

@@ -1,7 +1,7 @@
-package main.java.interface_adapter.search;
+package interface_adapter.search;
 
-import main.java.use_case.search.SearchOutputBoundary;
-import main.java.use_case.search.SearchOutputData;
+import use_case.search.SearchOutputBoundary;
+import use_case.search.SearchOutputData;
 
 /**
  * Presenter for the search use case.
