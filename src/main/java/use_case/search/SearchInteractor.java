@@ -25,7 +25,7 @@ public class SearchInteractor implements SearchInputBoundary {
             String title = webAccessObject.getTitle(subject);
             String content = webAccessObject.getHTML(subject);
 
-            SearchOutputData outputData = new SearchOutputData(title, content);
+            SearchOutputData outputData = new SearchOutputData(title, content, false);
             presenter.prepareSuccessView(outputData);
         }
     }

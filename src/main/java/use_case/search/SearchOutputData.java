@@ -5,18 +5,18 @@ package use_case.search;
  */
 public class SearchOutputData {
     private final String title;
-    private final String content;
+    private final String body;
+    private final boolean useCaseFailed;
 
-    public SearchOutputData(String title, String content) {
+    public SearchOutputData(String title, String body, boolean useCaseFailed) {
         this.title = title;
-        this.content = content;
+        this.body = body;
+        this.useCaseFailed = useCaseFailed;
     }
 
-    public String getTitle() {
-        return this.title;
-    }
+    public String getTitle() { return this.title; }
 
-    public String getContent() {
-        return this.content;
-    }
+    public String getBody() { return this.body; }
+
+    public boolean getUseCaseFailed() { return this.useCaseFailed; }
 }
