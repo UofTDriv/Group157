@@ -21,9 +21,6 @@ public class SearchController {
 
     public void execute(String articleTitle) {
         String[] words = articleTitle.split(" ");
-        for(int i = 0; i < words.length; i++) {
-            words[i] = words[i].toLowerCase();
-        }
         String formatString = String.join("_", words);
 
         final SearchInputData searchInputData = new SearchInputData(formatString);
