@@ -28,23 +28,23 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 0.2;
 
-        search = new JButton(navBarViewModel.getSearch());
+        search = new JButton(navBarViewModel.getState().getSearch());
         c.gridx = 0;
         this.add(search, c);
 
-        save = new JButton(navBarViewModel.getSave());
+        save = new JButton(navBarViewModel.getState().getSave());
         c.gridx = 1;
         this.add(save, c);
 
-        openOrCurrent = new JButton(navBarViewModel.getOpenOrCurrent());
+        openOrCurrent = new JButton(navBarViewModel.getState().getOpenOrCurrent());
         c.gridx = 2;
         this.add(openOrCurrent, c);
 
-        graph = new JButton(navBarViewModel.getGraph());
+        graph = new JButton(navBarViewModel.getState().getGraph());
         c.gridx = 3;
         this.add(graph, c);
 
-        timeline = new JButton(navBarViewModel.getTimeline());
+        timeline = new JButton(navBarViewModel.getState().getTimeline());
         c.gridx = 4;
         this.add(timeline, c);
 

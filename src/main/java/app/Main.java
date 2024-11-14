@@ -10,8 +10,9 @@ public class Main {
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
                 .addNavBarView()
-                .addSearchView()
+                .addSaveView()
                 .addJourneyView()
+                .addSearchView()
                 .build();
         application.pack();
         application.setVisible(true);
