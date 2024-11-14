@@ -11,6 +11,7 @@ public class Main {
         final JFrame application = appBuilder
                 .addNavBarView()
                 .addSearchView()
+                .addJourneyView()
                 .build();
         application.pack();
         application.setVisible(true);

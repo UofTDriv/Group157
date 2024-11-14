@@ -1,7 +1,9 @@
 package app;
 
 import interface_adapter.NavBarViewModel;
+import interface_adapter.journey.JourneyViewModel;
 import interface_adapter.search.SearchViewModel;
+import view.JourneyView;
 import view.NavBarView;
 import view.SearchView;
 
@@ -15,18 +17,18 @@ import java.awt.*;
  */
 public class AppBuilder {
     private final JPanel mainWindowFrame = new JPanel();
-    private final JPanel activeCardPanel = new JPanel();
-    private final BorderLayout borderLayout = new BorderLayout();
-    private final CardLayout cardLayout = new CardLayout();
+    private final JPanel views = new JPanel();
 
-    private NavBarView navBarView;
     private NavBarViewModel navBarViewModel;
-    private SearchView searchView;
+    private NavBarView navBarView;
     private SearchViewModel searchViewModel;
+    private SearchView searchView;
+    private JourneyViewModel journeyViewModel;
+    private JourneyView journeyView;
 
     public AppBuilder() {
-        mainWindowFrame.setLayout(borderLayout);
-        activeCardPanel.setLayout(cardLayout);
+        mainWindowFrame.setLayout(new BorderLayout());
+        views.setLayout(new CardLayout());
     }
 
     public AppBuilder addNavBarView() {
@@ -39,7 +41,14 @@ public class AppBuilder {
     public AppBuilder addSearchView() {
         searchViewModel = new SearchViewModel();
         searchView = new SearchView(searchViewModel);
-        activeCardPanel.add(searchView);
+        views.add(searchView);
+        return this;
+    }
+
+    public AppBuilder addJourneyView() {
+        this.journeyViewModel = new JourneyViewModel();
+        journeyView = new JourneyView(journeyViewModel);
+        views.add(journeyView);
         return this;
     }
 
@@ -47,9 +56,7 @@ public class AppBuilder {
         final JFrame application = new JFrame("Wikipedia Journey Viewer");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        activeCardPanel.add(searchView);
-
-        mainWindowFrame.add(activeCardPanel, BorderLayout.CENTER);
+        mainWindowFrame.add(views, BorderLayout.CENTER);
 
         application.add(mainWindowFrame);
 

@@ -29,9 +29,7 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
         c.weightx = 0.2;
 
         search = new JButton(navBarViewModel.getSearch());
-        search.setContentAreaFilled(true);
         c.gridx = 0;
-        c.gridy = 0;
         this.add(search, c);
 
         save = new JButton(navBarViewModel.getSave());
