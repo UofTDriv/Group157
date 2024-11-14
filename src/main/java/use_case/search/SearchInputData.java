@@ -5,13 +5,13 @@ package use_case.search;
  */
 public class SearchInputData {
 
-    private final String searchString;
+    private final String subject;
 
     public SearchInputData(String searchString) {
-        this.searchString = searchString;
+        this.subject = searchString;
     }
 
-    public String getSearchString() {
-        return searchString;
+    public String getSubject() {
+        return this.subject;
     }
 }
