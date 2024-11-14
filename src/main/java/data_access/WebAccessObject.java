@@ -5,53 +5,55 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
-import use_case.search.SearchDataAccessInterface;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
- * This class helps to access Wikipedia pages using the Wikimedia API.
+ * This class helps to access APIs like the MediaWiki API.
  */
-public class WebAccessObject implements SearchDataAccessInterface {
+public class WebAccessObject {
+    final OkHttpClient client = new OkHttpClient();
+    final String url;
 
-    @Override
-    public String getHTML(String subject) {
-        JSONObject response = getAPIResponse(subject);
-        return response.getJSONObject("parse").getJSONObject("text").getString("*");
+    public WebAccessObject(String url) {
+        this.url = url;
     }
 
-    @Override
-    public String getTitle(String subject) {
-        JSONObject response = getAPIResponse(subject);
-        return response.getJSONObject("parse").getString("title");
-    }
+    private String buildQueryString(Map<String, String> parameters) {
+        StringBuilder queryString = new StringBuilder();
 
-    @Override
-    public Boolean subjectExists(String subject) {
-        JSONObject response = getAPIResponse(subject);
-        return response.isNull("error");
+        for (Map.Entry<String, String> entry : parameters.entrySet()) {
+            queryString.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+        }
+
+        // removing trailing ampersand
+        queryString.deleteCharAt(queryString.length() - 1);
+
+        return queryString.toString();
     }
 
     /**
      * A helper method that gets the JSON response from the API.
-     * @param subject the subject to be searched.
+     * @param parameters the parameters of the request.
      * @return the JSON response of the API.
      */
-    private JSONObject getAPIResponse(String subject) {
-        final OkHttpClient client = new OkHttpClient().newBuilder().build();
+    protected JSONObject getAPIResponse(Map<String, String> parameters) {
+        // creating the request
         final Request request = new Request.Builder()
-                .url(String.format("https://en.wikipedia.org/w/api.php?action=parse&page=%s&format=json", subject))
+                .url(url + "?" + buildQueryString(parameters))
                 .build();
+
+        // sending the request, processing the response
         try {
             final Response response = client.newCall(request).execute();
 
-            final JSONObject responseBody = new JSONObject(response.body().string());
-
-            if (responseBody.getInt("status_code") == 200) {
-                return responseBody;
+            if (response.isSuccessful()) {
+                return new JSONObject(response.body().string());
             }
+
             else {
-                throw new RuntimeException(responseBody.getString("message"));
+                throw new RuntimeException(response.body().string());
             }
         }
         catch (IOException | JSONException ex) {
