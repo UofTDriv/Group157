@@ -1,5 +1,6 @@
 package data_access;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.search.SearchDataAccessInterface;
 
@@ -12,8 +13,20 @@ public class WikipediaAccessObject implements SearchDataAccessInterface {
         webAccessObject = new WebAccessObject("https://en.wikipedia.org/w/api.php");
     }
 
-    // just a little helper to build the parameter hashmap
-    private HashMap<String, String> buildParameterMap(String page, String prop) {
+    // yet another helper to abstract away the API call
+    private JSONObject makeRequest(HashMap<String, String> parameterMap) {
+        JSONObject response = webAccessObject.getAPIResponse(parameterMap);
+
+        if (!response.isNull("error")) {
+            // the HTML request is good but the api call was malformed in some way
+            String errorCode = response.getJSONObject("error").getString("code");
+            throw new BadWikiRequestException(errorCode, parameterMap.toString());
+        }
+
+        return response.getJSONObject("parse");
+    }
+
+    private JSONObject makeParseRequest(String page, String prop) {
         HashMap<String, String> parameterMap = new HashMap<>();
 
         parameterMap.put("action", "parse");
@@ -21,32 +34,30 @@ public class WikipediaAccessObject implements SearchDataAccessInterface {
         parameterMap.put("prop", prop);
         parameterMap.put("format", "json");
 
-        return parameterMap;
-    }
-
-    // yet another helper to abstract away the API call
-    private JSONObject makeWikipediaRequest(String page, String prop) {
-        HashMap<String, String> parameterMap = buildParameterMap(page, prop);
-        JSONObject response = webAccessObject.getAPIResponse(parameterMap);
-
-        if (!response.isNull("error")) {
-            // the HTML request is good but the api call was malformed in some way
-            String errorCode = response.getJSONObject("error").getString("code");
-
-            // if no page with that title exists
-            if (!errorCode.equals("missingtitle")) {
-                throw new RuntimeException(errorCode);
-            }
-
-            return null;
-        }
-
-        return response.getJSONObject("parse");
+        return makeRequest(parameterMap);
     }
 
     // overloading cause most of the time we just want the text or dont care abt the prop
-    private JSONObject makeWikipediaRequest(String page) {
-        return makeWikipediaRequest(page, "text");
+    private JSONObject makeParseRequest(String page) {
+        return makeParseRequest(page, "text");
+    }
+
+    // just a little helper to build the parameter hashmap
+    private JSONObject makeSearchRequest(String searchString, int limit) {
+        HashMap<String, String> parameterMap = new HashMap<>();
+
+        parameterMap.put("action", "search");
+        parameterMap.put("search", searchString);
+        parameterMap.put("limit", String.valueOf(limit));
+        parameterMap.put("namespace", "0");
+        parameterMap.put("format", "json");
+
+        return makeRequest(parameterMap);
+    }
+
+    // more overloading
+    private JSONObject makeSearchRequest(String searchString) {
+        return makeSearchRequest(searchString, 10);
     }
 
     /**
@@ -58,7 +69,7 @@ public class WikipediaAccessObject implements SearchDataAccessInterface {
      */
     @Override
     public String getHTML(String page) {
-        return makeWikipediaRequest(page).getJSONObject("text").getString("*");
+        return makeParseRequest(page).getJSONObject("text").getString("*");
     }
 
     /**
@@ -70,7 +81,7 @@ public class WikipediaAccessObject implements SearchDataAccessInterface {
      */
     @Override
     public String getTitle(String page) {
-        return makeWikipediaRequest(page).getString("title");
+        return makeParseRequest(page).getString("title");
     }
 
     /**
@@ -81,6 +92,17 @@ public class WikipediaAccessObject implements SearchDataAccessInterface {
      */
     @Override
     public Boolean pageExists(String page) {
-        return makeWikipediaRequest(page) != null;
+        // this function is overwritten but i wanna catch all errors that aren't page not found
+        try {
+            makeParseRequest(page);
+            return true;
+        }
+        catch (BadWikiRequestException e) {
+            if (e.isPageNotFound()) {
+                return false;
+            } else {
+                throw e;
+            }
+        }
     }
 }
