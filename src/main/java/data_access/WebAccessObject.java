@@ -3,6 +3,7 @@ package data_access;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,7 +35,8 @@ public class WebAccessObject {
     }
 
     /**
-     * A helper method that gets the JSON response from the API.
+     * A helper method that gets the JSON response from the API. If the response is a JSONArray, it is
+     * wrapped in a JSONObject before being returned.
      * @param parameters the parameters of the request.
      * @return the JSON response of the API.
      */
@@ -48,12 +50,22 @@ public class WebAccessObject {
         try {
             final Response response = client.newCall(request).execute();
 
-            if (response.isSuccessful()) {
-                return new JSONObject(response.body().string());
+            if (!response.isSuccessful()) {
+                throw new RuntimeException(response.body().string());
             }
 
-            else {
-                throw new RuntimeException(response.body().string());
+            String json = response.body().string();
+            switch (json.charAt(0)) {
+                case '{':
+                    return new JSONObject(json);
+                case '[':
+                    // this is a bodge, but it avoids so much headache if everything's a JSONObject
+                    JSONArray jsonArray = new JSONArray(json);
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("data", jsonArray);
+                    return jsonObject;
+                default:
+                    throw new JSONException("Could not determine JSON type: " + json);
             }
         }
         catch (IOException | JSONException ex) {

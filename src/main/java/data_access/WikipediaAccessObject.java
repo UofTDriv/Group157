@@ -1,9 +1,12 @@
 package data_access;
 
-import org.json.JSONException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import use_case.search.SearchDataAccessInterface;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class WikipediaAccessObject implements SearchDataAccessInterface {
@@ -20,10 +23,11 @@ public class WikipediaAccessObject implements SearchDataAccessInterface {
         if (!response.isNull("error")) {
             // the HTML request is good but the api call was malformed in some way
             String errorCode = response.getJSONObject("error").getString("code");
-            throw new BadWikiRequestException(errorCode, parameterMap.toString());
+            String errorInfo = response.getJSONObject("error").getString("info");
+            throw new BadWikiRequestException(errorCode, errorInfo + ": " + parameterMap.toString());
         }
 
-        return response.getJSONObject("parse");
+        return response;
     }
 
     private JSONObject makeParseRequest(String page, String prop) {
@@ -34,7 +38,7 @@ public class WikipediaAccessObject implements SearchDataAccessInterface {
         parameterMap.put("prop", prop);
         parameterMap.put("format", "json");
 
-        return makeRequest(parameterMap);
+        return makeRequest(parameterMap).getJSONObject("parse");
     }
 
     // overloading cause most of the time we just want the text or dont care abt the prop
@@ -43,21 +47,30 @@ public class WikipediaAccessObject implements SearchDataAccessInterface {
     }
 
     // just a little helper to build the parameter hashmap
-    private JSONObject makeSearchRequest(String searchString, int limit) {
+    private JSONArray makeSearchRequest(String searchString, int limit, String profile) {
         HashMap<String, String> parameterMap = new HashMap<>();
 
-        parameterMap.put("action", "search");
+        parameterMap.put("action", "opensearch");
         parameterMap.put("search", searchString);
         parameterMap.put("limit", String.valueOf(limit));
+        parameterMap.put("profile", profile);
         parameterMap.put("namespace", "0");
         parameterMap.put("format", "json");
 
-        return makeRequest(parameterMap);
+        return makeRequest(parameterMap).getJSONArray("data");
     }
 
     // more overloading
-    private JSONObject makeSearchRequest(String searchString) {
-        return makeSearchRequest(searchString, 10);
+    public ArrayList<String> getSearchResults(String searchString) {
+        JSONArray response = makeSearchRequest(searchString, 10, "engine_autoselect");
+        // this will *probably* work. no promises.
+        return (ArrayList<String>) (Object) response.getJSONArray(1).toList();
+    }
+
+    public String autocomplete(String searchString) {
+        String encodedString = URLEncoder.encode(searchString, StandardCharsets.UTF_8);
+        JSONArray response = makeSearchRequest(encodedString, 1, "fuzzy");
+        return response.getJSONArray(1).getString(0);
     }
 
     /**
