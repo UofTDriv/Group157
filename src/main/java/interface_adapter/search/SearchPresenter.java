@@ -1,6 +1,8 @@
 package interface_adapter.search;
 
+import entity.WebPage;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.journey.JourneyState;
 import interface_adapter.journey.JourneyViewModel;
 import use_case.search.SearchOutputBoundary;
 import use_case.search.SearchOutputData;
@@ -24,7 +26,13 @@ public class SearchPresenter implements SearchOutputBoundary {
 
     @Override
     public void prepareSuccessView(SearchOutputData outputData) {
-        // TODO: Implement this method
+        final JourneyState journeyState = journeyViewModel.getState();
+        journeyState.setCurrentPage(new WebPage(outputData.getTitle(), outputData.getBody()));
+        this.journeyViewModel.setState(journeyState);
+        journeyViewModel.firePropertyChanged();
+
+        viewManagerModel.setState(journeyViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 
     @Override

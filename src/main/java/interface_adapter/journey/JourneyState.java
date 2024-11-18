@@ -28,4 +28,8 @@ public class JourneyState {
         return currentPage.content;
     }
 
+    public void setCurrentPage(WebPage currentPage) {
+        this.currentPage = currentPage;
+    }
+
 }
