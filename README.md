@@ -6,7 +6,6 @@
 * Zhe Wang: https://github.com/ZheWang7
 * Scott Angelides: https://github.com/JustCookieDough
 
-
 ## TODOs by Fri 8 Nov
 1. [X] Use cases described and user interations identified - James
 2. [X] All the Views sketched - Denis

@@ -1,4 +1,4 @@
-package interface_adapter;
+package interface_adapter.navBar;
 
 public class NavBarState {
     private String search = "Start a new Journey";

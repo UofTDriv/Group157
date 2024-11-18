@@ -10,6 +10,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class SaveView extends JPanel implements ActionListener, PropertyChangeListener {
+    private final String viewName;
     private final SaveViewModel viewModel;
 
     final JTextField savedJourneyTitle;
@@ -18,31 +19,40 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
 
     public SaveView(SaveViewModel viewModel) {
         this.viewModel = viewModel;
+        this.viewName = viewModel.getViewName();
+        viewModel.addPropertyChangeListener(this);
 
-        this.setLayout(new BorderLayout());
-
-        this.add(new JLabel(SaveViewModel.INFO_LABEL), BorderLayout.NORTH);
+        JLabel toptext = new JLabel(SaveViewModel.TOPTEXT_LABEL);
+        toptext.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel saveInput = new JPanel();
         saveInput.setLayout(new GridLayout(2, 2));
 
-        saveInput.add(new JLabel(SaveViewModel.INPUT_TITLE_LABEL));
+        JLabel inputTitle = new JLabel(SaveViewModel.INPUT_TITLE_LABEL);
+        inputTitle.setMaximumSize(inputTitle.getPreferredSize());
+        saveInput.add(inputTitle);
 
         this.savedJourneyTitle  = new JTextField(20);
         savedJourneyTitle.setMaximumSize(savedJourneyTitle.getPreferredSize());
-
         saveInput.add(savedJourneyTitle);
+
         saveInput.add(new JLabel(SaveViewModel.ROOT));
         saveInput.add(new JLabel(viewModel.getState().getRootArticleTitle()));
 
-        this.add(saveInput, BorderLayout.CENTER);
+        saveInput.setMaximumSize(saveInput.getPreferredSize());
+        saveInput.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        final JPanel saveButtonPanel = new JPanel();
-        saveButtonPanel.setLayout(new BoxLayout(saveButtonPanel, BoxLayout.Y_AXIS));
         this.saveButton = new JButton(SaveViewModel.SAVE_BUTTON_LABEL);
-        saveButtonPanel.add(saveButton);
+        saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        this.add(saveButtonPanel, BorderLayout.SOUTH);
+        this.add(Box.createVerticalGlue());
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(toptext);
+        this.add(Box.createVerticalStrut(30));
+        this.add(saveInput);
+        this.add(Box.createVerticalStrut(20));
+        this.add(saveButton);
+        this.add(Box.createVerticalGlue());
     }
 
     @Override
@@ -53,5 +63,9 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+    }
+
+    public String getViewName() {
+        return viewName;
     }
 }

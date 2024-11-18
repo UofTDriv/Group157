@@ -1,7 +1,5 @@
 package view;
 
-import entity.WebPage;
-import interface_adapter.NavBarViewModel;
 import interface_adapter.journey.JourneyViewModel;
 
 import javax.swing.*;
@@ -12,17 +10,20 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class JourneyView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final JourneyViewModel journeyViewModel;
+    private final String viewName;
+    private final JourneyViewModel viewModel;
 
     private final JEditorPane articleContent;
-    private final JLabel graphViewPlaceholder;
-    // TODO make it add the persistant graph view instead
+    // TODO figure out how to add a persistant graph view
+//    private final GraphView graphViewPLACEHOLDER;
 
     private final JCheckBox addNewPages;
     private final JButton addPage;
 
-    public JourneyView(JourneyViewModel journeyViewModel) {
-        this.journeyViewModel = journeyViewModel;
+    public JourneyView(JourneyViewModel viewModel) {
+        this.viewModel = viewModel;
+        this.viewName = viewModel.getViewName();
+        viewModel.addPropertyChangeListener(this);
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -34,7 +35,7 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
         this.articleContent = new JEditorPane();
         articleContent.setEditable(false);
         articleContent.setContentType("text/html");
-        articleContent.setText(journeyViewModel.getState().getCurrentPageContent());
+        articleContent.setText(viewModel.getState().getCurrentPageContent());
 
         gbc.gridwidth = 3;
         gbc.ipady = 100;
@@ -42,17 +43,18 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
         gbc.gridx = 0;
         this.add(articleContent, gbc);
 
-        this.graphViewPlaceholder = new JLabel();
-        graphViewPlaceholder.setOpaque(true);
-        graphViewPlaceholder.setBackground(Color.BLACK);
+        // GraphPlaceHolder
+        JPanel graphViewFrame = new JPanel();
+        graphViewFrame.setOpaque(true);
+        graphViewFrame.setBackground(Color.BLACK);
         gbc.gridwidth = 2;
         gbc.gridheight = 2;
         gbc.gridy = 0;
         gbc.gridx = 3;
-        this.add(graphViewPlaceholder, gbc);
+        this.add(graphViewFrame, gbc);
 
         this.addNewPages = new JCheckBox(JourneyViewModel.ADDPAGES_CHECK_LABEL);
-        this.addNewPages.setSelected(journeyViewModel.getState().isAddNewPages());
+        this.addNewPages.setSelected(viewModel.getState().isAddNewPages());
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weighty = 0;
         gbc.gridwidth = 1;
@@ -78,5 +80,9 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+    }
+
+    public String getViewName() {
+        return viewName;
     }
 }
