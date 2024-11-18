@@ -20,8 +20,10 @@ public class SearchController {
      */
 
     public void execute(String articleTitle) {
-        final SearchInputData searchInputData = new SearchInputData(
-                articleTitle);
+        String[] words = articleTitle.split(" ");
+        String formatString = String.join("_", words);
+
+        final SearchInputData searchInputData = new SearchInputData(formatString);
 
         searchUsecaseInteractor.execute(searchInputData);
     }
