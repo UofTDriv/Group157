@@ -1,8 +1,12 @@
 package view;
 
+import interface_adapter.search.SearchController;
+import interface_adapter.search.SearchState;
 import interface_adapter.search.SearchViewModel;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,9 +15,11 @@ import java.beans.PropertyChangeListener;
 
 public class SearchView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName;
-    private final SearchViewModel viewModel;
 
-    private final JTextField titleInputField;
+    private final SearchViewModel viewModel;
+    private final JTextField titleInputField = new JTextField(20);
+
+    private SearchController searchController;
 
     private final JButton searchButton;
 
@@ -25,27 +31,71 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         final JLabel toptext = new JLabel(SearchViewModel.TOPTEXT_LABEL);
         toptext.setFont(new Font("Times New Roman", Font.BOLD, 36));
 
-        this.titleInputField = new JTextField(15);
-        titleInputField.setText(SearchViewModel.INFO);
+        //final JLabel info = new JLabel(SearchViewModel.INFO);
+        titleInputField.setMaximumSize(titleInputField.getPreferredSize());
 
         this.searchButton = new JButton(SearchViewModel.SEARCH_BUTTON_LABEL);
+        searchButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(searchButton)) {
+                            final SearchState currentState = viewModel.getState();
 
-        this.add(new StandardMenuPanel(toptext, titleInputField, searchButton));
+                            searchController.execute(currentState.getTitle());
+                        }
+                    }
+                }
+        );
 
+        addSearchListener();
+
+        StandardMenuPanel.standardUI(this, toptext, titleInputField, searchButton);
+    }
+
+    private void addSearchListener() {
+        titleInputField.getDocument().addDocumentListener(new DocumentListener() {
+
+            private void documentListenerHelper() {
+                final SearchState currentState = viewModel.getState();
+                currentState.setTitle(titleInputField.getText());
+                viewModel.setState(currentState);
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+        });
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        JOptionPane.showMessageDialog(this, "Cancel not implemented yet.");
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        final SearchState state = (SearchState) evt.getNewValue();
+        if (state.getSearchError() != null) {
+            JOptionPane.showMessageDialog(this, state.getSearchError());
+        }
     }
 
     public String getViewName() {
         return viewName;
     }
 
+    public void setSearchController(SearchController searchController) {
+        this.searchController = searchController;
+    }
 }

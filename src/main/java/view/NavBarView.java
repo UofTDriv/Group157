@@ -18,8 +18,10 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
 
     private final JButton search;
     private final JButton save;
-    private final JButton openOrCurrent;
+    private final JButton open;
+    private final JButton journey;
     private final JButton graph;
+
 //    private final JButton timeline;
 
     public NavBarView(NavBarViewModel viewModel) {
@@ -30,11 +32,9 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
-//        c.weightx = 0.2;
-        c.weightx = 0.25;
+        c.weightx = 0.2;
 
         search = new JButton(viewModel.getState().getSearch());
-        c.gridx = 0;
 
         search.addActionListener(
             new ActionListener() {
@@ -44,10 +44,7 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
             }
         );
 
-        this.add(search, c);
-
         save = new JButton(viewModel.getState().getSave());
-        c.gridx = 1;
         save.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -55,21 +52,26 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
                 }
             }
         );
-        this.add(save, c);
 
-        openOrCurrent = new JButton(viewModel.getState().getOpenOrCurrent());
-        c.gridx = 2;
-        openOrCurrent.addActionListener(
+        open = new JButton(viewModel.getState().getOpen());
+        open.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     controller.switchToOpenView();
                 }
             }
         );
-        this.add(openOrCurrent, c);
+
+        journey = new JButton(viewModel.getState().getJourney());
+        journey.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        controller.switchToJourneyView();
+                    }
+                }
+        );
 
         graph = new JButton(viewModel.getState().getGraph());
-        c.gridx = 3;
         graph.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -77,7 +79,12 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
                 }
             }
         );
-        this.add(graph, c);
+
+        JButton[] buttons = new JButton[]{search, save, open, journey, graph};
+        for (int i = 0; i < 5; i++) {
+            c.gridx = i;
+            this.add(buttons[i], c);
+        }
 
 //        timeline = new JButton(viewModel.getState().getTimeline());
 //        c.gridx = 4;
@@ -91,7 +98,7 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        // TODO: add functionality to the navbar to change the text of openOrCurrent and save
+        // TODO: add functionality to the navbar to change the text of journey and save
     }
 
     public void setController(NavBarController controller) {

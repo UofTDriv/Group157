@@ -13,20 +13,28 @@ public class OpenView extends JPanel implements ActionListener, PropertyChangeLi
     private final String viewName;
     private final OpenViewModel viewModel;
 
+    private final JButton openLast;
+
     public OpenView(OpenViewModel viewModel) {
         this.viewModel = viewModel;
         this.viewName = viewModel.getViewName();
         viewModel.addPropertyChangeListener(this);
 
-        this.setLayout(new BorderLayout());
-        this.setAlignmentX(CENTER_ALIGNMENT);
         final JLabel toptext = new JLabel(OpenViewModel.INFO_LABEL);
-        toptext.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(toptext, BorderLayout.NORTH);
 
-//        JPanel saveList = new JPanel(new BoxLayout(this, BoxLayout.Y_AXIS));
+        JPanel saves = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridy = 0;
+
+        JButton niy = new JButton("Not implemented yet");
+        saves.add(niy, c);
+        saves.setMaximumSize(new Dimension(Integer.MAX_VALUE, niy.getPreferredSize().height));
+
+        openLast = new JButton("Open Last: ");
+
         // TODO add a for loop that iterates through the list of saved Journeys however we did that
-//        this.add(saveList, BorderLayout.CENTER);
+        StandardMenuPanel.standardUI(this, toptext, saves, openLast);
     }
 
     @Override

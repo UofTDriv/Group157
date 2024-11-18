@@ -23,7 +23,6 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
         viewModel.addPropertyChangeListener(this);
 
         JLabel toptext = new JLabel(SaveViewModel.TOPTEXT_LABEL);
-        toptext.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel saveInput = new JPanel();
         saveInput.setLayout(new GridLayout(2, 2));
@@ -38,21 +37,11 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
 
         saveInput.add(new JLabel(SaveViewModel.ROOT));
         saveInput.add(new JLabel(viewModel.getState().getRootArticleTitle()));
-
         saveInput.setMaximumSize(saveInput.getPreferredSize());
-        saveInput.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         this.saveButton = new JButton(SaveViewModel.SAVE_BUTTON_LABEL);
-        saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        this.add(Box.createVerticalGlue());
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(toptext);
-        this.add(Box.createVerticalStrut(30));
-        this.add(saveInput);
-        this.add(Box.createVerticalStrut(20));
-        this.add(saveButton);
-        this.add(Box.createVerticalGlue());
+        StandardMenuPanel.standardUI(this, toptext, saveInput, saveButton);
     }
 
     @Override

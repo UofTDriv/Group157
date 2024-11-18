@@ -16,6 +16,7 @@ public class Main {
                 .addOpenView()
                 .addGraphView()
                 .addNavBarUseCase()
+                .addSearchUseCase()
                 .build();
         application.pack();
         application.setVisible(true);

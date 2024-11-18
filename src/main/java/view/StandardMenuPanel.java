@@ -6,12 +6,12 @@ import java.awt.*;
 /**
  * A panel containing a top title, interactable and button.
  */
-public class StandardMenuPanel extends JPanel {
-    private static final int TITLE_CONTENT_SPACING = 30;
-    private static final int CENTER_BOTTOM_SPACING = 20;
+public class StandardMenuPanel {
+    public static final int TITLE_CONTENT_SPACING = 30;
+    public static final int CENTER_BOTTOM_SPACING = 20;
 
-    StandardMenuPanel(JLabel toptext, JComponent center, JComponent bottom) {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    public static void standardUI(JPanel contentPane, JLabel toptext, JComponent center, JComponent bottom) {
+        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
         toptext.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -19,12 +19,12 @@ public class StandardMenuPanel extends JPanel {
 
         bottom.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        this.add(Box.createVerticalGlue());
-        this.add(toptext);
-        this.add(Box.createVerticalStrut(TITLE_CONTENT_SPACING));
-        this.add(center);
-        this.add(Box.createVerticalStrut(CENTER_BOTTOM_SPACING));
-        this.add(bottom);
-        this.add(Box.createVerticalGlue());
+        contentPane.add(Box.createVerticalGlue());
+        contentPane.add(toptext);
+        contentPane.add(Box.createVerticalStrut(TITLE_CONTENT_SPACING));
+        contentPane.add(center);
+        contentPane.add(Box.createVerticalStrut(CENTER_BOTTOM_SPACING));
+        contentPane.add(bottom);
+        contentPane.add(Box.createVerticalGlue());
     }
 }
