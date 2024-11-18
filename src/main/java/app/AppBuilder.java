@@ -15,6 +15,7 @@ import interface_adapter.search.SearchViewModel;
 import use_case.navBar.NavBarInputBoundary;
 import use_case.navBar.NavBarInteractor;
 import use_case.navBar.NavBarOutputBoundary;
+import use_case.search.SearchDataAccessInterface;
 import use_case.search.SearchInputBoundary;
 import use_case.search.SearchInteractor;
 import use_case.search.SearchOutputBoundary;
@@ -32,7 +33,7 @@ public class AppBuilder {
     private final JPanel views = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
 
-    private WikipediaAccessObject wDAO;
+    private SearchDataAccessInterface wDAO;
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(views, cardLayout, viewManagerModel);
 
@@ -53,8 +54,7 @@ public class AppBuilder {
         views.setLayout(cardLayout);
     }
 
-    public AppBuilder addDAO(WikipediaAccessObject wDAO) {
-        // TODO check implementation
+    public AppBuilder addDAO(SearchDataAccessInterface wDAO) {
         this.wDAO = wDAO;
         return this;
     }
