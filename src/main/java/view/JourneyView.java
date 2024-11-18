@@ -15,7 +15,7 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
 
     private final JEditorPane articleContent;
     // TODO figure out how to add a persistant graph view
-//    private final GraphView graphViewPLACEHOLDER;
+    // private final GraphView graphViewPLACEHOLDER;
 
     private final JCheckBox addNewPages;
     private final JButton addPage;

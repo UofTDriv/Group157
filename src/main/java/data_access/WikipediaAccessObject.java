@@ -50,7 +50,7 @@ public class WikipediaAccessObject implements SearchDataAccessInterface {
     private JSONArray makeSearchRequest(String searchString, int limit, String profile) {
         HashMap<String, String> parameterMap = new HashMap<>();
 
-        parameterMap.put("action", "opensearch");
+        parameterMap.put("action", "opensearch"); // why they didn't just call it 'search' i will never know
         parameterMap.put("search", searchString);
         parameterMap.put("limit", String.valueOf(limit));
         parameterMap.put("profile", profile);
@@ -117,5 +117,27 @@ public class WikipediaAccessObject implements SearchDataAccessInterface {
                 throw e;
             }
         }
+    }
+
+    /**
+     * Return the links contained in a given page
+     * Precondition: the page exists
+     *
+     * @param page the page id (i.e. with underscores and jazz)
+     * @return the title of the page
+     */
+    public ArrayList<String> getPageLinks(String page) {
+        JSONArray links = makeParseRequest(page, "links").getJSONArray("links");
+
+        ArrayList<String> result = new ArrayList<>();
+
+        for (int i = 0; i < links.length(); i++) {
+            JSONObject link = links.getJSONObject(i);
+            if (link.getInt("ns") == 0) {
+                result.add(link.getString("*").replace(" ", "_"));
+            }
+        }
+
+        return result;
     }
 }
