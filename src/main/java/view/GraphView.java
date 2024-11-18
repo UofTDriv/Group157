@@ -46,6 +46,7 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
         this.add(graphComponent);
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
