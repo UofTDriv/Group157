@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.journey.JourneyState;
 import interface_adapter.journey.JourneyViewModel;
 
 import javax.swing.*;
@@ -74,12 +75,13 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        if (evt.getPropertyName().equals("state")) {
+            articleContent.setText(viewModel.getState().getCurrentPageContent());
+        }
     }
 
     public String getViewName() {

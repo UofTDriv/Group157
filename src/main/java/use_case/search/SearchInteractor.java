@@ -18,7 +18,7 @@ public class SearchInteractor implements SearchInputBoundary {
     public void execute(SearchInputData inputData) {
         String subject = inputData.getSubject();
         if(!searchAccessObject.pageExists(subject)) {
-            presenter.prepareFailView("No matching result.");
+            presenter.prepareFailView("No matching result!");
         }
         else {
             String title = searchAccessObject.getTitle(subject);
