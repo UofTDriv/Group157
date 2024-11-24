@@ -1,15 +1,15 @@
-package interface_adapter.graph;
+package interface_adapter.add;
 
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultListenableGraph;
 
-public class GraphState {
+public class AddState {
     private ListenableGraph<String, DefaultEdge> graphT;
     // TODO change this to a graph entity
 
-    public GraphState() {
+    public AddState() {
         this.graphT = new DefaultListenableGraph<>(new DefaultDirectedGraph<>(DefaultEdge.class));
         String v1 = "v1";
         String v2 = "v2";

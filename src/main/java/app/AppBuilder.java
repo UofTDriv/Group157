@@ -1,11 +1,10 @@
 package app;
 
-import data_access.WikipediaAccessObject;
 import interface_adapter.navBar.NavBarController;
 import interface_adapter.navBar.NavBarPresenter;
 import interface_adapter.navBar.NavBarViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.graph.GraphViewModel;
+import interface_adapter.add.AddViewModel;
 import interface_adapter.journey.JourneyViewModel;
 import interface_adapter.open.OpenViewModel;
 import interface_adapter.save.SaveViewModel;
@@ -47,7 +46,7 @@ public class AppBuilder {
     private SaveView saveView;
     private OpenViewModel openViewModel;
     private OpenView openView;
-    private GraphViewModel graphViewModel;
+    private AddViewModel graphViewModel;
     private GraphView graphView;
 
     public AppBuilder() {
@@ -94,7 +93,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addGraphView() {
-        graphViewModel = new GraphViewModel();
+        graphViewModel = new AddViewModel();
         graphView = new GraphView(graphViewModel);
         views.add(graphView, graphView.getViewName());
         return this;
