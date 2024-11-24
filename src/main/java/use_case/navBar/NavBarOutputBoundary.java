@@ -7,7 +7,7 @@ public interface NavBarOutputBoundary {
     void switchToSearchView();
 
     /**
-     * Executes the switch to search view use case.
+     * Executes the switch to journey view use case.
      */
     void switchToJourneyView();
 

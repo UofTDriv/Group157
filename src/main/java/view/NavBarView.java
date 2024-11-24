@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.navBar.NavBarController;
+import interface_adapter.navBar.NavBarState;
 import interface_adapter.navBar.NavBarViewModel;
 
 import javax.swing.*;
@@ -85,10 +86,6 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
             c.gridx = i;
             this.add(buttons[i], c);
         }
-
-//        timeline = new JButton(viewModel.getState().getTimeline());
-//        c.gridx = 4;
-//        this.add(timeline, c);
     }
 
     @Override

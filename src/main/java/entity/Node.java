@@ -16,4 +16,20 @@ public class Node {
         this.children = children;
     }
 
+    // https://jgrapht.org/guide/VertexAndEdgeTypes#vertices-with-attributes state we must implement the following.
+    @Override
+    public String toString() {
+        return title;
+    }
+
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return (o instanceof Node) && (toString().equals(o.toString()));
+    }
+
 }
