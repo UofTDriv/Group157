@@ -1,10 +1,15 @@
 package use_case.navBar;
 
+import use_case.journey.JourneyDataAccessObject;
+
 public class NavBarInteractor implements NavBarInputBoundary {
     private final NavBarOutputBoundary navBarPresenter;
+    private final JourneyDataAccessObject journeyDataAccessObject;
 
-    public NavBarInteractor(NavBarOutputBoundary navBarPresenter) {
+    public NavBarInteractor(NavBarOutputBoundary navBarPresenter,
+                            JourneyDataAccessObject journeyDataAccessObject) {
         this.navBarPresenter = navBarPresenter;
+        this.journeyDataAccessObject = journeyDataAccessObject;
     }
 
     @Override
@@ -14,12 +19,16 @@ public class NavBarInteractor implements NavBarInputBoundary {
 
     @Override
     public void switchToJourneyView() {
-        navBarPresenter.switchToJourneyView();
+        if (journeyDataAccessObject.getJourney() != null) {
+            navBarPresenter.switchToJourneyView();
+        } else navBarPresenter.prepareFailView("No journey open to view");
     }
 
     @Override
     public void switchToSaveView() {
-        navBarPresenter.switchToSaveView();
+        if (journeyDataAccessObject.getJourney() != null) {
+            navBarPresenter.switchToSaveView();
+        } else navBarPresenter.prepareFailView("No journey open to save");
     }
 
     @Override
@@ -29,6 +38,8 @@ public class NavBarInteractor implements NavBarInputBoundary {
 
     @Override
     public void switchToGraphView() {
-        navBarPresenter.switchToGraphView();
+        if (journeyDataAccessObject.getJourney() != null) {
+            navBarPresenter.switchToGraphView();
+        } else navBarPresenter.prepareFailView("No journey open with a graph");
     }
 }

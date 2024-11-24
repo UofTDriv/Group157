@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.save.SaveState;
 import interface_adapter.save.SaveViewModel;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
     private final SaveViewModel viewModel;
 
     final JTextField savedJourneyTitle;
+    final JLabel rootArticleTitle;
 
     final JButton saveButton;
 
@@ -36,7 +38,9 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
         saveInput.add(savedJourneyTitle);
 
         saveInput.add(new JLabel(SaveViewModel.ROOT));
-        saveInput.add(new JLabel(viewModel.getState().getRootArticleTitle()));
+
+        this.rootArticleTitle = new JLabel(viewModel.getState().getRootArticleTitle());
+        saveInput.add(rootArticleTitle);
         saveInput.setMaximumSize(saveInput.getPreferredSize());
 
         this.saveButton = new JButton(SaveViewModel.SAVE_BUTTON_LABEL);
@@ -46,12 +50,15 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        JOptionPane.showMessageDialog(this, "Cancel not implemented yet.");
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        if (evt.getPropertyName().equals("state")) {
+            final SaveState state = (SaveState) evt.getNewValue();
+            rootArticleTitle.setText(state.getRootArticleTitle());
+        }
     }
 
     public String getViewName() {

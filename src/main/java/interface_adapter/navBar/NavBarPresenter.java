@@ -11,19 +11,21 @@ import use_case.navBar.NavBarOutputBoundary;
 public class NavBarPresenter implements NavBarOutputBoundary {
 
     private final ViewManagerModel viewManagerModel;
+    private final NavBarViewModel navBarViewModel;
     private final SearchViewModel searchViewModel;
     private final JourneyViewModel journeyViewModel;
     private final SaveViewModel saveViewModel;
     private final OpenViewModel openViewModel;
     private final GraphViewModel graphViewModel;
 
-    public NavBarPresenter(ViewManagerModel viewManagerModel,
+    public NavBarPresenter(ViewManagerModel viewManagerModel, NavBarViewModel navBarViewModel,
                            SearchViewModel searchViewModel,
                            JourneyViewModel journeyViewModel,
                            SaveViewModel saveViewModel,
                            OpenViewModel openViewModel,
                            GraphViewModel graphViewModel) {
         this.viewManagerModel = viewManagerModel;
+        this.navBarViewModel = navBarViewModel;
         this.searchViewModel = searchViewModel;
         this.journeyViewModel = journeyViewModel;
         this.saveViewModel = saveViewModel;
@@ -59,5 +61,12 @@ public class NavBarPresenter implements NavBarOutputBoundary {
     public void switchToGraphView() {
         viewManagerModel.setState(graphViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void prepareFailView(String errorMessage) {
+        final NavBarState navBarState = navBarViewModel.getState();
+        navBarState.setSwitchError(errorMessage);
+        navBarViewModel.firePropertyChanged("error");
     }
 }

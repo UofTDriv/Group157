@@ -29,7 +29,7 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.weightx = 0.2;
+        gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.insets = new Insets(0,0,0,0);
 
@@ -45,14 +45,14 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
         this.add(articleContent, gbc);
 
         // GraphPlaceHolder
-        JPanel graphViewFrame = new JPanel();
-        graphViewFrame.setOpaque(true);
-        graphViewFrame.setBackground(Color.BLACK);
-        gbc.gridwidth = 2;
-        gbc.gridheight = 2;
-        gbc.gridy = 0;
-        gbc.gridx = 3;
-        this.add(graphViewFrame, gbc);
+//        JPanel graphViewFrame = new JPanel();
+//        graphViewFrame.setOpaque(true);
+//        graphViewFrame.setBackground(Color.BLACK);
+//        gbc.gridwidth = 2;
+//        gbc.gridheight = 2;
+//        gbc.gridy = 0;
+//        gbc.gridx = 3;
+//        this.add(graphViewFrame, gbc);
 
         this.addNewPages = new JCheckBox(JourneyViewModel.ADDPAGES_CHECK_LABEL);
         this.addNewPages.setSelected(viewModel.getState().isAddNewPages());

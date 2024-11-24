@@ -1,11 +1,23 @@
 package interface_adapter.navBar;
 
 public class NavBarState {
+
+    public final String SWITCH_ERROR = "No Journey Open";
+
     private String search = "Start a new Journey";
-    private String save = "Save: No Journey";
+    private String save = "Save: " + SWITCH_ERROR;
     private String open = "Open Existing Journey";
-    private String journey = "No Journey Open";
-    private String graph = "No Journey Open";
+    private String journey = SWITCH_ERROR;
+    private String graph = SWITCH_ERROR;
+    private String switchError = SWITCH_ERROR;
+
+    public String getSwitchError() {
+        return switchError;
+    }
+
+    public void setSwitchError(String switchError) {
+        this.switchError = switchError;
+    }
 
     public String getSearch() {
         return search;
@@ -13,10 +25,6 @@ public class NavBarState {
 
     public String getSave() {
         return save;
-    }
-
-    public void setSave(String save) {
-        this.save = save;
     }
 
     public String getGraph() {
@@ -27,16 +35,14 @@ public class NavBarState {
         return open;
     }
 
-    public void setGraph(String graph) {
-        this.graph = graph;
-    }
-
     public String getJourney() {
         return journey;
     }
 
-    public void SetJourney(String journey) {
-        this.journey = journey;
+    public void setJourney(String rootPageTitle) {
+        this.journey = rootPageTitle;
+        this.save = "Save: " + rootPageTitle;
+        this.graph = "Graph: " + rootPageTitle;
     }
 
 //    public String getTimeline() {

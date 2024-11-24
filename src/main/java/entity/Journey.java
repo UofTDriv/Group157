@@ -1,13 +1,14 @@
 package entity;
 
-import java.util.List;
-
 public class Journey {
-    public final List<Node> pages;
-    public final String rootPage;
+    private final Node rootNode;
+    private final String rootPageTitle;
+    private final WikiHistory nodeHistory;
 
-    public Journey(List<Node> pages, String rootPage) {
-        this.pages = pages;
-        this.rootPage = rootPage;
+    public Journey(Node rootNode, WikiHistory nodeHistory) {
+        this.rootNode = rootNode;
+        this.rootPageTitle = rootNode.toString();
+        this.nodeHistory = nodeHistory;
+
     }
 }

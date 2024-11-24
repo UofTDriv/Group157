@@ -1,6 +1,6 @@
 package app;
 
-import data_access.WikipediaAccessObject;
+import data_access.InMemoryJourneyDataAccessObject;
 import interface_adapter.navBar.NavBarController;
 import interface_adapter.navBar.NavBarPresenter;
 import interface_adapter.navBar.NavBarViewModel;
@@ -33,9 +33,11 @@ public class AppBuilder {
     private final JPanel views = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
 
-    private SearchDataAccessInterface wDAO;
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(views, cardLayout, viewManagerModel);
+
+    private SearchDataAccessInterface searchDAO;
+    private InMemoryJourneyDataAccessObject memoryDAO;
 
     private NavBarViewModel navBarViewModel;
     private NavBarView navBarView;
@@ -54,8 +56,13 @@ public class AppBuilder {
         views.setLayout(cardLayout);
     }
 
-    public AppBuilder addDAO(SearchDataAccessInterface wDAO) {
-        this.wDAO = wDAO;
+    public AppBuilder addSearchDAO(SearchDataAccessInterface dataAccessObject) {
+        this.searchDAO = dataAccessObject;
+        return this;
+    }
+
+    public AppBuilder addMemoryDAO(InMemoryJourneyDataAccessObject dataAccessObject) {
+        this.memoryDAO = dataAccessObject;
         return this;
     }
 
@@ -101,17 +108,18 @@ public class AppBuilder {
     }
 
     public AppBuilder addNavBarUseCase() {
-        final NavBarOutputBoundary navBarPresenter = new NavBarPresenter(viewManagerModel, searchViewModel,
-                journeyViewModel, saveViewModel, openViewModel, graphViewModel);
-        final NavBarInputBoundary navBarInputBoundary = new NavBarInteractor(navBarPresenter);
+        final NavBarOutputBoundary navBarPresenter = new NavBarPresenter(viewManagerModel, navBarViewModel,
+                searchViewModel, journeyViewModel, saveViewModel, openViewModel, graphViewModel);
+        final NavBarInputBoundary navBarInputBoundary = new NavBarInteractor(navBarPresenter, memoryDAO);
         final NavBarController controller = new NavBarController(navBarInputBoundary);
         navBarView.setController(controller);
         return this;
     }
 
     public AppBuilder addSearchUseCase() {
-        final SearchOutputBoundary searchPresenter = new SearchPresenter(searchViewModel, viewManagerModel, journeyViewModel);
-        final SearchInputBoundary searchInputBoundary = new SearchInteractor(searchPresenter, wDAO);
+        final SearchOutputBoundary searchPresenter = new SearchPresenter(searchViewModel, viewManagerModel,
+                journeyViewModel, saveViewModel, navBarViewModel);
+        final SearchInputBoundary searchInputBoundary = new SearchInteractor(searchPresenter, searchDAO, memoryDAO);
         final SearchController controller = new SearchController(searchInputBoundary);
         searchView.setSearchController(controller);
         return this;

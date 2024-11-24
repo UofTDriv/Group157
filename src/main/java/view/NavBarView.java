@@ -98,7 +98,15 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        // TODO: add functionality to the navbar to change the text of journey and save
+        if (evt.getPropertyName().equals("state")) {
+            final NavBarState state = (NavBarState) evt.getNewValue();
+            save.setText(state.getSave());
+            journey.setText(state.getJourney());
+            graph.setText(state.getGraph());
+        } else if (evt.getPropertyName().equals("error")) {
+            final NavBarState state = (NavBarState) evt.getNewValue();
+            JOptionPane.showMessageDialog(this, state.getSwitchError());
+        }
     }
 
     public void setController(NavBarController controller) {
