@@ -37,6 +37,8 @@ public class SearchPresenter implements SearchOutputBoundary {
 
     @Override
     public void prepareFailView(String errorMessage) {
-        // TODO: Implement this method
+        final SearchState searchState = searchViewModel.getState();
+        searchState.setSearchError(errorMessage);
+        searchViewModel.firePropertyChanged("error");
     }
 }

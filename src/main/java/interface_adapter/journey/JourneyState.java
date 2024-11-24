@@ -9,6 +9,7 @@ public class JourneyState {
     private Node root;
     private WebPage currentPage;
 
+
     public JourneyState() {
         this.addNewPages = false;
         this.root = null;
@@ -31,5 +32,7 @@ public class JourneyState {
     public void setCurrentPage(WebPage currentPage) {
         this.currentPage = currentPage;
     }
+
+
 
 }
