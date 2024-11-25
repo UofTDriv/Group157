@@ -18,7 +18,6 @@ public class SearchController {
      * Executes the Search Use Case
      * @param articleTitle the title of the wikipedia article that the user has provided
      */
-
     public void execute(String articleTitle) {
         String[] words = articleTitle.split(" ");
         String formatString = String.join("_", words);

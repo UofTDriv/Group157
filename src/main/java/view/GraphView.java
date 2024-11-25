@@ -2,7 +2,7 @@ package view;
 
 import com.mxgraph.layout.mxCircleLayout;
 import com.mxgraph.swing.mxGraphComponent;
-import interface_adapter.add.AddViewModel;
+import interface_adapter.add.GraphViewModel;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.DefaultEdge;
 
@@ -15,16 +15,17 @@ import java.beans.PropertyChangeListener;
 
 public class GraphView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName;
-    private final AddViewModel viewModel;
+    private final GraphViewModel viewModel;
+    private final JGraphXAdapter<String, DefaultEdge> jgxAdapter;
 
     private static final Dimension DEFAULT_SIZE = new Dimension(530, 320);
 
-    public GraphView(AddViewModel viewModel) {
+    public GraphView(GraphViewModel viewModel) {
         this.viewModel = viewModel;
         this.viewName = viewModel.getViewName();
         viewModel.addPropertyChangeListener(this);
 
-        JGraphXAdapter<String, DefaultEdge> jgxAdapter = new JGraphXAdapter<>(viewModel.getState().getGraphT());
+        jgxAdapter = new JGraphXAdapter<>(viewModel.getState().getGraphT());
 
         this.setPreferredSize(DEFAULT_SIZE);
 
@@ -43,7 +44,7 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
 
         layout.execute(jgxAdapter.getDefaultParent());
 
-        //this.add(graphComponent);
+        this.add(graphComponent);
     }
 
 

@@ -1,7 +1,7 @@
 package interface_adapter.navBar;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.add.AddViewModel;
+import interface_adapter.add.GraphViewModel;
 import interface_adapter.journey.JourneyViewModel;
 import interface_adapter.open.OpenViewModel;
 import interface_adapter.save.SaveViewModel;
@@ -15,14 +15,14 @@ public class NavBarPresenter implements NavBarOutputBoundary {
     private final JourneyViewModel journeyViewModel;
     private final SaveViewModel saveViewModel;
     private final OpenViewModel openViewModel;
-    private final AddViewModel graphViewModel;
+    private final GraphViewModel graphViewModel;
 
     public NavBarPresenter(ViewManagerModel viewManagerModel,
                            SearchViewModel searchViewModel,
                            JourneyViewModel journeyViewModel,
                            SaveViewModel saveViewModel,
                            OpenViewModel openViewModel,
-                           AddViewModel graphViewModel) {
+                           GraphViewModel graphViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.searchViewModel = searchViewModel;
         this.journeyViewModel = journeyViewModel;

@@ -1,7 +1,9 @@
 package view;
 
+import interface_adapter.add.AddController;
 import interface_adapter.journey.JourneyState;
 import interface_adapter.journey.JourneyViewModel;
+import interface_adapter.search.SearchState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,11 +17,12 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
     private final JourneyViewModel viewModel;
 
     private final JEditorPane articleContent;
-    // TODO figure out how to add a persistant graph view
     // private final GraphView graphViewPLACEHOLDER;
 
     private final JCheckBox addNewPages;
     private final JButton addPage;
+
+    private AddController addController;
 
     public JourneyView(JourneyViewModel viewModel) {
         this.viewModel = viewModel;
@@ -69,6 +72,19 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
         gbc.gridwidth = 2;
         gbc.gridx = 1;
         gbc.gridy = 1;
+
+        addPage.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(addPage)) {
+                            final JourneyState state = viewModel.getState();
+                            String title = state.getCurrentPageTitle();
+                            String content = state.getCurrentPageContent();
+
+                            addController.execute(title, content);
+                        }
+                    }
+                });
         this.add(addPage, gbc);
     }
 
@@ -86,5 +102,9 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
 
     public String getViewName() {
         return viewName;
+    }
+
+    public void setAddController(AddController addController) {
+        this.addController = addController;
     }
 }

@@ -1,7 +1,5 @@
 package use_case.search;
 
-import data_access.WikipediaAccessObject;
-
 /**
  * Interactor for the search function.
  */

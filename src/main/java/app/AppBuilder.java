@@ -1,16 +1,21 @@
 package app;
 
+import interface_adapter.add.AddController;
+import interface_adapter.add.AddPresenter;
 import interface_adapter.navBar.NavBarController;
 import interface_adapter.navBar.NavBarPresenter;
 import interface_adapter.navBar.NavBarViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.add.AddViewModel;
+import interface_adapter.add.GraphViewModel;
 import interface_adapter.journey.JourneyViewModel;
 import interface_adapter.open.OpenViewModel;
 import interface_adapter.save.SaveViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
+import use_case.add.AddInputBoundary;
+import use_case.add.AddInteractor;
+import use_case.add.AddOutputBoundary;
 import use_case.navBar.NavBarInputBoundary;
 import use_case.navBar.NavBarInteractor;
 import use_case.navBar.NavBarOutputBoundary;
@@ -46,7 +51,7 @@ public class AppBuilder {
     private SaveView saveView;
     private OpenViewModel openViewModel;
     private OpenView openView;
-    private AddViewModel graphViewModel;
+    private GraphViewModel graphViewModel;
     private GraphView graphView;
 
     public AppBuilder() {
@@ -93,7 +98,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addGraphView() {
-        graphViewModel = new AddViewModel();
+        graphViewModel = new GraphViewModel();
         graphView = new GraphView(graphViewModel);
         views.add(graphView, graphView.getViewName());
         return this;
@@ -113,6 +118,14 @@ public class AppBuilder {
         final SearchInputBoundary searchInputBoundary = new SearchInteractor(searchPresenter, wDAO);
         final SearchController controller = new SearchController(searchInputBoundary);
         searchView.setSearchController(controller);
+        return this;
+    }
+
+    public AppBuilder addAddUseCase() {
+        final AddOutputBoundary addPresenter = new AddPresenter(graphViewModel, viewManagerModel, journeyViewModel);
+        final AddInputBoundary addInteractor = new AddInteractor(addPresenter);
+        final AddController controller = new AddController(addInteractor);
+        journeyView.setAddController(controller);
         return this;
     }
 

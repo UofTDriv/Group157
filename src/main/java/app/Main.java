@@ -19,6 +19,7 @@ public class Main {
                 .addNavBarView()
                 .addSearchView()
                 .addJourneyView()
+                .addAddUseCase()
                 .addSaveView()
                 .addOpenView()
                 .addGraphView()
