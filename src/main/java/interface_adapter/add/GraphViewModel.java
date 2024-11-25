@@ -1,4 +1,4 @@
-package interface_adapter.graph;
+package interface_adapter.add;
 
 import interface_adapter.ViewModel;
 import use_case.graph.GraphDataAccessInterface;

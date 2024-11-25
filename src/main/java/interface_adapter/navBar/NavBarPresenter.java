@@ -1,7 +1,7 @@
 package interface_adapter.navBar;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.graph.GraphViewModel;
+import interface_adapter.add.GraphViewModel;
 import interface_adapter.journey.JourneyViewModel;
 import interface_adapter.open.OpenViewModel;
 import interface_adapter.save.SaveViewModel;

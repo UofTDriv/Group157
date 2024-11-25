@@ -1,10 +1,6 @@
 package app;
 
-import data_access.InMemoryJourneyDataAccessInterface;
-import interface_adapter.graph.GraphController;
-import interface_adapter.graph.GraphPresenter;
-import interface_adapter.journey.JourneyController;
-import interface_adapter.journey.JourneyPresenter;
+import data_access.WikipediaAccessObject;
 import interface_adapter.navBar.NavBarController;
 import interface_adapter.navBar.NavBarPresenter;
 import interface_adapter.navBar.NavBarViewModel;
@@ -16,12 +12,6 @@ import interface_adapter.save.SaveViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
-import use_case.graph.GraphInputBoundary;
-import use_case.graph.GraphInteractor;
-import use_case.graph.GraphOutputBoundary;
-import use_case.journey.JourneyInputBoundary;
-import use_case.journey.JourneyInteractor;
-import use_case.journey.JourneyOutputBoundary;
 import use_case.navBar.NavBarInputBoundary;
 import use_case.navBar.NavBarInteractor;
 import use_case.navBar.NavBarOutputBoundary;
@@ -43,11 +33,9 @@ public class AppBuilder {
     private final JPanel views = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
 
+    private SearchDataAccessInterface wDAO;
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(views, cardLayout, viewManagerModel);
-
-    private SearchDataAccessInterface searchDAO;
-    private InMemoryJourneyDataAccessInterface memoryDAO;
 
     private NavBarViewModel navBarViewModel;
     private NavBarView navBarView;
@@ -66,13 +54,8 @@ public class AppBuilder {
         views.setLayout(cardLayout);
     }
 
-    public AppBuilder addSearchDAO(SearchDataAccessInterface dataAccessObject) {
-        this.searchDAO = dataAccessObject;
-        return this;
-    }
-
-    public AppBuilder addMemoryDAO(InMemoryJourneyDataAccessInterface dataAccessObject) {
-        this.memoryDAO = dataAccessObject;
+    public AppBuilder addDAO(SearchDataAccessInterface wDAO) {
+        this.wDAO = wDAO;
         return this;
     }
 
@@ -151,15 +134,17 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addAddUseCase() {
+        final AddOutputBoundary addPresenter = new AddPresenter(graphViewModel, viewManagerModel, journeyViewModel);
+        final AddInputBoundary addInteractor = new AddInteractor(addPresenter);
+        final AddController controller = new AddController(addInteractor);
+        journeyView.setAddController(controller);
+        return this;
+    }
+
     public JFrame build() {
         final JFrame application = new JFrame("Wikipedia Journey Viewer");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Rectangle usableBounds = env.getMaximumWindowBounds();
-        application.setMaximizedBounds(usableBounds);
-        application.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
         application.setLayout(new BorderLayout());
 
         application.add(views, BorderLayout.CENTER);

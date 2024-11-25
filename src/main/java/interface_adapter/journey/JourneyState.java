@@ -31,6 +31,8 @@ public class JourneyState {
         return currentPage.content;
     }
 
+    public String getCurrentPageTitle() {return currentPage.title; }
+
     public void setCurrentPage(WebPage currentPage) {
         this.currentPage = currentPage;
     }
