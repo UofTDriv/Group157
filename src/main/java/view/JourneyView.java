@@ -22,7 +22,6 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
     private JourneyController controller;
 
     private final JEditorPane articleContent;
-    // private final GraphView graphViewPLACEHOLDER;
 
     private final JCheckBox addNewPages;
     private final JButton addPage;
