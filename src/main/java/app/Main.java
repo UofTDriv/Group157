@@ -19,12 +19,12 @@ public class Main {
                 .addNavBarView()
                 .addSearchView()
                 .addJourneyView()
-                .addAddUseCase()
                 .addSaveView()
                 .addOpenView()
                 .addGraphView()
                 .addNavBarUseCase()
                 .addSearchUseCase()
+                .addAddUseCase()
                 .build();
         application.pack();
         application.setVisible(true);
