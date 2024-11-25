@@ -18,8 +18,8 @@ public class InMemorySaveDataAccessObject implements SaveDataAccessInterface {
     }
 
     public void save(WikiHistory wikiHistory) throws Exception {
-        if (!(wikiHistoryExists(wikiHistory.title))) {
-            wikiHistories.put(wikiHistory.title, wikiHistory);
+        if (!(wikiHistoryExists(wikiHistory.getTitle()))) {
+            wikiHistories.put(wikiHistory.getTitle(), wikiHistory);
         } else {
             throw new Exception("WikiHistory by that name already exists");
         }

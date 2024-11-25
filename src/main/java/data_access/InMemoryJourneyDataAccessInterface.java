@@ -5,15 +5,15 @@ import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import use_case.graph.GraphDataAccessInterface;
 import use_case.journey.JourneyDataAccessInterface;
+import use_case.save.SaveDataAccessInterface;
 
 import java.util.ArrayList;
 
-public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInterface, GraphDataAccessInterface {
+public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInterface, GraphDataAccessInterface, SaveDataAccessInterface {
 
     private WikiHistory wikiHistory = null;
     private Journey journey = null;
     private final Graph graph = new Graph(new SimpleGraph<>(DefaultEdge.class));
-
 
     @Override
     public Graph getGraph() {
@@ -26,10 +26,9 @@ public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInte
     }
 
     @Override
-    public void setRootPage(WebPage rootPage) {
-        Node root = new Node(rootPage, null, true);
-        wikiHistory = new WikiHistory(rootPage.title, root);
-        journey = new Journey(root, wikiHistory);
+    public void setRootPage(Node rootNode) {
+        wikiHistory = new WikiHistory(rootNode);
+        journey = new Journey(rootNode, wikiHistory);
     }
 
     @Override
@@ -37,4 +36,24 @@ public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInte
         return journey;
     }
 
+    @Override
+    public WikiHistory getWikiHistory() {
+        return wikiHistory;
+    }
+
+
+    @Override
+    public boolean wikiHistoryExists(String title) {
+        return false;
+    }
+
+    @Override
+    public void save(WikiHistory wikiHistory) throws Exception {
+
+    }
+
+    @Override
+    public WikiHistory getCurrentWikiHistory() {
+        return null;
+    }
 }

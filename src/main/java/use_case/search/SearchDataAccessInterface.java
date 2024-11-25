@@ -1,5 +1,7 @@
 package use_case.search;
 
+import java.util.ArrayList;
+
 public interface SearchDataAccessInterface {
     /**
      * Checks if there is a Wikipedia page with the given title.
@@ -21,4 +23,6 @@ public interface SearchDataAccessInterface {
      * @return title of the corresponding webpage
      */
     String getTitle(String page);
+
+    ArrayList<String> getPageLinks(String page);
 }

@@ -10,7 +10,7 @@ public interface JourneyDataAccessInterface {
      * Executes the Search use case: starts a new journey
      * @param r the input data
      */
-    void setRootPage(WebPage r);
+    void setRootPage(Node rootNode);
 
     void addNode(Node node);
 
