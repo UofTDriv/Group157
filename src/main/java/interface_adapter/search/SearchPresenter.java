@@ -4,6 +4,10 @@ import entity.WebPage;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.journey.JourneyState;
 import interface_adapter.journey.JourneyViewModel;
+import interface_adapter.navBar.NavBarState;
+import interface_adapter.navBar.NavBarViewModel;
+import interface_adapter.save.SaveState;
+import interface_adapter.save.SaveViewModel;
 import use_case.search.SearchOutputBoundary;
 import use_case.search.SearchOutputData;
 
@@ -15,13 +19,19 @@ public class SearchPresenter implements SearchOutputBoundary {
     private final SearchViewModel searchViewModel;
     private final ViewManagerModel viewManagerModel;
     private final JourneyViewModel journeyViewModel;
+    private final SaveViewModel saveViewModel;
+    private final NavBarViewModel navBarViewModel;
 
     public SearchPresenter(SearchViewModel searchViewModel,
                            ViewManagerModel viewManagerModel,
-                           JourneyViewModel journeyViewModel) {
+                           JourneyViewModel journeyViewModel,
+                           SaveViewModel saveViewModel,
+                           NavBarViewModel navBarViewModel) {
         this.searchViewModel = searchViewModel;
         this.viewManagerModel = viewManagerModel;
         this.journeyViewModel = journeyViewModel;
+        this.saveViewModel = saveViewModel;
+        this.navBarViewModel = navBarViewModel;
     }
 
     @Override
@@ -30,6 +40,16 @@ public class SearchPresenter implements SearchOutputBoundary {
         journeyState.setCurrentPage(new WebPage(outputData.getTitle(), outputData.getBody()));
         this.journeyViewModel.setState(journeyState);
         journeyViewModel.firePropertyChanged();
+
+        final NavBarState navBarState = navBarViewModel.getState();
+        navBarState.setJourney(outputData.getTitle());
+        this.navBarViewModel.setState(navBarState);
+        navBarViewModel.firePropertyChanged("state");
+
+        final SaveState saveState = saveViewModel.getState();
+        saveState.setRootArticleTitle(outputData.getTitle());
+        this.saveViewModel.setState(saveState);
+        saveViewModel.firePropertyChanged("state");
 
         viewManagerModel.setState(journeyViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

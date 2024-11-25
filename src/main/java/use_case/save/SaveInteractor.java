@@ -27,11 +27,11 @@ public class SaveInteractor implements SaveInputBoundary {
         // Saving the WikiHistory object via the DAO
         try {
             saveDataAccessObject.save(wikiHistory);
-            SaveOutputData outputData = new SaveOutputData(journey.rootPage + " has been added");
+            SaveOutputData outputData = new SaveOutputData(journey.getRootPageTitle() + " has been added");
             presenter.prepareSuccessView(outputData);
 
         } catch (Exception e) {
-            presenter.prepareFailView(journey.rootPage + " already exists");
+            presenter.prepareFailView(journey.getRootPageTitle() + " already exists");
         }
 
 

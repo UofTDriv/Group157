@@ -1,5 +1,6 @@
 package app;
 
+import data_access.InMemoryJourneyDataAccessInterface;
 import data_access.WikipediaAccessObject;
 import use_case.search.SearchDataAccessInterface;
 
@@ -12,10 +13,12 @@ public class Main {
     public static void main(String[] args) {
 
         final SearchDataAccessInterface searchAccessObj = new WikipediaAccessObject();
+        final InMemoryJourneyDataAccessInterface journeyAccessObj = new InMemoryJourneyDataAccessInterface();
 
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
-                .addDAO(searchAccessObj)
+                .addSearchDAO(searchAccessObj)
+                .addMemoryDAO(journeyAccessObj)
                 .addNavBarView()
                 .addSearchView()
                 .addJourneyView()
@@ -24,6 +27,7 @@ public class Main {
                 .addGraphView()
                 .addNavBarUseCase()
                 .addSearchUseCase()
+                .addJourneyUseCase()
                 .build();
         application.pack();
         application.setVisible(true);
