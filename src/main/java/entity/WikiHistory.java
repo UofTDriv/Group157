@@ -11,4 +11,21 @@ public class WikiHistory {
         this.nodeHistory = new ArrayList<>();
         nodeHistory.add(rootNode);
     }
+
+    public void add(Node node) {
+        nodeHistory.add(node);
+    }
+
+    public Node getNode(int id) {
+        if (nodeHistory.size() <= id) {
+            return nodeHistory.get(id);
+        } else {
+            return nodeHistory.get(0);
+        }
+    }
+
+    public ArrayList<Node> getWikiHistory() {
+        return (ArrayList<Node>) nodeHistory.clone();
+    }
+
 }

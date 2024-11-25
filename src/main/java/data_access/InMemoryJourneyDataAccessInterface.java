@@ -29,7 +29,7 @@ public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInte
     public void setRootPage(WebPage rootPage) {
         Node root = new Node(rootPage, null, true);
         wikiHistory = new WikiHistory(rootPage.title, root);
-        journey = new Journey(root);
+        journey = new Journey(root, wikiHistory);
     }
 
     @Override
