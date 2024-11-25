@@ -1,11 +1,15 @@
 package view;
 
+import interface_adapter.graph.GraphController;
+import interface_adapter.journey.JourneyController;
 import interface_adapter.add.AddController;
 import interface_adapter.journey.JourneyState;
 import interface_adapter.journey.JourneyViewModel;
 import interface_adapter.search.SearchState;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +19,7 @@ import java.beans.PropertyChangeListener;
 public class JourneyView extends JPanel implements ActionListener, PropertyChangeListener {
     private final String viewName;
     private final JourneyViewModel viewModel;
+    private JourneyController controller;
 
     private final JEditorPane articleContent;
     // private final GraphView graphViewPLACEHOLDER;
@@ -32,7 +37,7 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.weightx = 0.2;
+        gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.insets = new Insets(0,0,0,0);
 
@@ -41,21 +46,33 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
         articleContent.setContentType("text/html");
         articleContent.setText(viewModel.getState().getCurrentPageContent());
 
+        articleContent.addHyperlinkListener(
+            new HyperlinkListener() {
+                public void hyperlinkUpdate(HyperlinkEvent e) {
+                    if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                        controller.addNewNode(e.getDescription());
+                    }
+                }
+            }
+        );
+
+        JScrollPane scrollPane = new JScrollPane(articleContent);
+
         gbc.gridwidth = 3;
         gbc.ipady = 100;
         gbc.gridy = 0;
         gbc.gridx = 0;
-        this.add(articleContent, gbc);
+        this.add(scrollPane, gbc);
 
         // GraphPlaceHolder
-        JPanel graphViewFrame = new JPanel();
-        graphViewFrame.setOpaque(true);
-        graphViewFrame.setBackground(Color.BLACK);
-        gbc.gridwidth = 2;
-        gbc.gridheight = 2;
-        gbc.gridy = 0;
-        gbc.gridx = 3;
-        this.add(graphViewFrame, gbc);
+//        JPanel graphViewFrame = new JPanel();
+//        graphViewFrame.setOpaque(true);
+//        graphViewFrame.setBackground(Color.BLACK);
+//        gbc.gridwidth = 2;
+//        gbc.gridheight = 2;
+//        gbc.gridy = 0;
+//        gbc.gridx = 3;
+//        this.add(graphViewFrame, gbc);
 
         this.addNewPages = new JCheckBox(JourneyViewModel.ADDPAGES_CHECK_LABEL);
         this.addNewPages.setSelected(viewModel.getState().isAddNewPages());
@@ -88,9 +105,9 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
         this.add(addPage, gbc);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
+        JOptionPane.showMessageDialog(this, "Cancel not implemented yet.");
     }
 
     @Override
@@ -98,6 +115,10 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
         if (evt.getPropertyName().equals("state")) {
             articleContent.setText(viewModel.getState().getCurrentPageContent());
         }
+    }
+
+    public void setController(JourneyController controller) {
+        this.controller = controller;
     }
 
     public String getViewName() {

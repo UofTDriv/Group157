@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.navBar.NavBarController;
+import interface_adapter.navBar.NavBarState;
 import interface_adapter.navBar.NavBarViewModel;
 
 import javax.swing.*;
@@ -85,10 +86,6 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
             c.gridx = i;
             this.add(buttons[i], c);
         }
-
-//        timeline = new JButton(viewModel.getState().getTimeline());
-//        c.gridx = 4;
-//        this.add(timeline, c);
     }
 
     @Override
@@ -98,7 +95,15 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        // TODO: add functionality to the navbar to change the text of journey and save
+        if (evt.getPropertyName().equals("state")) {
+            final NavBarState state = (NavBarState) evt.getNewValue();
+            save.setText(state.getSave());
+            journey.setText(state.getJourney());
+            graph.setText(state.getGraph());
+        } else if (evt.getPropertyName().equals("error")) {
+            final NavBarState state = (NavBarState) evt.getNewValue();
+            JOptionPane.showMessageDialog(this, state.getSwitchError());
+        }
     }
 
     public void setController(NavBarController controller) {

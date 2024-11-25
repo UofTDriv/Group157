@@ -1,21 +1,17 @@
 package app;
 
-import interface_adapter.add.AddController;
-import interface_adapter.add.AddPresenter;
+import data_access.WikipediaAccessObject;
 import interface_adapter.navBar.NavBarController;
 import interface_adapter.navBar.NavBarPresenter;
 import interface_adapter.navBar.NavBarViewModel;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.add.GraphViewModel;
+import interface_adapter.graph.GraphViewModel;
 import interface_adapter.journey.JourneyViewModel;
 import interface_adapter.open.OpenViewModel;
 import interface_adapter.save.SaveViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
-import use_case.add.AddInputBoundary;
-import use_case.add.AddInteractor;
-import use_case.add.AddOutputBoundary;
 import use_case.navBar.NavBarInputBoundary;
 import use_case.navBar.NavBarInteractor;
 import use_case.navBar.NavBarOutputBoundary;
@@ -98,24 +94,41 @@ public class AppBuilder {
     }
 
     public AppBuilder addGraphView() {
-        graphViewModel = new GraphViewModel();
+        graphViewModel = new GraphViewModel(memoryDAO);
         graphView = new GraphView(graphViewModel);
         views.add(graphView, graphView.getViewName());
         return this;
     }
 
+    public AppBuilder addGraphUseCase() {
+        final GraphOutputBoundary graphPresenter = new GraphPresenter(graphViewModel, viewManagerModel, journeyViewModel);
+        final GraphInputBoundary graphInputBoundary = new GraphInteractor(graphPresenter, memoryDAO);
+        final GraphController controller = new GraphController(graphInputBoundary);
+        graphView.setController(controller);
+        return this;
+    }
+
+    public AppBuilder addJourneyUseCase() {
+        final JourneyOutputBoundary journeyPresenter = new JourneyPresenter(journeyViewModel);
+        final JourneyInputBoundary journeyInteractor = new JourneyInteractor(searchDAO, memoryDAO, journeyPresenter);
+        final JourneyController controller = new JourneyController(journeyInteractor);
+        journeyView.setController(controller);
+        return this;
+    }
+
     public AppBuilder addNavBarUseCase() {
-        final NavBarOutputBoundary navBarPresenter = new NavBarPresenter(viewManagerModel, searchViewModel,
-                journeyViewModel, saveViewModel, openViewModel, graphViewModel);
-        final NavBarInputBoundary navBarInputBoundary = new NavBarInteractor(navBarPresenter);
+        final NavBarOutputBoundary navBarPresenter = new NavBarPresenter(viewManagerModel, navBarViewModel,
+                searchViewModel, journeyViewModel, saveViewModel, openViewModel, graphViewModel);
+        final NavBarInputBoundary navBarInputBoundary = new NavBarInteractor(navBarPresenter, memoryDAO);
         final NavBarController controller = new NavBarController(navBarInputBoundary);
         navBarView.setController(controller);
         return this;
     }
 
     public AppBuilder addSearchUseCase() {
-        final SearchOutputBoundary searchPresenter = new SearchPresenter(searchViewModel, viewManagerModel, journeyViewModel);
-        final SearchInputBoundary searchInputBoundary = new SearchInteractor(searchPresenter, wDAO);
+        final SearchOutputBoundary searchPresenter = new SearchPresenter(searchViewModel, viewManagerModel,
+                journeyViewModel, saveViewModel, navBarViewModel);
+        final SearchInputBoundary searchInputBoundary = new SearchInteractor(searchPresenter, searchDAO, memoryDAO);
         final SearchController controller = new SearchController(searchInputBoundary);
         searchView.setSearchController(controller);
         return this;

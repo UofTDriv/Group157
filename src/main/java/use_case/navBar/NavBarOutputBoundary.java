@@ -7,7 +7,7 @@ public interface NavBarOutputBoundary {
     void switchToSearchView();
 
     /**
-     * Executes the switch to search view use case.
+     * Executes the switch to journey view use case.
      */
     void switchToJourneyView();
 
@@ -25,4 +25,10 @@ public interface NavBarOutputBoundary {
      * Executes the switch to graph view use case.
      */
     void switchToGraphView();
+
+    /**
+     * Prepares the failure view for the navbar use case.
+     * @param errorMessage the explanation of the failure
+     */
+    void prepareFailView(String errorMessage);
 }
