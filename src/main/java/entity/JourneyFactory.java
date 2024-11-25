@@ -7,9 +7,8 @@ import java.util.ArrayList;
  */
 public class JourneyFactory {
 
-    public Journey start (WebPage rootPage, WikiHistory wikiHistory) {
-        Node root = new Node(rootPage, null, new ArrayList<>());
-        wikiHistory.addNode(root);
-        return new Journey(root, wikiHistory);
+    public Journey start (WebPage rootPage) {
+        Node root = new Node(rootPage, null);
+        return new Journey(root);
     }
 }

@@ -1,35 +1,41 @@
-package use_case.search;
+package use_case.journey;
 
+import entity.Node;
 import entity.WebPage;
-import use_case.journey.JourneyDataAccessInterface;
+import use_case.search.SearchDataAccessInterface;
+import use_case.search.SearchOutputData;
 
-/**
- * Interactor for the search function.
- */
-public class SearchInteractor implements SearchInputBoundary {
+import java.util.ArrayList;
+
+public class JourneyInteractor implements JourneyInputBoundary {
     private final SearchDataAccessInterface searchAccessObject;
     private final JourneyDataAccessInterface journeyAccessObject;
-    private final SearchOutputBoundary presenter;
+    private final JourneyOutputBoundary presenter;
 
-    public SearchInteractor(SearchOutputBoundary presenter, SearchDataAccessInterface searchAccessObject, JourneyDataAccessInterface journeyAccessObject) {
+    public JourneyInteractor(SearchDataAccessInterface searchAccessObject,
+                             JourneyDataAccessInterface journeyAccessObject,
+                             JourneyOutputBoundary presenter) {
         this.searchAccessObject = searchAccessObject;
         this.journeyAccessObject = journeyAccessObject;
         this.presenter = presenter;
     }
 
     @Override
-    public void execute(SearchInputData inputData) {
+    public void execute(JourneyInputData inputData) {
         String subject = inputData.getSubject();
         if(!searchAccessObject.pageExists(subject)) {
             presenter.prepareFailView("No matching result!");
         }
         else {
-            String title = searchAccessObject.getTitle(subject);
             String content = cleanWikipediaHTML(searchAccessObject.getHTML(subject));
+            WebPage newPage = new WebPage(searchAccessObject.getTitle(subject),content);
 
-            journeyAccessObject.setRootPage(new WebPage(title, content));
+            Node newNode = new Node(newPage, journeyAccessObject.getJourney().getCurrentNode());
 
-            SearchOutputData outputData = new SearchOutputData(title, content, false);
+            journeyAccessObject.addNode(newNode);
+
+            JourneyOutputData outputData = new JourneyOutputData(newNode.getPage());
+
             presenter.prepareSuccessView(outputData);
         }
     }
@@ -69,5 +75,4 @@ public class SearchInteractor implements SearchInputBoundary {
         return rawHtml;
     }
 
-    // TODO put this function somewhere universal to stop repeat in JourneyInteractor.java
 }

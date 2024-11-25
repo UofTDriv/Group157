@@ -1,6 +1,10 @@
 package app;
 
-import data_access.InMemoryJourneyDataAccessObject;
+import data_access.InMemoryJourneyDataAccessInterface;
+import interface_adapter.graph.GraphController;
+import interface_adapter.graph.GraphPresenter;
+import interface_adapter.journey.JourneyController;
+import interface_adapter.journey.JourneyPresenter;
 import interface_adapter.navBar.NavBarController;
 import interface_adapter.navBar.NavBarPresenter;
 import interface_adapter.navBar.NavBarViewModel;
@@ -15,6 +19,9 @@ import interface_adapter.search.SearchViewModel;
 import use_case.graph.GraphInputBoundary;
 import use_case.graph.GraphInteractor;
 import use_case.graph.GraphOutputBoundary;
+import use_case.journey.JourneyInputBoundary;
+import use_case.journey.JourneyInteractor;
+import use_case.journey.JourneyOutputBoundary;
 import use_case.navBar.NavBarInputBoundary;
 import use_case.navBar.NavBarInteractor;
 import use_case.navBar.NavBarOutputBoundary;
@@ -40,7 +47,7 @@ public class AppBuilder {
     private final ViewManager viewManager = new ViewManager(views, cardLayout, viewManagerModel);
 
     private SearchDataAccessInterface searchDAO;
-    private InMemoryJourneyDataAccessObject memoryDAO;
+    private InMemoryJourneyDataAccessInterface memoryDAO;
 
     private NavBarViewModel navBarViewModel;
     private NavBarView navBarView;
@@ -64,7 +71,7 @@ public class AppBuilder {
         return this;
     }
 
-    public AppBuilder addMemoryDAO(InMemoryJourneyDataAccessObject dataAccessObject) {
+    public AppBuilder addMemoryDAO(InMemoryJourneyDataAccessInterface dataAccessObject) {
         this.memoryDAO = dataAccessObject;
         return this;
     }
@@ -104,9 +111,25 @@ public class AppBuilder {
     }
 
     public AppBuilder addGraphView() {
-        graphViewModel = new GraphViewModel();
+        graphViewModel = new GraphViewModel(memoryDAO);
         graphView = new GraphView(graphViewModel);
         views.add(graphView, graphView.getViewName());
+        return this;
+    }
+
+    public AppBuilder addGraphUseCase() {
+        final GraphOutputBoundary graphPresenter = new GraphPresenter(graphViewModel, viewManagerModel, journeyViewModel);
+        final GraphInputBoundary graphInputBoundary = new GraphInteractor(graphPresenter, memoryDAO);
+        final GraphController controller = new GraphController(graphInputBoundary);
+        graphView.setController(controller);
+        return this;
+    }
+
+    public AppBuilder addJourneyUseCase() {
+        final JourneyOutputBoundary journeyPresenter = new JourneyPresenter(journeyViewModel);
+        final JourneyInputBoundary journeyInteractor = new JourneyInteractor(searchDAO, memoryDAO, journeyPresenter);
+        final JourneyController controller = new JourneyController(journeyInteractor);
+        journeyView.setController(controller);
         return this;
     }
 
@@ -131,6 +154,12 @@ public class AppBuilder {
     public JFrame build() {
         final JFrame application = new JFrame("Wikipedia Journey Viewer");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle usableBounds = env.getMaximumWindowBounds();
+        application.setMaximizedBounds(usableBounds);
+        application.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         application.setLayout(new BorderLayout());
 
         application.add(views, BorderLayout.CENTER);

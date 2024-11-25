@@ -27,7 +27,7 @@ Graphing Wikipedia Rabbit Holes
 A program that makes a graph of what you have seen as you search through Wikipedia. 
 As you click links in existing articles to new articles it creates a new node for said article on the map.  
 ### Features to be implemented (User Stories)
-1. [ ] Type in a subject and click on `Search`: the program will display the page and create a new node. (Team Use Case) 
+1. [X] Type in a subject and click on `Search`: the program will display the page and create a new node. (Team Use Case) 
 2. [ ] Journey UseCase: Display the searched article as the root and be able to `Click` the links in the page: the program will display that page. (Denis)
 3. [ ] The searched article is added as the root node to the Graph of your current journey, any new articles you `click` will be added and linked to the previous node. (Zhe Wang)
 4. [ ] As you explore more pages you can see a list of past pages visited but the program also automatically `adds links` between nodes that were not originally connected by traversal. (Scott)

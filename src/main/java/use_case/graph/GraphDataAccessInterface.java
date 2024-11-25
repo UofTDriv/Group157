@@ -3,7 +3,7 @@ package use_case.graph;
 import entity.Graph;
 import entity.Node;
 
-public interface GraphDataAccessObject {
+public interface GraphDataAccessInterface {
 
     Graph getGraph();
 

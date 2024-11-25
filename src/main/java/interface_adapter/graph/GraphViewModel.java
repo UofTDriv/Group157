@@ -1,15 +1,15 @@
 package interface_adapter.graph;
 
 import interface_adapter.ViewModel;
-import use_case.graph.GraphDataAccessObject;
+import use_case.graph.GraphDataAccessInterface;
 
 public class GraphViewModel extends ViewModel<GraphState> {
 
-    private final GraphDataAccessObject graphDataAccessObject;
+    private final GraphDataAccessInterface graphDataAccessInterface;
 
-    public GraphViewModel(GraphDataAccessObject graphDataAccessObject) {
+    public GraphViewModel(GraphDataAccessInterface graphDataAccessInterface) {
         super("Graph");
-        this.graphDataAccessObject = graphDataAccessObject;
-        setState(new GraphState(graphDataAccessObject));
+        this.graphDataAccessInterface = graphDataAccessInterface;
+        setState(new GraphState(graphDataAccessInterface));
     }
 }

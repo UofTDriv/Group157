@@ -1,16 +1,16 @@
 package interface_adapter.graph;
 
 import entity.Graph;
-import use_case.graph.GraphDataAccessObject;
+import use_case.graph.GraphDataAccessInterface;
 
 public class GraphState {
-    private final GraphDataAccessObject graphDataAccessObject;
+    private final GraphDataAccessInterface graphDataAccessInterface;
 
-    public GraphState(GraphDataAccessObject graphDataAccessObject) {
-        this.graphDataAccessObject = graphDataAccessObject;
+    public GraphState(GraphDataAccessInterface graphDataAccessInterface) {
+        this.graphDataAccessInterface = graphDataAccessInterface;
     }
 
     public Graph getGraph() {
-        return this.graphDataAccessObject.getGraph();
+        return this.graphDataAccessInterface.getGraph();
     }
 }

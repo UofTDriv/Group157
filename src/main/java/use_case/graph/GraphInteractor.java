@@ -5,11 +5,11 @@ package use_case.graph;
  */
 public class GraphInteractor implements GraphInputBoundary {
     private final GraphOutputBoundary graphPresenter;
-    private final GraphDataAccessObject graphDataAccessObject;
+    private final GraphDataAccessInterface graphDataAccessInterface;
 
-    public GraphInteractor(GraphOutputBoundary graphPresenter, GraphDataAccessObject graphDataAccessObject) {
+    public GraphInteractor(GraphOutputBoundary graphPresenter, GraphDataAccessInterface graphDataAccessInterface) {
         this.graphPresenter = graphPresenter;
-        this.graphDataAccessObject = graphDataAccessObject;
+        this.graphDataAccessInterface = graphDataAccessInterface;
     }
 
     @Override

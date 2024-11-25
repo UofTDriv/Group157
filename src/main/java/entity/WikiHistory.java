@@ -1,15 +1,11 @@
 package entity;
 
-import java.util.ArrayList;
-
 public class WikiHistory {
-    private final ArrayList<Node> journeyHistory;
+    public String title;
+    public Journey journey;
 
-    public WikiHistory(ArrayList<Node> journeyHistory) {
-        this.journeyHistory = journeyHistory;
-    }
-
-    public void addNode(Node node) {
-        journeyHistory.add(node);
+    public WikiHistory(String title, Journey journey) {
+        this.title = title;
+        this.journey = journey;
     }
 }
