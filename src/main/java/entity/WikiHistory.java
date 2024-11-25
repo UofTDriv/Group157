@@ -1,11 +1,14 @@
 package entity;
 
+import java.util.ArrayList;
+
 public class WikiHistory {
     public String title;
-    public Journey journey;
+    public ArrayList<Node> nodeHistory;
 
-    public WikiHistory(String title, Journey journey) {
+    public WikiHistory(String title, Node rootNode) {
         this.title = title;
-        this.journey = journey;
+        this.nodeHistory = new ArrayList<>();
+        nodeHistory.add(rootNode);
     }
 }

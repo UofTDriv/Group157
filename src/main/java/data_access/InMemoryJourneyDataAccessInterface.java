@@ -9,10 +9,11 @@ import use_case.journey.JourneyDataAccessInterface;
 import java.util.ArrayList;
 
 public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInterface, GraphDataAccessInterface {
-    private final JourneyFactory journeyFactory = new JourneyFactory();
 
+    private WikiHistory wikiHistory = null;
     private Journey journey = null;
     private final Graph graph = new Graph(new SimpleGraph<>(DefaultEdge.class));
+
 
     @Override
     public Graph getGraph() {
@@ -26,7 +27,9 @@ public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInte
 
     @Override
     public void setRootPage(WebPage rootPage) {
-        journey = journeyFactory.start(rootPage);
+        Node root = new Node(rootPage, null, true);
+        wikiHistory = new WikiHistory(rootPage.title, root);
+        journey = new Journey(root);
     }
 
     @Override

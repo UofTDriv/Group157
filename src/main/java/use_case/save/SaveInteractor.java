@@ -22,7 +22,7 @@ public class SaveInteractor implements SaveInputBoundary {
         // Creating the WikiHistory object
         String title = saveInputData.getTitle();
         Journey journey = saveInputData.getJourney();
-        WikiHistory wikiHistory = new WikiHistory(title, journey);
+        WikiHistory wikiHistory = new WikiHistory(title, journey.getRootNode());
 
         // Saving the WikiHistory object via the DAO
         try {

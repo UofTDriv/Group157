@@ -8,6 +8,7 @@ public class Journey {
     private final ArrayList<Node> nodeHistory;
     private int currentPageIndex;
 
+
     public Journey(Node rootNode) {
         this.rootNode = rootNode;
         this.rootPageTitle = rootNode.toString();
