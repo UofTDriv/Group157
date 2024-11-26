@@ -1,11 +1,9 @@
-package use_case.add;
+package use_case.graph;
 
 import entity.Node;
+import entity.WebPage;
 
-/**
- * Input Data for the Add Node use case.
- */
-public class AddInputData {
+public class GraphInputData {
     private final Node current;
     private final Node parents;
 

@@ -7,6 +7,8 @@ public interface GraphDataAccessInterface {
 
     Graph getGraph();
 
-    void addNode(Node n);
+    void addNodeToGraph(String n);
+
+    void addEdge(String from, String to);
 
 }

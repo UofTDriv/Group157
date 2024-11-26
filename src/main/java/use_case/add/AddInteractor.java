@@ -1,7 +1,5 @@
 package use_case.add;
 
-import use_case.search.SearchInputData;
-
 public class AddInteractor implements AddInputBoundary {
     private final AddOutputBoundary presenter;
 

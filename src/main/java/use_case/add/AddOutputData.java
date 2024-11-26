@@ -1,22 +1,18 @@
 package use_case.add;
 
+import entity.Graph;
+
 public class AddOutputData {
-    private final String title;
-    private final String content;
+    private final Graph graph;
     private final boolean useCaseFailed;
 
-    public AddOutputData(String title, String content, boolean useCaseFailed) {
-        this.title = title;
-        this.content = content;
+    public AddOutputData(Graph graph, boolean useCaseFailed) {
+        this.graph = graph;
         this.useCaseFailed = useCaseFailed;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
+    public Graph getGraph() {
+        return graph;
     }
 
     public boolean getUseCaseFailed() {

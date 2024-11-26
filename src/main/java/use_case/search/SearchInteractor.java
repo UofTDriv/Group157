@@ -4,6 +4,8 @@ import entity.Node;
 import entity.WebPage;
 import use_case.journey.JourneyDataAccessInterface;
 
+import java.util.ArrayList;
+
 /**
  * Interactor for the search function.
  */
@@ -28,10 +30,11 @@ public class SearchInteractor implements SearchInputBoundary {
             String title = searchAccessObject.getTitle(subject);
             String content = cleanWikipediaHTML(searchAccessObject.getHTML(subject));
             WebPage rootPage = new WebPage(title, content);
+            ArrayList<String> links = searchAccessObject.getPageLinks(subject);
 
-            Node root = new Node(rootPage, null, );
+            Node root = new Node(rootPage, null, links,true);
 
-            journeyAccessObject.setRootPage();
+            journeyAccessObject.setRootPage(root);
 
             SearchOutputData outputData = new SearchOutputData(title, content, false);
             presenter.prepareSuccessView(outputData);

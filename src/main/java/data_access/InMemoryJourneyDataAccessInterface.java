@@ -1,19 +1,28 @@
 package data_access;
 
 import entity.*;
+import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import use_case.graph.GraphDataAccessInterface;
 import use_case.journey.JourneyDataAccessInterface;
 import use_case.save.SaveDataAccessInterface;
 
-import java.util.ArrayList;
-
-public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInterface, GraphDataAccessInterface, SaveDataAccessInterface {
+public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInterface,
+        GraphDataAccessInterface,
+        SaveDataAccessInterface {
 
     private WikiHistory wikiHistory = null;
     private Journey journey = null;
-    private final Graph graph = new Graph(new SimpleGraph<>(DefaultEdge.class));
+    private Graph graph = null;
+
+    @Override
+    public void setRootPage(Node rootNode) {
+        wikiHistory = new WikiHistory(rootNode);
+        journey = new Journey(rootNode, wikiHistory);
+        graph = new Graph(new DefaultDirectedGraph<>(DefaultEdge.class));
+        graph.addVertex(rootNode.toString());
+    }
 
     @Override
     public Graph getGraph() {
@@ -21,14 +30,13 @@ public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInte
     }
 
     @Override
-    public void addNode(Node n) {
-        journey.addNode(n);
+    public void addNodeToGraph(String n) {
+        graph.addVertex(n);
     }
 
     @Override
-    public void setRootPage(Node rootNode) {
-        wikiHistory = new WikiHistory(rootNode);
-        journey = new Journey(rootNode, wikiHistory);
+    public void addEdge(String parent, String to) {
+        graph.addEdge(parent, to);
     }
 
     @Override
@@ -37,8 +45,8 @@ public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInte
     }
 
     @Override
-    public WikiHistory getWikiHistory() {
-        return wikiHistory;
+    public void addNodeToJourney(Node node) {
+        journey.addNode(node);
     }
 
 
@@ -54,6 +62,6 @@ public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInte
 
     @Override
     public WikiHistory getCurrentWikiHistory() {
-        return null;
+        return wikiHistory;
     }
 }

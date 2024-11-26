@@ -3,7 +3,6 @@ package use_case.journey;
 import entity.Node;
 import entity.WebPage;
 import use_case.search.SearchDataAccessInterface;
-import use_case.search.SearchOutputData;
 
 import java.util.ArrayList;
 
@@ -29,11 +28,13 @@ public class JourneyInteractor implements JourneyInputBoundary {
         else {
             String content = cleanWikipediaHTML(searchAccessObject.getHTML(subject));
             WebPage newPage = new WebPage(searchAccessObject.getTitle(subject),content);
+            Node parentNode = journeyAccessObject.getJourney().getCurrentNode();
 
+            ArrayList<String> links = searchAccessObject.getPageLinks(subject);
 
-            Node newNode = new Node(newPage, journeyAccessObject.getJourney().getCurrentNode(), true);
+            Node newNode = new Node(newPage, parentNode, links, true);
 
-            journeyAccessObject.addNode(newNode);
+            journeyAccessObject.addNodeToJourney(newNode);
 
             JourneyOutputData outputData = new JourneyOutputData(newNode.getPage());
 

@@ -28,7 +28,7 @@ public class Main {
                 .addNavBarUseCase()
                 .addSearchUseCase()
                 .addJourneyUseCase()
-                .addAddUseCase()
+                .addGraphUseCase()
                 .build();
         application.pack();
         application.setVisible(true);

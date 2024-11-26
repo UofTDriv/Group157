@@ -2,17 +2,16 @@ package use_case.journey;
 
 import entity.Journey;
 import entity.Node;
-import entity.WebPage;
 
 public interface JourneyDataAccessInterface {
 
     /**
      * Executes the Search use case: starts a new journey
-     * @param r the input data
+     * @param rootNode the input data
      */
     void setRootPage(Node rootNode);
 
-    void addNode(Node node);
+    void addNodeToJourney(Node node);
 
     Journey getJourney();
 }

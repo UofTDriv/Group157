@@ -29,6 +29,6 @@ public class Journey {
     }
 
     public Node getCurrentNode() {
-        return
+        return wikiHistory.getNode(currentPageIndex);
     }
 }
