@@ -12,7 +12,7 @@ public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInte
 
     private WikiHistory wikiHistory = null;
     private Journey journey = null;
-    private final Graph graph = new Graph(new SimpleGraph<>(DefaultEdge.class));
+    private Graph graph = new Graph(new SimpleGraph<>(DefaultEdge.class));
 
 
     @Override
@@ -35,6 +35,16 @@ public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInte
     @Override
     public Journey getJourney() {
         return journey;
+    }
+
+    @Override
+    public WikiHistory getWikiHistory() { return wikiHistory; }
+
+    @Override
+    public void reset()  {
+        this.wikiHistory = null;
+        this.journey = null;
+        this.graph = null;
     }
 
 }

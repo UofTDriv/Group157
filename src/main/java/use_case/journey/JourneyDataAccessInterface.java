@@ -3,6 +3,7 @@ package use_case.journey;
 import entity.Journey;
 import entity.Node;
 import entity.WebPage;
+import entity.WikiHistory;
 
 public interface JourneyDataAccessInterface {
 
@@ -15,4 +16,11 @@ public interface JourneyDataAccessInterface {
     void addNode(Node node);
 
     Journey getJourney();
+
+    WikiHistory getWikiHistory();
+
+    /**
+     * Resets all of the attributes in the JourneyDAO - for when the user selects "save and close"
+     */
+    void reset();
 }

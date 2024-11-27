@@ -45,6 +45,14 @@ public class NavBarState {
         this.graph = "Graph: " + rootPageTitle;
     }
 
+
+    // This is for when the User presses the "Save and Close" button
+    public void resetJourney() {
+        this.journey = SWITCH_ERROR;
+        this.save = "Save: " + SWITCH_ERROR;
+        this.graph = "Graph: " + SWITCH_ERROR;
+    }
+
 //    public String getTimeline() {
 //        return timeline;
 //    }

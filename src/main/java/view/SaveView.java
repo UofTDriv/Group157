@@ -1,7 +1,10 @@
 package view;
 
+import interface_adapter.save.SaveController;
 import interface_adapter.save.SaveState;
 import interface_adapter.save.SaveViewModel;
+import interface_adapter.search.SearchController;
+import interface_adapter.search.SearchState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +20,10 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
     final JTextField savedJourneyTitle;
     final JLabel rootArticleTitle;
 
-    final JButton saveButton;
+    final JButton saveAndContinueButton;
+    final JButton saveAndCloseButton;
+
+    private SaveController saveController;
 
     public SaveView(SaveViewModel viewModel) {
         this.viewModel = viewModel;
@@ -43,9 +49,36 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
         saveInput.add(rootArticleTitle);
         saveInput.setMaximumSize(saveInput.getPreferredSize());
 
-        this.saveButton = new JButton(SaveViewModel.SAVE_BUTTON_LABEL);
+        this.saveAndContinueButton = new JButton(SaveViewModel.SAVE_AND_CONTINUE_BUTTON_LABEL);
+        this.saveAndCloseButton = new JButton(SaveViewModel.SAVE_AND_CLOSE_BUTTON_LABEL);
 
-        StandardMenuPanel.standardUI(this, toptext, saveInput, saveButton);
+        StandardMenuPanel.standardUI(this, toptext, saveInput, saveAndContinueButton);
+        saveAndContinueButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(saveAndContinueButton)) {
+                            final SaveState currentState = viewModel.getState();
+
+                            saveController.execute("continue", savedJourneyTitle.getText());
+                        }
+                    }
+                }
+        );
+
+        StandardMenuPanel.standardUI(this, toptext, saveInput, saveAndCloseButton);
+        saveAndCloseButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(saveAndCloseButton)) {
+                            final SaveState currentState = viewModel.getState();
+
+                            saveController.execute("close", savedJourneyTitle.getText());
+                        }
+                    }
+                }
+        );
     }
 
     @Override
@@ -63,5 +96,9 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
 
     public String getViewName() {
         return viewName;
+    }
+
+    public void setSaveController(SaveController saveController) {
+        this.saveController = saveController;
     }
 }
