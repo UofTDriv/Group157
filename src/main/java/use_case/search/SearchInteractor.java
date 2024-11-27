@@ -28,7 +28,7 @@ public class SearchInteractor implements SearchInputBoundary {
         }
         else {
             String title = searchAccessObject.getTitle(subject);
-            String content = cleanWikipediaHTML(searchAccessObject.getHTML(subject));
+            String content = WebPage.cleanWikipediaHTML(searchAccessObject.getHTML(subject));
             WebPage rootPage = new WebPage(title, content);
             ArrayList<String> links = searchAccessObject.getPageLinks(subject);
 
@@ -36,7 +36,7 @@ public class SearchInteractor implements SearchInputBoundary {
 
             journeyAccessObject.setRootPage(root);
 
-            SearchOutputData outputData = new SearchOutputData(title, content, false);
+            SearchOutputData outputData = new SearchOutputData(rootPage, false);
             presenter.prepareSuccessView(outputData);
         }
     }

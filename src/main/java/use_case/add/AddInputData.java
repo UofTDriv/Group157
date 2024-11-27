@@ -9,8 +9,8 @@ public class AddInputData {
     private final Node current;
     private final Node parents;
 
-    public GraphInputData(Node current, Node parent) {
+    public AddInputData(Node current, Node parents) {
         this.current = current;
-        this.parents = parent;
+        this.parents = parents;
     }
 }

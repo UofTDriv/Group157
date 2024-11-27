@@ -1,11 +1,9 @@
 package view;
 
-import interface_adapter.graph.GraphController;
 import interface_adapter.journey.JourneyController;
 import interface_adapter.add.AddController;
 import interface_adapter.journey.JourneyState;
 import interface_adapter.journey.JourneyViewModel;
-import interface_adapter.search.SearchState;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
@@ -49,7 +47,7 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
             new HyperlinkListener() {
                 public void hyperlinkUpdate(HyperlinkEvent e) {
                     if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-                        controller.addNewNode(e.getDescription());
+                        controller.execute(e.getDescription());
                     }
                 }
             }

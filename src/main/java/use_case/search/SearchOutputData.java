@@ -1,24 +1,26 @@
 package use_case.search;
 
+import entity.WebPage;
+
 /**
  * Output data for the search use case.
- * NOTE: THIS IS A VERY BAREBONES IMPLEMENTATION - SPECIFIC ATTRIBUTES SHOULD BE ALTERED BASED ON WHAT WE WANT TO
- * PUT IN FRONT OF THE USER IN THE VIEW
  */
 public class SearchOutputData {
-    private final String title;
-    private final String body;
+    private final WebPage rootPage;
     private final boolean useCaseFailed;
 
-    public SearchOutputData(String title, String body, boolean useCaseFailed) {
-        this.title = title;
-        this.body = body;
+    public SearchOutputData(WebPage rootPage, boolean useCaseFailed) {
+        this.rootPage = rootPage;
         this.useCaseFailed = useCaseFailed;
     }
 
-    public String getTitle() { return this.title; }
+    public String getRootTitle() {
+        return this.rootPage.title;
+    }
 
-    public String getBody() { return this.body; }
+    public WebPage getRootPage() {
+        return this.rootPage;
+    }
 
     public boolean getUseCaseFailed() { return this.useCaseFailed; }
 }

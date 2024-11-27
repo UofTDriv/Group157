@@ -11,7 +11,5 @@ public interface JourneyDataAccessInterface {
      */
     void setRootPage(Node rootNode);
 
-    void addNodeToJourney(Node node);
-
     Journey getJourney();
 }

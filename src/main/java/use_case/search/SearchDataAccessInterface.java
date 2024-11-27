@@ -24,5 +24,11 @@ public interface SearchDataAccessInterface {
      */
     String getTitle(String page);
 
+    /**
+     * Return the links contained in a given page
+     * Precondition: the page exists
+     * @param page the page id (i.e. with underscores and jazz)
+     * @return the title of the page
+     */
     ArrayList<String> getPageLinks(String page);
 }

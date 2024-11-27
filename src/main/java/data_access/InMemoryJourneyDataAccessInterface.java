@@ -30,25 +30,9 @@ public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInte
     }
 
     @Override
-    public void addNodeToGraph(String n) {
-        graph.addVertex(n);
-    }
-
-    @Override
-    public void addEdge(String parent, String to) {
-        graph.addEdge(parent, to);
-    }
-
-    @Override
     public Journey getJourney() {
         return journey;
     }
-
-    @Override
-    public void addNodeToJourney(Node node) {
-        journey.addNode(node);
-    }
-
 
     @Override
     public boolean wikiHistoryExists(String title) {

@@ -14,8 +14,8 @@ public class GraphState {
         this.graphT = new DefaultListenableGraph<>(new DefaultDirectedGraph<>(DefaultEdge.class));
     }
 
-    public Graph getGraphT() {
-        return (Graph) graphT;
+    public ListenableGraph<String, DefaultEdge> getGraphT() {
+        return graphT;
     }
 
     public void setGraphT(ListenableGraph<String, DefaultEdge> graphT) {
