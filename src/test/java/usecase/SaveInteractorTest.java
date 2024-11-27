@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SaveInteractorTest {
     @Test
     void test1() {
+        SaveDataAccessInterface saveDAO = new InMemorySaveDataAccessObject();
         SaveOutputBoundary presenter = new SaveOutputBoundary() {
             @Override
             public void prepareSuccessViewContinue(SaveOutputData saveOutputData) {
@@ -35,12 +36,14 @@ public class SaveInteractorTest {
 
             }
         };
-        SaveDataAccessInterface saveDAO = new InMemorySaveDataAccessObject();
+
         JourneyDataAccessInterface journeyDAO = new InMemoryJourneyDataAccessInterface();
         journeyDAO.setRootPage(new WebPage("Canada", "Blah blah blah"));
 
         SaveInputData inputData = new SaveInputData("close", "Canada Hole");
         SaveInteractor interactor = new SaveInteractor(presenter, saveDAO, journeyDAO);
+
         interactor.execute(inputData);
+        System.out.println(saveDAO.wikiHistoryExists("Canada Hole"));
     }
 }

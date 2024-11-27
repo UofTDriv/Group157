@@ -9,10 +9,10 @@ import java.util.List;
 public interface SaveDataAccessInterface {
     /**
      * Checks if a given wikiHistory exists in the hash map or DB
-     * @param title the title of the wikiHistory
+     * @param saveTitle the title of the wikiHistory
      * @return true iff the wikiHistory exists in the hash map or DB
      */
-    boolean wikiHistoryExists(String title);
+    boolean wikiHistoryExists(String saveTitle);
 
     /**
      * Saves wikiHistory into the hash map or DB, assuming that it does not already exist

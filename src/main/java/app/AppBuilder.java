@@ -147,7 +147,8 @@ public class AppBuilder {
     }
 
     public AppBuilder addSaveUseCase() {
-        final SaveOutputBoundary savePresenter = new SavePresenter(saveViewModel, viewManagerModel, navBarViewModel);
+        final SaveOutputBoundary savePresenter = new SavePresenter(saveViewModel, viewManagerModel, navBarViewModel,
+                openViewModel, journeyViewModel);
         final SaveInputBoundary saveInteractor = new SaveInteractor(savePresenter, saveDAO, memoryDAO);
         final SaveController controller = new SaveController(saveInteractor);
         saveView.setSaveController(controller);

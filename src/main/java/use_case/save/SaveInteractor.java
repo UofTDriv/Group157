@@ -47,9 +47,9 @@ public class SaveInteractor implements SaveInputBoundary {
 
         // Saving the WikiHistory object via the DAO
         if (continueOrClose.equals("continue")) {
-            if (saveDataAccessObject.wikiHistoryExists(saveTitle)) {
+            if (!(saveDataAccessObject.wikiHistoryExists(saveTitle))) {
                 saveDataAccessObject.save(saveTitle, wikiHistoryNodes);
-                SaveOutputData outputData = new SaveOutputData(saveTitle + " has been added");
+                SaveOutputData outputData = new SaveOutputData(saveTitle + " has been added", saveTitle, wikiHistoryNodes);
 
                 presenter.prepareSuccessViewContinue(outputData);
             } else {
@@ -59,12 +59,12 @@ public class SaveInteractor implements SaveInputBoundary {
         } else if (continueOrClose.equals("close")) {
             if (!(saveDataAccessObject.wikiHistoryExists(saveTitle))) {
                 saveDataAccessObject.save(saveTitle, wikiHistoryNodes);
-                SaveOutputData outputData = new SaveOutputData(saveTitle + " has been added");
+                SaveOutputData outputData = new SaveOutputData(saveTitle + " has been added", saveTitle, wikiHistoryNodes);
 
                 presenter.prepareSuccessViewClose(outputData);
                 // If the user clicked the "Save and Close" button, we want to reset whatever is in the JourneyDAO to null
                 journeyDataAccessObject.reset();
-                
+
             } else {
                 presenter.prepareFailViewClose(saveTitle + " already exists");
 
