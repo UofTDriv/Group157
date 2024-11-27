@@ -3,19 +3,15 @@ package use_case.save;
 import entity.Journey;
 
 public class SaveInputData {
-    private final String title;
-    private final Journey journey;
+    private final String continueOrClose;
+    private final String saveTitle;
 
-    public SaveInputData(String title, Journey journey) {
-        this.title = title;
-        this.journey = journey;
+    public SaveInputData(String continueOrClose, String saveTitle) {
+        this.continueOrClose = continueOrClose;
+        this.saveTitle = saveTitle;
     }
 
-    public String getTitle() {
-        return this.title;
-    }
+    public String getContinueOrClose() { return this.continueOrClose; }
 
-    public Journey getJourney() {
-        return this.journey;
-    }
+    public String getSaveTitle() { return this.saveTitle; }
 }

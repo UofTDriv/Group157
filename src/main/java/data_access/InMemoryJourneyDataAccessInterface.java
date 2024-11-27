@@ -3,14 +3,11 @@ package data_access;
 import entity.*;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.SimpleGraph;
 import use_case.graph.GraphDataAccessInterface;
 import use_case.journey.JourneyDataAccessInterface;
-import use_case.save.SaveDataAccessInterface;
 
 public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInterface,
-        GraphDataAccessInterface,
-        SaveDataAccessInterface {
+        GraphDataAccessInterface {
 
     private WikiHistory wikiHistory = null;
     private Journey journey = null;
@@ -35,17 +32,13 @@ public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInte
     }
 
     @Override
-    public boolean wikiHistoryExists(String title) {
-        return false;
-    }
+    public WikiHistory getWikiHistory() { return wikiHistory; }
 
     @Override
-    public void save(WikiHistory wikiHistory) throws Exception {
-
+    public void reset()  {
+        this.wikiHistory = null;
+        this.journey = null;
+        this.graph = null;
     }
 
-    @Override
-    public WikiHistory getCurrentWikiHistory() {
-        return wikiHistory;
-    }
 }

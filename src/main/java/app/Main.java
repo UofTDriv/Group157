@@ -1,7 +1,9 @@
 package app;
 
 import data_access.InMemoryJourneyDataAccessInterface;
+import data_access.InMemorySaveDataAccessObject;
 import data_access.WikipediaAccessObject;
+import use_case.save.SaveDataAccessInterface;
 import use_case.search.SearchDataAccessInterface;
 
 import javax.swing.*;
@@ -14,11 +16,13 @@ public class Main {
 
         final SearchDataAccessInterface searchAccessObj = new WikipediaAccessObject();
         final InMemoryJourneyDataAccessInterface journeyAccessObj = new InMemoryJourneyDataAccessInterface();
+        final SaveDataAccessInterface saveAccessObj = new InMemorySaveDataAccessObject();
 
         final AppBuilder appBuilder = new AppBuilder();
         final JFrame application = appBuilder
                 .addSearchDAO(searchAccessObj)
                 .addMemoryDAO(journeyAccessObj)
+                .addSaveDAO(saveAccessObj)
                 .addNavBarView()
                 .addSearchView()
                 .addJourneyView()
@@ -28,6 +32,7 @@ public class Main {
                 .addNavBarUseCase()
                 .addSearchUseCase()
                 .addJourneyUseCase()
+                .addSaveUseCase()
                 .build();
         application.pack();
         application.setVisible(true);

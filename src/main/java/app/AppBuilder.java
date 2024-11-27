@@ -1,6 +1,7 @@
 package app;
 
 import data_access.InMemoryJourneyDataAccessInterface;
+import data_access.InMemorySaveDataAccessObject;
 import interface_adapter.graph.GraphController;
 import interface_adapter.graph.GraphPresenter;
 import interface_adapter.journey.JourneyController;
@@ -12,6 +13,8 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.graph.GraphViewModel;
 import interface_adapter.journey.JourneyViewModel;
 import interface_adapter.open.OpenViewModel;
+import interface_adapter.save.SaveController;
+import interface_adapter.save.SavePresenter;
 import interface_adapter.save.SaveViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
@@ -25,6 +28,10 @@ import use_case.journey.JourneyOutputBoundary;
 import use_case.navBar.NavBarInputBoundary;
 import use_case.navBar.NavBarInteractor;
 import use_case.navBar.NavBarOutputBoundary;
+import use_case.save.SaveDataAccessInterface;
+import use_case.save.SaveInputBoundary;
+import use_case.save.SaveInteractor;
+import use_case.save.SaveOutputBoundary;
 import use_case.search.SearchDataAccessInterface;
 import use_case.search.SearchInputBoundary;
 import use_case.search.SearchInteractor;
@@ -43,10 +50,12 @@ public class AppBuilder {
     private final JPanel views = new JPanel();
     private final CardLayout cardLayout = new CardLayout();
 
-    private SearchDataAccessInterface searchDAO;
-    private InMemoryJourneyDataAccessInterface memoryDAO;
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(views, cardLayout, viewManagerModel);
+
+    private SearchDataAccessInterface searchDAO;
+    private InMemoryJourneyDataAccessInterface memoryDAO;
+    private SaveDataAccessInterface saveDAO;
 
     private NavBarViewModel navBarViewModel;
     private NavBarView navBarView;
@@ -72,6 +81,11 @@ public class AppBuilder {
 
     public AppBuilder addMemoryDAO(InMemoryJourneyDataAccessInterface dataAccessObject) {
         this.memoryDAO = dataAccessObject;
+        return this;
+    }
+
+    public AppBuilder addSaveDAO(SaveDataAccessInterface dataAccessObject) {
+        this.saveDAO = dataAccessObject;
         return this;
     }
 
@@ -110,7 +124,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addGraphView() {
-        graphViewModel = new GraphViewModel();
+        graphViewModel = new GraphViewModel(memoryDAO);
         graphView = new GraphView(graphViewModel);
         views.add(graphView, graphView.getViewName());
         return this;
@@ -132,6 +146,15 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addSaveUseCase() {
+        final SaveOutputBoundary savePresenter = new SavePresenter(saveViewModel, viewManagerModel, navBarViewModel,
+                openViewModel, journeyViewModel);
+        final SaveInputBoundary saveInteractor = new SaveInteractor(savePresenter, saveDAO, memoryDAO);
+        final SaveController controller = new SaveController(saveInteractor);
+        saveView.setSaveController(controller);
+        return this;
+    }
+
     public AppBuilder addNavBarUseCase() {
         final NavBarOutputBoundary navBarPresenter = new NavBarPresenter(viewManagerModel, navBarViewModel,
                 searchViewModel, journeyViewModel, saveViewModel, openViewModel, graphViewModel);
@@ -150,17 +173,15 @@ public class AppBuilder {
         return this;
     }
 
-//    public AppBuilder addAddUseCase() {
-//        final AddOutputBoundary addPresenter = new AddPresenter(graphViewModel, viewManagerModel, journeyViewModel);
-//        final AddInputBoundary addInteractor = new AddInteractor(addPresenter);
-//        final AddController controller = new AddController(addInteractor);
-//        journeyView.setAddController(controller);
-//        return this;
-//    }
-
     public JFrame build() {
         final JFrame application = new JFrame("Wikipedia Journey Viewer");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle usableBounds = env.getMaximumWindowBounds();
+        application.setMaximizedBounds(usableBounds);
+        application.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         application.setLayout(new BorderLayout());
 
         application.add(views, BorderLayout.CENTER);
