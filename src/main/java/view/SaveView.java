@@ -39,7 +39,7 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
         inputTitle.setMaximumSize(inputTitle.getPreferredSize());
         saveInput.add(inputTitle);
 
-        this.savedJourneyTitle  = new JTextField(20);
+        this.savedJourneyTitle = new JTextField(20);
         savedJourneyTitle.setMaximumSize(savedJourneyTitle.getPreferredSize());
         saveInput.add(savedJourneyTitle);
 

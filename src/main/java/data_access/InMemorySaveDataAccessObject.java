@@ -17,14 +17,7 @@ public class InMemorySaveDataAccessObject implements SaveDataAccessInterface {
         return wikiHistoriesNodes.containsKey(title);
     }
 
-    public void save(String saveTitle, List<Node> nodesForHistory) throws Exception {
-        if (!(wikiHistoryExists(saveTitle))) {
-            wikiHistoriesNodes.put(saveTitle, nodesForHistory);
-        } else {
-            throw new Exception("WikiHistory by that name already exists");
-        }
-
-        // What to do if the journey already exists, so it is not overriden? Maybe throw an exception
-
+    public void save(String saveTitle, List<Node> nodesForHistory) {
+        wikiHistoriesNodes.put(saveTitle, nodesForHistory);
     }
 }

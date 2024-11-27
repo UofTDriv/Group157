@@ -41,17 +41,18 @@ public class SavePresenter implements SaveOutputBoundary {
         navBarViewModel.firePropertyChanged("state");
 
         final SaveState saveState = saveViewModel.getState();
-        saveState.setRootArticleTitle("blah blah");
+        saveState.setRootArticleTitle("");
         this.saveViewModel.setState(saveState);
         saveViewModel.firePropertyChanged("state");
     }
 
     @Override
     public void prepareFailViewClose(String errorMessage) {
-        // THIS IS TEMPORARY
         final SaveState saveState = saveViewModel.getState();
         saveState.setRootArticleTitle(errorMessage);
         this.saveViewModel.setState(saveState);
         saveViewModel.firePropertyChanged("state");
+
+
     }
 }

@@ -1,6 +1,7 @@
 package app;
 
 import data_access.InMemoryJourneyDataAccessInterface;
+import data_access.InMemorySaveDataAccessObject;
 import interface_adapter.graph.GraphController;
 import interface_adapter.graph.GraphPresenter;
 import interface_adapter.journey.JourneyController;
@@ -12,6 +13,8 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.graph.GraphViewModel;
 import interface_adapter.journey.JourneyViewModel;
 import interface_adapter.open.OpenViewModel;
+import interface_adapter.save.SaveController;
+import interface_adapter.save.SavePresenter;
 import interface_adapter.save.SaveViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
@@ -25,6 +28,10 @@ import use_case.journey.JourneyOutputBoundary;
 import use_case.navBar.NavBarInputBoundary;
 import use_case.navBar.NavBarInteractor;
 import use_case.navBar.NavBarOutputBoundary;
+import use_case.save.SaveDataAccessInterface;
+import use_case.save.SaveInputBoundary;
+import use_case.save.SaveInteractor;
+import use_case.save.SaveOutputBoundary;
 import use_case.search.SearchDataAccessInterface;
 import use_case.search.SearchInputBoundary;
 import use_case.search.SearchInteractor;
@@ -48,6 +55,7 @@ public class AppBuilder {
 
     private SearchDataAccessInterface searchDAO;
     private InMemoryJourneyDataAccessInterface memoryDAO;
+    private SaveDataAccessInterface saveDAO;
 
     private NavBarViewModel navBarViewModel;
     private NavBarView navBarView;
@@ -73,6 +81,11 @@ public class AppBuilder {
 
     public AppBuilder addMemoryDAO(InMemoryJourneyDataAccessInterface dataAccessObject) {
         this.memoryDAO = dataAccessObject;
+        return this;
+    }
+
+    public AppBuilder addSaveDAO(SaveDataAccessInterface dataAccessObject) {
+        this.saveDAO = dataAccessObject;
         return this;
     }
 
@@ -130,6 +143,14 @@ public class AppBuilder {
         final JourneyInputBoundary journeyInteractor = new JourneyInteractor(searchDAO, memoryDAO, journeyPresenter);
         final JourneyController controller = new JourneyController(journeyInteractor);
         journeyView.setController(controller);
+        return this;
+    }
+
+    public AppBuilder addSaveUseCase() {
+        final SaveOutputBoundary savePresenter = new SavePresenter(saveViewModel, viewManagerModel, navBarViewModel);
+        final SaveInputBoundary saveInteractor = new SaveInteractor(savePresenter, saveDAO, memoryDAO);
+        final SaveController controller = new SaveController(saveInteractor);
+        saveView.setSaveController(controller);
         return this;
     }
 

@@ -1,7 +1,10 @@
 package use_case.save;
 
 import entity.Journey;
+import entity.Node;
 import entity.WikiHistory;
+
+import java.util.List;
 
 public interface SaveDataAccessInterface {
     /**
@@ -13,13 +16,8 @@ public interface SaveDataAccessInterface {
 
     /**
      * Saves wikiHistory into the hash map or DB, assuming that it does not already exist
-     * @param wikiHistory the journey object to be saved
+     * @param saveTitle the title of the wikihistory/journey that the User has provided
+     * @param wikiHistoryNodes a CLONE of the wiki history's nodes with the webpage for each node equal to 'null'
      */
-    void save(WikiHistory wikiHistory) throws Exception;
-
-    /**
-     * Gets the current wikiHistory object
-     * @return The current wikiHistory object
-     */
-    WikiHistory getCurrentWikiHistory();
+    void save(String saveTitle, List<Node> wikiHistoryNodes);
 }

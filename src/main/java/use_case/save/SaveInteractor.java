@@ -1,13 +1,9 @@
 package use_case.save;
 
-import data_access.InMemorySaveDataAccessObject;
-import entity.Journey;
 import entity.Node;
 import entity.WebPage;
 import entity.WikiHistory;
 import use_case.journey.JourneyDataAccessInterface;
-import use_case.search.SearchDataAccessInterface;
-import use_case.search.SearchInteractor;
 
 import java.util.ArrayList;
 
@@ -49,36 +45,31 @@ public class SaveInteractor implements SaveInputBoundary {
 
         }
 
-        // If the user clicked the "Save and Close" button, we want to reset whatever is in the JourneyDAO to null
-        if (continueOrClose.equals("close")) {
-            journeyDataAccessObject.reset();
-        }
-
         // Saving the WikiHistory object via the DAO
-        try {
-            if (continueOrClose.equals("continue")) {
+        if (continueOrClose.equals("continue")) {
+            if (saveDataAccessObject.wikiHistoryExists(saveTitle)) {
                 saveDataAccessObject.save(saveTitle, wikiHistoryNodes);
                 SaveOutputData outputData = new SaveOutputData(saveTitle + " has been added");
 
                 presenter.prepareSuccessViewContinue(outputData);
+            } else {
+                presenter.prepareFailViewContinue(saveTitle + " already exists");
+            }
 
-            } else if (continueOrClose.equals("close")) {
+        } else if (continueOrClose.equals("close")) {
+            if (!(saveDataAccessObject.wikiHistoryExists(saveTitle))) {
                 saveDataAccessObject.save(saveTitle, wikiHistoryNodes);
                 SaveOutputData outputData = new SaveOutputData(saveTitle + " has been added");
 
                 presenter.prepareSuccessViewClose(outputData);
-            }
-
-        } catch (Exception e) {
-
-            if (continueOrClose.equals("continue")) {
-                presenter.prepareFailViewContinue(saveTitle + " already exists");
-
-            } else if (continueOrClose.equals("close")) {
+                // If the user clicked the "Save and Close" button, we want to reset whatever is in the JourneyDAO to null
+                journeyDataAccessObject.reset();
+                
+            } else {
                 presenter.prepareFailViewClose(saveTitle + " already exists");
+
             }
+
         }
-
-
     }
 }
