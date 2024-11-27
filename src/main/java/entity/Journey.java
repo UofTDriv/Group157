@@ -5,15 +5,13 @@ import java.util.ArrayList;
 public class Journey {
     private final Node rootNode;
     private final String rootPageTitle;
-    private final ArrayList<Node> nodeHistory;
+    private final WikiHistory wikiHistory;
     private int currentPageIndex;
 
-
-    public Journey(Node rootNode) {
+    public Journey(Node rootNode, WikiHistory wikiHistory) {
         this.rootNode = rootNode;
         this.rootPageTitle = rootNode.toString();
-        this.nodeHistory = new ArrayList<>();
-        this.nodeHistory.add(rootNode);
+        this.wikiHistory = wikiHistory;
         this.currentPageIndex = 0;
     }
 
@@ -26,11 +24,11 @@ public class Journey {
     }
 
     public void addNode(Node node) {
-        nodeHistory.add(node);
+        wikiHistory.add(node);
         currentPageIndex++;
     }
 
     public Node getCurrentNode() {
-        return nodeHistory.get(currentPageIndex);
+        return wikiHistory.getNode(currentPageIndex);
     }
 }

@@ -6,7 +6,4 @@ import entity.Node;
 public interface GraphDataAccessInterface {
 
     Graph getGraph();
-
-    void addNode(Node n);
-
 }

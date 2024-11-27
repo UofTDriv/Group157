@@ -1,5 +1,6 @@
 package entity;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +13,14 @@ public class Node {
     private List<Node> children;
     private final boolean addedtoGraph;
 
-    public Node(WebPage page, Node parentNode, boolean addedtoGraph) {
+    public Node(WebPage page, Node parentNode, ArrayList<Node> links, boolean addedtoGraph) {
         this.page = page;
         this.title = page.title;
         this.addedtoGraph = addedtoGraph;
+        // Should we use an array list for 'parents' and 'children'
         this.parents = new ArrayList<>();
         this.parents.add(parentNode);
-        this.children = new ArrayList<>();
+        this.children = links;
     }
 
     public String getTitle() { return title; }

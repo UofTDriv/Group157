@@ -8,7 +8,7 @@ public interface GraphInputBoundary {
     /**
      * Adds a node to the existing graph
      */
-    void addNode(NodeInputData nodeInputData);
+    void addNode(GraphInputData graphInputData);
 
     void switchToRoot();
 

@@ -17,7 +17,7 @@ public class JourneyController {
      * Executes the journey Use Case
      * @param link the link to the wikipedia article that the user has clicked on
      */
-    public void addNewNode(String link) {
+    public void execute(String link) {
         link = link.replaceAll("^/wiki/", "");
 
         final JourneyInputData journeyInputData = new JourneyInputData(link);

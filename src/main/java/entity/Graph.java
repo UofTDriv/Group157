@@ -1,12 +1,12 @@
 package entity;
 
+import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultListenableGraph;
-import org.jgrapht.graph.SimpleGraph;
 
-public class Graph extends DefaultListenableGraph<Node, DefaultEdge> {
+public class Graph extends DefaultListenableGraph<String, DefaultEdge> {
 
-    public Graph(SimpleGraph<Node, DefaultEdge> graph) {
+    public Graph(DefaultDirectedGraph<String, DefaultEdge> graph) {
         super(graph);
     }
 

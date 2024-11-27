@@ -1,16 +1,32 @@
 package interface_adapter.graph;
 
 import entity.Graph;
-import use_case.graph.GraphDataAccessInterface;
+import org.jgrapht.ListenableGraph;
+import org.jgrapht.graph.DefaultDirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultListenableGraph;
 
 public class GraphState {
-    private final GraphDataAccessInterface graphDataAccessInterface;
+    private ListenableGraph<String, DefaultEdge> graphT;
+    private String addError;
 
-    public GraphState(GraphDataAccessInterface graphDataAccessInterface) {
-        this.graphDataAccessInterface = graphDataAccessInterface;
+    public GraphState() {
+        this.graphT = new DefaultListenableGraph<>(new DefaultDirectedGraph<>(DefaultEdge.class));
     }
 
-    public Graph getGraph() {
-        return this.graphDataAccessInterface.getGraph();
+    public ListenableGraph<String, DefaultEdge> getGraphT() {
+        return graphT;
+    }
+
+    public void setGraphT(ListenableGraph<String, DefaultEdge> graphT) {
+        this.graphT = graphT;
+    }
+
+    public void setSearchError(String error) {
+        this.addError = error;
+    }
+
+    public String getAddError() {
+        return addError;
     }
 }

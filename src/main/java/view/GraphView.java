@@ -2,7 +2,6 @@ package view;
 
 import com.mxgraph.layout.mxCircleLayout;
 import com.mxgraph.swing.mxGraphComponent;
-import entity.Node;
 import interface_adapter.graph.GraphController;
 import interface_adapter.graph.GraphState;
 import interface_adapter.graph.GraphViewModel;
@@ -23,7 +22,7 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
     private final GraphViewModel viewModel;
     private GraphController controller;
 
-    private JGraphXAdapter<Node, DefaultEdge> jgxAdapter;
+    private JGraphXAdapter<String, DefaultEdge> jgxAdapter;
 
     private static final Dimension DEFAULT_SIZE = new Dimension(530, 320);
 
@@ -32,7 +31,7 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
         this.viewName = viewModel.getViewName();
         viewModel.addPropertyChangeListener(this);
 
-        this.jgxAdapter = new JGraphXAdapter<>(viewModel.getState().getGraph());
+        this.jgxAdapter = new JGraphXAdapter<>(viewModel.getState().getGraphT());
 
         this.setPreferredSize(DEFAULT_SIZE);
 
@@ -69,7 +68,6 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
         this.add(graphComponent);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showMessageDialog(this, "Cancel not implemented yet.");
@@ -77,10 +75,10 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-//        if (evt.getPropertyName().equals("graph")) {
-//            final GraphState state = (GraphState) evt.getNewValue();
-//            jgxAdapter = new JGraphXAdapter<>(state.getGraph());
-//        }
+        if (evt.getPropertyName().equals("graph")) {
+            final GraphState state = (GraphState) evt.getNewValue();
+            jgxAdapter = new JGraphXAdapter<>(state.getGraphT());
+        }
     }
 
     public void setController(GraphController controller) {

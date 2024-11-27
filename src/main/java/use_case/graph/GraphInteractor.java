@@ -13,7 +13,7 @@ public class GraphInteractor implements GraphInputBoundary {
     }
 
     @Override
-    public void addNode(NodeInputData newNode) {
+    public void addNode(GraphInputData newNode) {
 
     }
 

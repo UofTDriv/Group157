@@ -1,7 +1,6 @@
 package interface_adapter.journey;
 
 import entity.Journey;
-import entity.Node;
 import entity.WebPage;
 
 public class JourneyState {
@@ -31,10 +30,12 @@ public class JourneyState {
         return currentPage.content;
     }
 
+    public String getCurrentPageTitle() {
+        return currentPage.title;
+    }
+
     public void setCurrentPage(WebPage currentPage) {
         this.currentPage = currentPage;
     }
-
-
 
 }
