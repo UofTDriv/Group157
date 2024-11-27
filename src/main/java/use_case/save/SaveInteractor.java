@@ -3,6 +3,7 @@ package use_case.save;
 import entity.Node;
 import entity.WebPage;
 import entity.WikiHistory;
+import org.jgrapht.alg.util.Pair;
 import use_case.journey.JourneyDataAccessInterface;
 
 import java.util.ArrayList;
@@ -44,32 +45,41 @@ public class SaveInteractor implements SaveInputBoundary {
             wikiHistoryNodes.get(i).setChildren(curr.getChildren());
 
         }
+        // Are the WikiHistory nodes already in the database
+        // or does the save share the same name as another entry or BOTH?
+        Pair<Boolean, Boolean> condition = saveDataAccessObject.wikiHistoryExists(saveTitle, wikiHistoryNodes);
+
 
         // Saving the WikiHistory object via the DAO
-        if (continueOrClose.equals("continue")) {
-            if (!(saveDataAccessObject.wikiHistoryExists(saveTitle))) {
-                saveDataAccessObject.save(saveTitle, wikiHistoryNodes);
-                SaveOutputData outputData = new SaveOutputData(saveTitle + " has been added", saveTitle, wikiHistoryNodes);
+        if (!condition.getFirst() && !condition.getSecond()) {
+            // ur good to go
+            saveDataAccessObject.save(saveTitle, wikiHistoryNodes);
+            SaveOutputData outputData = new SaveOutputData(saveTitle + " has been added", saveTitle, wikiHistoryNodes);
 
+            if (continueOrClose.equals("continue")) {
                 presenter.prepareSuccessViewContinue(outputData);
-            } else {
-                presenter.prepareFailViewContinue(saveTitle + " already exists");
-            }
-
-        } else if (continueOrClose.equals("close")) {
-            if (!(saveDataAccessObject.wikiHistoryExists(saveTitle))) {
-                saveDataAccessObject.save(saveTitle, wikiHistoryNodes);
-                SaveOutputData outputData = new SaveOutputData(saveTitle + " has been added", saveTitle, wikiHistoryNodes);
-
+            } else if (continueOrClose.equals("close")) {
                 presenter.prepareSuccessViewClose(outputData);
                 // If the user clicked the "Save and Close" button, we want to reset whatever is in the JourneyDAO to null
                 journeyDataAccessObject.reset();
-
-            } else {
-                presenter.prepareFailViewClose(saveTitle + " already exists");
-
             }
 
+        } else if (!condition.getFirst() && condition.getSecond()) {
+            // you've already saved this history!
+            if (continueOrClose.equals("continue")) {
+                presenter.prepareFailViewContinue("You've already saved this history");
+            } else if (continueOrClose.equals("close")) {
+                presenter.prepareFailViewClose("You've already saved this history");
+            }
+
+        } else {
+            // history by that name already exists
+            if (continueOrClose.equals("continue")) {
+                presenter.prepareFailViewContinue("History by that name already exists");
+            } else if (continueOrClose.equals("close")) {
+                presenter.prepareFailViewClose("History by that name already exists");
+            }
         }
+
     }
 }

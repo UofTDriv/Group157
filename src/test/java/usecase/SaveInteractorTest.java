@@ -44,6 +44,10 @@ public class SaveInteractorTest {
         SaveInteractor interactor = new SaveInteractor(presenter, saveDAO, journeyDAO);
 
         interactor.execute(inputData);
-        System.out.println(saveDAO.wikiHistoryExists("Canada Hole"));
+
+        SaveInputData inputData2 = new SaveInputData("close", "Canada Bowl");
+        journeyDAO.setRootPage(new WebPage("Canada", "Blah blah blah"));
+        interactor.execute(inputData2);
+//        System.out.println(saveDAO.wikiHistoryExists("Canada Hole"));
     }
 }
