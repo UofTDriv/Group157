@@ -1,7 +1,9 @@
 package app;
 
+
 import data_access.InMemoryJourneyDataAccessInterface;
 import data_access.InMemorySaveDataAccessObject;
+import data_access.InMemoryJourneyDataAccessObject;
 import interface_adapter.add.AddController;
 import interface_adapter.add.AddPresenter;
 import interface_adapter.graph.GraphController;
@@ -59,7 +61,7 @@ public class AppBuilder {
     private final ViewManager viewManager = new ViewManager(views, cardLayout, viewManagerModel);
 
     private SearchDataAccessInterface searchDAO;
-    private InMemoryJourneyDataAccessInterface memoryDAO;
+    private InMemoryJourneyDataAccessObject memoryDAO;
     private SaveDataAccessInterface saveDAO;
 
     private NavBarViewModel navBarViewModel;
@@ -84,7 +86,7 @@ public class AppBuilder {
         return this;
     }
 
-    public AppBuilder addMemoryDAO(InMemoryJourneyDataAccessInterface dataAccessObject) {
+    public AppBuilder addMemoryDAO(InMemoryJourneyDataAccessObject dataAccessObject) {
         this.memoryDAO = dataAccessObject;
         return this;
     }
@@ -152,7 +154,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addJourneyUseCase() {
-        final JourneyOutputBoundary journeyPresenter = new JourneyPresenter(journeyViewModel);
+        final JourneyOutputBoundary journeyPresenter = new JourneyPresenter(journeyViewModel, navBarViewModel);
         final JourneyInputBoundary journeyInteractor = new JourneyInteractor(searchDAO, memoryDAO, journeyPresenter);
         final JourneyController controller = new JourneyController(journeyInteractor);
         journeyView.setController(controller);

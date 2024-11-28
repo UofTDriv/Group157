@@ -9,7 +9,7 @@ public class AddInputData {
     public AddInputData(String title) {
         this.title = title;
     }
-
+  
     public String getTitle() {
         return title;
     }

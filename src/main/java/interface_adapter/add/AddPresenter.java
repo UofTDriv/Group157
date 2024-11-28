@@ -34,7 +34,7 @@ public class AddPresenter implements AddOutputBoundary {
     }
 
     @Override
-    public void prepareFailView(String errorMessage) {
-        // TODO: Implement after finishing entities
+    public void prepareFailView(AddOutputData outputData) {
+      
     }
 }

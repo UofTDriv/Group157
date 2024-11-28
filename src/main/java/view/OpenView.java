@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.open.OpenController;
 import interface_adapter.open.OpenState;
 import interface_adapter.open.OpenViewModel;
 import interface_adapter.save.SaveState;
@@ -20,6 +21,8 @@ public class OpenView extends JPanel implements ActionListener, PropertyChangeLi
     private final JLabel toptext;
     private final JPanel saves;
 
+    private OpenController openController;
+
     public OpenView(OpenViewModel viewModel) {
         this.viewModel = viewModel;
         this.viewName = viewModel.getViewName();
@@ -27,14 +30,8 @@ public class OpenView extends JPanel implements ActionListener, PropertyChangeLi
 
         this.toptext = new JLabel(OpenViewModel.INFO_LABEL);
 
-        this.saves = new JPanel(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridy = 0;
-
-        JButton niy = new JButton("Not implemented yet");
-        saves.add(niy, c);
-        saves.setMaximumSize(new Dimension(Integer.MAX_VALUE, niy.getPreferredSize().height));
+        this.saves = new JPanel();
+        saves.setLayout(new BoxLayout(saves, BoxLayout.Y_AXIS));
 
         openLast = new JButton("Open Last: ");
 
@@ -51,16 +48,24 @@ public class OpenView extends JPanel implements ActionListener, PropertyChangeLi
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final OpenState state = (OpenState) evt.getNewValue();
-//            rootArticleTitle.setText(state.getRootArticleTitle());
             String saveTitle = state.getWikiHistoryNodes().get(state.getWikiHistoryNodes().size() - 1).getFirst();
             JButton newSave = new JButton(saveTitle);
 
-//            StandardMenuPanel.standardUI(this, toptext, saves, newSave);
             saves.add(newSave);
+            newSave.addActionListener(
+                    new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            openController.execute(newSave.getText());
+                        }
+                    }
+            );
         }
     }
 
     public String getViewName() {
         return viewName;
     }
+
+    public void setOpenController(OpenController openController) { this.openController = openController; }
 }

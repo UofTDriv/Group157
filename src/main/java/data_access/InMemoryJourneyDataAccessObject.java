@@ -6,18 +6,17 @@ import org.jgrapht.graph.DefaultEdge;
 import use_case.graph.GraphDataAccessInterface;
 import use_case.journey.JourneyDataAccessInterface;
 
-public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInterface,
+public class InMemoryJourneyDataAccessObject implements JourneyDataAccessInterface,
         GraphDataAccessInterface {
 
     private WikiHistory wikiHistory = null;
     private Journey journey = null;
-    private Graph graph = null;
+    private Graph graph = new Graph(new DefaultDirectedGraph<>(DefaultEdge.class));
 
     @Override
-    public void setRootPage(Node rootNode) {
+    public void setRootNode(Node rootNode) {
         wikiHistory = new WikiHistory(rootNode);
         journey = new Journey(rootNode, wikiHistory);
-        graph = new Graph(new DefaultDirectedGraph<>(DefaultEdge.class));
         graph.addVertex(rootNode.toString());
     }
 

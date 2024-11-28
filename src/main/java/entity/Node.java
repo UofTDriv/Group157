@@ -11,7 +11,7 @@ public class Node {
     // children for my clones in SaveInteractor
     private List<Node> parents;
     private List<String> children;
-    private final boolean addedtoGraph;
+    private boolean addedtoGraph;
 
     public Node(WebPage page, Node parentNode, ArrayList<String> links, boolean addedtoGraph) {
         this.page = page;
@@ -29,16 +29,28 @@ public class Node {
         return page;
     }
 
+    public boolean isAddedtoGraph() {
+        return addedtoGraph;
+    }
+
+    public void setAddedtoGraph(boolean addedtoGraph) {
+        this.addedtoGraph = addedtoGraph;
+    }
+
+    public void setChildren(List<String> children) {
+        this.children = children;
+    }
+
     // These getters and setters are for processing the WikiHistory nodes for saving more efficiently
 
     public List<Node> getParents() { return parents; }
 
     public void setParents(List<Node> parents) { this.parents = parents; }
 
+
     public ArrayList<String> getChildren() { return (ArrayList<String>) children; }
 
-    public void setChildren(List<String> children) { this.children = children; }
-
+//    public void setChildren(List<Node> children) { this.children = children; }
 
     // https://jgrapht.org/guide/VertexAndEdgeTypes#vertices-with-attributes state we must implement the following.
     @Override

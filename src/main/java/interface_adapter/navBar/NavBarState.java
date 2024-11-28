@@ -39,12 +39,15 @@ public class NavBarState {
         return journey;
     }
 
+    public void setJourneyPage(String rootAndCurrentPageTitle) {
+        this.journey = rootAndCurrentPageTitle;
+    }
+
     public void setJourney(String rootPageTitle) {
         this.journey = rootPageTitle;
         this.save = "Save: " + rootPageTitle;
         this.graph = "Graph: " + rootPageTitle;
     }
-
 
     // This is for when the User presses the "Save and Close" button
     public void resetJourney() {

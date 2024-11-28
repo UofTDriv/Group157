@@ -1,6 +1,7 @@
 package use_case.add;
 
 public class AddOutputData {
+  
     private final String title;
     private final boolean useCaseFailed;
 
