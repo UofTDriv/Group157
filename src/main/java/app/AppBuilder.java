@@ -124,7 +124,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addGraphView() {
-        graphViewModel = new GraphViewModel(memoryDAO);
+        graphViewModel = new GraphViewModel();
         graphView = new GraphView(graphViewModel);
         views.add(graphView, graphView.getViewName());
         return this;
@@ -139,7 +139,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addJourneyUseCase() {
-        final JourneyOutputBoundary journeyPresenter = new JourneyPresenter(journeyViewModel);
+        final JourneyOutputBoundary journeyPresenter = new JourneyPresenter(journeyViewModel, navBarViewModel);
         final JourneyInputBoundary journeyInteractor = new JourneyInteractor(searchDAO, memoryDAO, journeyPresenter);
         final JourneyController controller = new JourneyController(journeyInteractor);
         journeyView.setController(controller);

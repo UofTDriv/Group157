@@ -43,8 +43,6 @@ public class SaveInteractor implements SaveInputBoundary {
 
             // Setting the parents and children for the clone...
             wikiHistoryNodes.get(i).setParents(curr.getParents());
-            wikiHistoryNodes.get(i).setChildren(curr.getChildren());
-
         }
         // Are the WikiHistory nodes already in the database
         // or does the save share the same name as another entry or BOTH?

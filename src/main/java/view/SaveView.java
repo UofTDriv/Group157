@@ -52,7 +52,6 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
         this.saveAndContinueButton = new JButton(SaveViewModel.SAVE_AND_CONTINUE_BUTTON_LABEL);
         this.saveAndCloseButton = new JButton(SaveViewModel.SAVE_AND_CLOSE_BUTTON_LABEL);
 
-        StandardMenuPanel.standardUI(this, toptext, saveInput, saveAndContinueButton);
         saveAndContinueButton.addActionListener(
                 new ActionListener() {
                     @Override
@@ -79,6 +78,14 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
                     }
                 }
         );
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
+        buttonPanel.add(saveAndContinueButton);
+        buttonPanel.add(saveAndCloseButton);
+
+        StandardMenuPanel.standardUI(this, toptext, saveInput, buttonPanel);
+
     }
 
     @Override

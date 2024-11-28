@@ -13,4 +13,8 @@ public class JourneyOutputData {
     public WebPage getPage() {
         return page;
     }
+
+    public String getTitle() {
+        return page.title;
+    }
 }

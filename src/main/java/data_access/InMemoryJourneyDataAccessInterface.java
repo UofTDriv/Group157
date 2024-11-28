@@ -14,7 +14,7 @@ public class InMemoryJourneyDataAccessInterface implements JourneyDataAccessInte
     private Graph graph = null;
 
     @Override
-    public void setRootPage(Node rootNode) {
+    public void setRootNode(Node rootNode) {
         wikiHistory = new WikiHistory(rootNode);
         journey = new Journey(rootNode, wikiHistory);
         graph = new Graph(new DefaultDirectedGraph<>(DefaultEdge.class));

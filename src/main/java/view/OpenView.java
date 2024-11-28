@@ -27,14 +27,8 @@ public class OpenView extends JPanel implements ActionListener, PropertyChangeLi
 
         this.toptext = new JLabel(OpenViewModel.INFO_LABEL);
 
-        this.saves = new JPanel(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridy = 0;
-
-        JButton niy = new JButton("Not implemented yet");
-        saves.add(niy, c);
-        saves.setMaximumSize(new Dimension(Integer.MAX_VALUE, niy.getPreferredSize().height));
+        this.saves = new JPanel();
+        saves.setLayout(new BoxLayout(saves, BoxLayout.Y_AXIS));
 
         openLast = new JButton("Open Last: ");
 
