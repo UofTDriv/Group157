@@ -34,6 +34,7 @@ public class Main {
                 .addSearchUseCase()
                 .addJourneyUseCase()
                 .addSaveUseCase()
+                .addAddUseCase()
                 .addNavBarUseCase()
                 .build();
         application.pack();

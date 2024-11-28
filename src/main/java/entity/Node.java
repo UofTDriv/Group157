@@ -47,7 +47,8 @@ public class Node {
 
     public void setParents(List<Node> parents) { this.parents = parents; }
 
-    public ArrayList<String> getChildren() { return (ArrayList<String>) this.children; }
+
+    public ArrayList<String> getChildren() { return (ArrayList<String>) children; }
 
 //    public void setChildren(List<Node> children) { this.children = children; }
 

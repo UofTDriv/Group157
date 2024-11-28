@@ -1,5 +1,8 @@
 package app;
 
+
+import data_access.InMemoryJourneyDataAccessInterface;
+import data_access.InMemorySaveDataAccessObject;
 import data_access.InMemoryJourneyDataAccessObject;
 import interface_adapter.add.AddController;
 import interface_adapter.add.AddPresenter;
@@ -128,7 +131,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addGraphView() {
-        graphViewModel = new GraphViewModel(memoryDAO.getGraph());
+        graphViewModel = new GraphViewModel();
         graphView = new GraphView(graphViewModel);
         views.add(graphView, graphView.getViewName());
         return this;
@@ -144,7 +147,7 @@ public class AppBuilder {
 
     public AppBuilder addAddUseCase() {
         final AddOutputBoundary addPresenter = new AddPresenter(graphViewModel, viewManagerModel, journeyViewModel);
-        final AddInputBoundary addInteractor = new AddInteractor(addPresenter, memoryDAO, memoryDAO);
+        final AddInputBoundary addInteractor = new AddInteractor(addPresenter);
         final AddController controller = new AddController(addInteractor);
         journeyView.setAddController(controller);
         return this;

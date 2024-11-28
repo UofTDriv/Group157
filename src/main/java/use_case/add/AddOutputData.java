@@ -1,15 +1,20 @@
 package use_case.add;
 
-import entity.Graph;
-
 public class AddOutputData {
-    private final String successMessage;
+  
+    private final String title;
+    private final boolean useCaseFailed;
 
-    public AddOutputData(String useCaseStatus) {
-        this.successMessage = useCaseStatus;
+    public AddOutputData(String title, boolean useCaseFailed) {
+        this.title = title;
+        this.useCaseFailed = useCaseFailed;
     }
 
-    public String getSuccessMessage() {
-        return this.successMessage;
+    public String getTitle() {
+        return title;
+    }
+
+    public boolean getUseCaseFailed() {
+        return useCaseFailed;
     }
 }
