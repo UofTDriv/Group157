@@ -36,6 +36,15 @@ public class InMemorySaveDataAccessObject implements SaveDataAccessInterface {
         return falseFalse;
     }
 
+    public List<Node> getWikiHistory(String saveTitle) {
+        for (int i = 0; i < wikiHistoriesNodes.size(); i++) {
+            if (wikiHistoriesNodes.get(i).getFirst().equals(saveTitle)) {
+                return wikiHistoriesNodes.get(i).getSecond();
+            }
+        }
+        return null;
+    }
+
     public void save (String saveTitle, List < Node > nodesForHistory) {
         wikiHistoriesNodes.add(new Pair<>(saveTitle, nodesForHistory));
     }

@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.open.OpenController;
 import interface_adapter.open.OpenState;
 import interface_adapter.open.OpenViewModel;
 import interface_adapter.save.SaveState;
@@ -19,6 +20,8 @@ public class OpenView extends JPanel implements ActionListener, PropertyChangeLi
 
     private final JLabel toptext;
     private final JPanel saves;
+
+    private OpenController openController;
 
     public OpenView(OpenViewModel viewModel) {
         this.viewModel = viewModel;
@@ -45,16 +48,24 @@ public class OpenView extends JPanel implements ActionListener, PropertyChangeLi
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final OpenState state = (OpenState) evt.getNewValue();
-//            rootArticleTitle.setText(state.getRootArticleTitle());
             String saveTitle = state.getWikiHistoryNodes().get(state.getWikiHistoryNodes().size() - 1).getFirst();
             JButton newSave = new JButton(saveTitle);
 
-//            StandardMenuPanel.standardUI(this, toptext, saves, newSave);
             saves.add(newSave);
+            newSave.addActionListener(
+                    new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            openController.execute(newSave.getText());
+                        }
+                    }
+            );
         }
     }
 
     public String getViewName() {
         return viewName;
     }
+
+    public void setOpenController(OpenController openController) { this.openController = openController; }
 }
