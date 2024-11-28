@@ -72,8 +72,6 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(saveAndCloseButton)) {
-                            final SaveState currentState = viewModel.getState();
-
                             saveController.execute("close", savedJourneyTitle.getText());
                         }
                     }
