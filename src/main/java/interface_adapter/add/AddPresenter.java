@@ -22,11 +22,12 @@ public class AddPresenter implements AddOutputBoundary {
 
     @Override
     public void prepareSuccessView(AddOutputData outputData) {
+        String title = outputData.getTitle();
         final GraphState graphState = graphViewModel.getState();
 
-        graphState.setGraphT(outputData.getGraph());
-
         // If this is the start of the journey
+        graphState.addNewNode(title);
+        // TODO: If this node is navigated from a previous node. This needs us to keep track of the previous page info.
 
         graphViewModel.setState(graphState);
         graphViewModel.firePropertyChanged();

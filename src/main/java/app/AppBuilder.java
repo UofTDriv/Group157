@@ -2,6 +2,8 @@ package app;
 
 import data_access.InMemoryJourneyDataAccessInterface;
 import data_access.InMemorySaveDataAccessObject;
+import interface_adapter.add.AddController;
+import interface_adapter.add.AddPresenter;
 import interface_adapter.graph.GraphController;
 import interface_adapter.graph.GraphPresenter;
 import interface_adapter.journey.JourneyController;
@@ -19,6 +21,9 @@ import interface_adapter.save.SaveViewModel;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
+import use_case.add.AddInputBoundary;
+import use_case.add.AddInteractor;
+import use_case.add.AddOutputBoundary;
 import use_case.graph.GraphInputBoundary;
 import use_case.graph.GraphInteractor;
 import use_case.graph.GraphOutputBoundary;
@@ -124,7 +129,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addGraphView() {
-        graphViewModel = new GraphViewModel(memoryDAO);
+        graphViewModel = new GraphViewModel();
         graphView = new GraphView(graphViewModel);
         views.add(graphView, graphView.getViewName());
         return this;
@@ -135,6 +140,14 @@ public class AppBuilder {
         final GraphInputBoundary graphInputBoundary = new GraphInteractor(graphPresenter, memoryDAO);
         final GraphController controller = new GraphController(graphInputBoundary);
         graphView.setController(controller);
+        return this;
+    }
+
+    public AppBuilder addAddUseCase() {
+        final AddOutputBoundary addPresenter = new AddPresenter(graphViewModel, viewManagerModel, journeyViewModel);
+        final AddInputBoundary addInteractor = new AddInteractor(addPresenter);
+        final AddController controller = new AddController(addInteractor);
+        journeyView.setAddController(controller);
         return this;
     }
 
