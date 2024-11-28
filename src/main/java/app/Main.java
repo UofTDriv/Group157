@@ -33,6 +33,7 @@ public class Main {
                 .addSearchUseCase()
                 .addJourneyUseCase()
                 .addSaveUseCase()
+                .addOpenUseCase()
                 .build();
         application.pack();
         application.setVisible(true);
