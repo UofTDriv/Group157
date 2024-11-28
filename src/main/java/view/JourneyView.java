@@ -92,6 +92,7 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
                 public void actionPerformed(ActionEvent e) {
                     if (e.getSource().equals(addPage)) {
                         final JourneyState state = viewModel.getState();
+
                         String title = state.getCurrentPageTitle();
                         String content = state.getCurrentPageContent();
 
