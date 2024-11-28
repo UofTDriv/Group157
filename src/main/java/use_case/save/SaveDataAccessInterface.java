@@ -22,4 +22,6 @@ public interface SaveDataAccessInterface {
      * @param wikiHistoryNodes a CLONE of the wiki history's nodes with the webpage for each node equal to 'null'
      */
     void save(String saveTitle, List<Node> wikiHistoryNodes);
+
+    List<Node> getWikiHistory(String saveTitle);
 }
