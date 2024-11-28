@@ -10,7 +10,7 @@ public class Node {
     // Made parents and children not final because needed to set the parents and
     // children for my clones in SaveInteractor
     private List<Node> parents;
-    private List<Node> children;
+    private ArrayList<Node> children;
     private final boolean addedtoGraph;
 
     public Node(WebPage page, Node parentNode, ArrayList<Node> links, boolean addedtoGraph) {
@@ -35,9 +35,9 @@ public class Node {
 
     public void setParents(List<Node> parents) { this.parents = parents; }
 
-    public List<Node> getChildren() { return children; }
+    public ArrayList<Node> getChildren() { return children; }
 
-    public void setChildren(List<Node> children) { this.children = children; }
+    public void setChildren(ArrayList<Node> children) { this.children = children; }
 
 
     // https://jgrapht.org/guide/VertexAndEdgeTypes#vertices-with-attributes state we must implement the following.
