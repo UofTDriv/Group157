@@ -20,15 +20,14 @@ public class AddInteractor implements AddInputBoundary {
 
          Node currNode = journeyDAO.getJourney().getCurrentNode();
 
-         graph.getGraph().addVertex(currNode.getTitle());
-        // Use Case Success
-//        String title = inputData.getTitle();
-//        String content = inputData.getContent();
-
-//        // TODO: Record this webpage. This needs the implementation of the Journey or WikiHistory entity.
-//        AddOutputData outputData = new AddOutputData(title, content, false);
-        presenter.prepareSuccessView(outputData);
-
-        // TODO: Use Case Fails. This needs the implementation of the Journey or WikiHistory entity
+         if (inputData.getTitle().equals(currNode.getTitle())) {
+             currNode.setAddedtoGraph(true);
+             graph.getGraph().addVertex(currNode.getTitle());
+             AddOutputData outputData = new AddOutputData("Add Success");
+             presenter.prepareSuccessView(outputData);
+         } else {
+             AddOutputData outputData = new AddOutputData("Add Failure");
+             presenter.prepareFailView(outputData);
+         }
     }
 }

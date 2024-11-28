@@ -1,9 +1,7 @@
 package usecase;
 
-import data_access.InMemoryJourneyDataAccessInterface;
+import data_access.InMemoryJourneyDataAccessObject;
 import data_access.InMemorySaveDataAccessObject;
-import entity.Node;
-import entity.WebPage;
 import org.junit.jupiter.api.Test;
 import use_case.journey.JourneyDataAccessInterface;
 import use_case.save.*;
@@ -36,7 +34,7 @@ public class SaveInteractorTest {
             }
         };
 
-        JourneyDataAccessInterface journeyDAO = new InMemoryJourneyDataAccessInterface();
+        JourneyDataAccessInterface journeyDAO = new InMemoryJourneyDataAccessObject();
 
         // TODO fix this test
 //        journeyDAO.setRootNode(new WebPage("Canada", "Blah blah blah"));

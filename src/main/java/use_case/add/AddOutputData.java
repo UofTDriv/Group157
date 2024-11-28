@@ -3,19 +3,13 @@ package use_case.add;
 import entity.Graph;
 
 public class AddOutputData {
-    private final Graph graph;
-    private final boolean useCaseFailed;
+    private final String successMessage;
 
-    public AddOutputData(Graph graph, boolean useCaseFailed) {
-        this.graph = graph;
-        this.useCaseFailed = useCaseFailed;
+    public AddOutputData(String useCaseStatus) {
+        this.successMessage = useCaseStatus;
     }
 
-    public Graph getGraph() {
-        return graph;
-    }
-
-    public boolean getUseCaseFailed() {
-        return useCaseFailed;
+    public String getSuccessMessage() {
+        return this.successMessage;
     }
 }

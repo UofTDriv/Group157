@@ -13,8 +13,8 @@ public class AddController {
     /**
      * Executes the add use case.
      */
-    public void execute(String title, String content) {
-        final AddInputData inputData = new AddInputData(title, content);
+    public void execute(String title) {
+        final AddInputData inputData = new AddInputData(title);
         addInteractor.execute(inputData);
     }
 }

@@ -11,7 +11,7 @@ public interface AddOutputBoundary {
 
     /**
      * Prepares the failure view for the Add use case.
-     * @param errorMessage the explanation of the failure
+     * @param outputData the explanation of the failure
      */
-    void prepareFailView(String errorMessage);
+    void prepareFailView(AddOutputData outputData);
 }
