@@ -41,7 +41,7 @@ public class GraphState {
     }
 
 
-    public void setSearchError(String error) {
+    public void setAddError(String error) {
         this.addError = error;
     }
 
