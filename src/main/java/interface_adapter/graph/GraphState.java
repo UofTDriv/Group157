@@ -2,23 +2,24 @@ package interface_adapter.graph;
 
 import entity.Graph;
 import org.jgrapht.ListenableGraph;
+import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultListenableGraph;
 
 public class GraphState {
-    private Graph graph;
+    private ListenableGraph<String, DefaultEdge> graphT;
     private String addError;
 
-    public GraphState(Graph inMemoryGraph) {
-        this.graph = inMemoryGraph;
+    public GraphState() {
+        this.graphT = new DefaultListenableGraph<>(new DefaultDirectedGraph<>(DefaultEdge.class));
     }
 
-    public DefaultListenableGraph<String, DefaultEdge> getGraph() {
-        return (DefaultListenableGraph<String, DefaultEdge>) graph;
+    public ListenableGraph<String, DefaultEdge> getGraphT() {
+        return graphT;
     }
 
-    public void setGraph(DefaultListenableGraph<String, DefaultEdge> graph) {
-        this.graph = (Graph) graph;
+    public void setGraphT(ListenableGraph<String, DefaultEdge> graphT) {
+        this.graphT = graphT;
     }
 
     /**

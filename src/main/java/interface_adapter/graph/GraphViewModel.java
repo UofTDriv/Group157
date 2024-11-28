@@ -5,8 +5,8 @@ import interface_adapter.ViewModel;
 
 public class GraphViewModel extends ViewModel<GraphState> {
 
-    public GraphViewModel(Graph inMemoryGraph) {
+    public GraphViewModel() {
         super("Graph");
-        setState(new GraphState(inMemoryGraph));
+        setState(new GraphState());
     }
 }

@@ -32,7 +32,7 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
         this.viewName = viewModel.getViewName();
         viewModel.addPropertyChangeListener(this);
 
-        this.jgxAdapter = new JGraphXAdapter<>(viewModel.getState().getGraph());
+        this.jgxAdapter = new JGraphXAdapter<>(viewModel.getState().getGraphT());
 
         this.setPreferredSize(DEFAULT_SIZE);
 
