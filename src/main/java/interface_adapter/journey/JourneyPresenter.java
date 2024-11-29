@@ -18,7 +18,7 @@ public class JourneyPresenter implements JourneyOutputBoundary {
     @Override
     public void prepareSuccessView(JourneyOutputData outputData) {
         final JourneyState journeyState = journeyViewModel.getState();
-        journeyState.setCurrentPage(outputData.getPage());
+        journeyState.setCurrentPage(outputData.getTitle(), outputData.getPageContent());
         this.journeyViewModel.setState(journeyState);
         journeyViewModel.firePropertyChanged();
 

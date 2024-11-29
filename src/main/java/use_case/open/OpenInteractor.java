@@ -29,7 +29,7 @@ public class OpenInteractor implements OpenInputBoundary {
             presenter.prepareFailView();
         } else {
             OpenOutputData outputData = new OpenOutputData();
-            presenter.prepareSuccessView();
+            presenter.prepareSuccessView(outputData);
         }
     }
 }

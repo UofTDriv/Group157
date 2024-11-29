@@ -27,8 +27,9 @@ public class JourneyInteractor implements JourneyInputBoundary {
             presenter.prepareFailView("No matching result!");
         }
         else {
+            String title = searchAccessObject.getTitle(subject);
             String content = WebPage.cleanWikipediaHTML(searchAccessObject.getHTML(subject));
-            WebPage newPage = new WebPage(searchAccessObject.getTitle(subject),content);
+            WebPage newPage = new WebPage(title, content);
             ArrayList<String> links = searchAccessObject.getPageLinks(subject);
 
             Journey journey = journeyAccessObject.getJourney();
@@ -38,7 +39,7 @@ public class JourneyInteractor implements JourneyInputBoundary {
 
             journey.addNode(newNode);
 
-            JourneyOutputData outputData = new JourneyOutputData(newNode.getPage());
+            JourneyOutputData outputData = new JourneyOutputData(title, content);
 
             presenter.prepareSuccessView(outputData);
         }

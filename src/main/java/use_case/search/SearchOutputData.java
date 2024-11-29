@@ -1,27 +1,28 @@
 package use_case.search;
 
-import entity.Graph;
-import entity.WebPage;
-
 /**
  * Output data for the search use case.
  */
 public class SearchOutputData {
-    private final WebPage rootPage;
+    private final String rootPageTitle;
+    private final String rootPageContent;
     private final boolean useCaseFailed;
 
-    public SearchOutputData(WebPage rootPage, boolean useCaseFailed) {
-        this.rootPage = rootPage;
+    public SearchOutputData(String rootPageTitle, String rootPageContent,  boolean useCaseFailed) {
+        this.rootPageTitle = rootPageTitle;
+        this.rootPageContent = rootPageContent;
         this.useCaseFailed = useCaseFailed;
     }
 
     public String getRootTitle() {
-        return this.rootPage.title;
+        return this.rootPageTitle;
     }
 
-    public WebPage getRootPage() {
-        return this.rootPage;
+    public String getRootPageContent() {
+        return this.rootPageContent;
     }
 
-    public boolean getUseCaseFailed() { return this.useCaseFailed; }
+    public boolean getUseCaseFailed() {
+        return this.useCaseFailed;
+    }
 }

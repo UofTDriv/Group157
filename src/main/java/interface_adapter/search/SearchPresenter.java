@@ -38,7 +38,7 @@ public class SearchPresenter implements SearchOutputBoundary {
     @Override
     public void prepareSuccessView(SearchOutputData outputData) {
         final JourneyState journeyState = journeyViewModel.getState();
-        journeyState.setCurrentPage(outputData.getRootPage());
+        journeyState.setCurrentPage(outputData.getRootTitle(), outputData.getRootPageContent());
         this.journeyViewModel.setState(journeyState);
         journeyViewModel.firePropertyChanged();
 

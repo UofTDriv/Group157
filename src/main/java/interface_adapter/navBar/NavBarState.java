@@ -8,6 +8,7 @@ public class NavBarState {
     private String save = "Save: " + SWITCH_ERROR;
     private String open = "Open Existing Journey";
     private String journey = SWITCH_ERROR;
+    private String journeyRoot = SWITCH_ERROR;
     private String graph = SWITCH_ERROR;
     private String switchError = SWITCH_ERROR;
 
@@ -39,12 +40,13 @@ public class NavBarState {
         return journey;
     }
 
-    public void setJourneyPage(String rootAndCurrentPageTitle) {
-        this.journey = rootAndCurrentPageTitle;
+    public void setJourneyPage(String currentPageTitle) {
+        this.journey = journeyRoot + ": " + currentPageTitle;
     }
 
     public void setJourney(String rootPageTitle) {
         this.journey = rootPageTitle;
+        this.journeyRoot = rootPageTitle;
         this.save = "Save: " + rootPageTitle;
         this.graph = "Graph: " + rootPageTitle;
     }
@@ -52,6 +54,7 @@ public class NavBarState {
     // This is for when the User presses the "Save and Close" button
     public void resetJourney() {
         this.journey = SWITCH_ERROR;
+        this.journeyRoot = SWITCH_ERROR;
         this.save = "Save: " + SWITCH_ERROR;
         this.graph = "Graph: " + SWITCH_ERROR;
     }

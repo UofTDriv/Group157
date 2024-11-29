@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.navBar.NavBarViewModel;
 import use_case.open.OpenInputData;
 import use_case.open.OpenOutputBoundary;
+import use_case.open.OpenOutputData;
 import use_case.save.SaveOutputData;
 
 public class OpenPresenter implements OpenOutputBoundary {
@@ -20,7 +21,7 @@ public class OpenPresenter implements OpenOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(SaveOutputData saveOutputData) {
+    public void prepareSuccessView(OpenOutputData openOutputData) {
 
     }
 
