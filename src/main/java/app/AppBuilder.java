@@ -130,7 +130,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addGraphView() {
-        graphViewModel = new GraphViewModel();
+        graphViewModel = new GraphViewModel(memoryDAO);
         graphView = new GraphView(graphViewModel);
         views.add(graphView, graphView.getViewName());
         return this;

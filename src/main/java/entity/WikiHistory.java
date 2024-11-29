@@ -28,4 +28,13 @@ public class WikiHistory {
         return (ArrayList<Node>) nodeHistory.clone();
     }
 
+    public Node getNode(String title) {
+        Node result = null;
+        for (Node node : nodeHistory) {
+            if (node.getTitle().equals(title)) {
+                result = node;
+            }
+        }
+        return result;
+    }
 }
