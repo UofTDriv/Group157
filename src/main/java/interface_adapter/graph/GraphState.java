@@ -1,5 +1,7 @@
 package interface_adapter.graph;
 
+import data_access.InMemoryJourneyDataAccessObject;
+import data_access.InMemorySaveDataAccessObject;
 import entity.Graph;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
@@ -9,9 +11,11 @@ import org.jgrapht.graph.DefaultListenableGraph;
 public class GraphState {
     private ListenableGraph<String, DefaultEdge> graphT;
     private String addError;
+    private InMemoryJourneyDataAccessObject dao;
 
-    public GraphState() {
-        this.graphT = new DefaultListenableGraph<>(new DefaultDirectedGraph<>(DefaultEdge.class));
+    public GraphState(InMemoryJourneyDataAccessObject dao) {
+        this.dao = dao;
+        this.graphT = dao.getGraph();
     }
 
     public ListenableGraph<String, DefaultEdge> getGraphT() {
@@ -39,7 +43,6 @@ public class GraphState {
         graphT.addVertex(nodeName2);
         graphT.addEdge(nodeName1, nodeName2);
     }
-
 
     public void setAddError(String error) {
         this.addError = error;

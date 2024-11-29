@@ -135,7 +135,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addGraphView() {
-        graphViewModel = new GraphViewModel();
+        graphViewModel = new GraphViewModel(memoryDAO);
         graphView = new GraphView(graphViewModel);
         views.add(graphView, graphView.getViewName());
         return this;
@@ -150,7 +150,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addAddUseCase() {
-        final AddOutputBoundary addPresenter = new AddPresenter(graphViewModel, viewManagerModel, journeyViewModel);
+        final AddOutputBoundary addPresenter = new AddPresenter(graphViewModel, viewManagerModel, journeyViewModel, memoryDAO);
         final AddInputBoundary addInteractor = new AddInteractor(addPresenter);
         final AddController controller = new AddController(addInteractor);
         journeyView.setAddController(controller);
