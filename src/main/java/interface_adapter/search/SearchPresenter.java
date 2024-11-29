@@ -1,7 +1,8 @@
 package interface_adapter.search;
 
-import entity.WebPage;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.graph.GraphState;
+import interface_adapter.graph.GraphViewModel;
 import interface_adapter.journey.JourneyState;
 import interface_adapter.journey.JourneyViewModel;
 import interface_adapter.navBar.NavBarState;

@@ -1,5 +1,6 @@
 package use_case.search;
 
+import entity.Graph;
 import entity.WebPage;
 
 /**

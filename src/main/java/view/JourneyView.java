@@ -92,10 +92,10 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
                 public void actionPerformed(ActionEvent e) {
                     if (e.getSource().equals(addPage)) {
                         final JourneyState state = viewModel.getState();
-                        String title = state.getCurrentPageTitle();
-                        String content = state.getCurrentPageContent();
 
-                        addController.execute(title, content);
+                        String title = state.getCurrentPageTitle();
+
+                        addController.execute(title);
                     }
                 }
             });
@@ -111,6 +111,10 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             articleContent.setText(viewModel.getState().getCurrentPageContent());
+        } else if (evt.getPropertyName().equals("Add Success")) {
+            JOptionPane.showMessageDialog(this,"Current page added as node to graph");
+        } else if (evt.getPropertyName().equals("Add Failure")) {
+            JOptionPane.showMessageDialog(this,"Current journey node and current page mismatch");
         }
     }
 

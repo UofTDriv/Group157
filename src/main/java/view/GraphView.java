@@ -3,10 +3,10 @@ package view;
 import com.mxgraph.layout.mxCircleLayout;
 import com.mxgraph.swing.mxGraphComponent;
 import interface_adapter.graph.GraphController;
-import interface_adapter.graph.GraphState;
 import interface_adapter.graph.GraphViewModel;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.SimpleGraph;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +22,8 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
     private final GraphViewModel viewModel;
     private GraphController controller;
 
-    private JGraphXAdapter<String, DefaultEdge> jgxAdapter;
+    private final JGraphXAdapter<String, DefaultEdge> jgxAdapter;
+    private mxCircleLayout layout;
 
     private static final Dimension DEFAULT_SIZE = new Dimension(530, 320);
 
@@ -41,7 +42,7 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
         graphComponent.setEnabled(false);
 
         // positioning via jgraphx layouts
-        mxCircleLayout layout = new mxCircleLayout(jgxAdapter);
+        this.layout = new mxCircleLayout(jgxAdapter);
 
         // center the circle
         int radius = 100;
@@ -64,7 +65,6 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
                 }
             }
         });
-
         this.add(graphComponent);
     }
 
@@ -75,9 +75,8 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("graph")) {
-            final GraphState state = (GraphState) evt.getNewValue();
-            jgxAdapter = new JGraphXAdapter<>(state.getGraphT());
+        if (evt.getPropertyName().equals("state")) {
+            layout.execute(jgxAdapter);
         }
     }
 

@@ -1,6 +1,6 @@
 package app;
 
-import data_access.InMemoryJourneyDataAccessInterface;
+import data_access.InMemoryJourneyDataAccessObject;
 import data_access.InMemorySaveDataAccessObject;
 import data_access.WikipediaAccessObject;
 import use_case.save.SaveDataAccessInterface;
@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
 
         final SearchDataAccessInterface searchAccessObj = new WikipediaAccessObject();
-        final InMemoryJourneyDataAccessInterface journeyAccessObj = new InMemoryJourneyDataAccessInterface();
+        final InMemoryJourneyDataAccessObject journeyAccessObj = new InMemoryJourneyDataAccessObject();
         final SaveDataAccessInterface saveAccessObj = new InMemorySaveDataAccessObject();
 
         final AppBuilder appBuilder = new AppBuilder();
@@ -29,11 +29,14 @@ public class Main {
                 .addSaveView()
                 .addOpenView()
                 .addGraphView()
-                .addNavBarUseCase()
+                .addAddUseCase()
+                .addGraphUseCase()
                 .addSearchUseCase()
                 .addJourneyUseCase()
                 .addSaveUseCase()
                 .addOpenUseCase()
+                .addAddUseCase()
+                .addNavBarUseCase()
                 .build();
         application.pack();
         application.setVisible(true);
