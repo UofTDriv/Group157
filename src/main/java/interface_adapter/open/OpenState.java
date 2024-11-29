@@ -13,10 +13,12 @@ public class OpenState {
 
     public OpenState() { this.wikiHistoryNodes = new ArrayList<>(); }
 
+    // For the Save usecase (not Open)
     public void updateHistory(String saveTitle, List<Node> wikiHistoryToBeAdded) {
         wikiHistoryNodes.add(new Pair<>(saveTitle, wikiHistoryToBeAdded));
     }
 
+    // For the Save usecase (not Open)
     public List<Pair<String, List<Node>>> getWikiHistoryNodes() {
         return this.wikiHistoryNodes;
     }
