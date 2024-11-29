@@ -38,7 +38,7 @@ public class SaveInteractor implements SaveInputBoundary {
             Node curr = wikiHistory.nodeHistory.get(i);
 
             // Creating clone of current wikiHistory node with all of the same attributes except WebPage = null
-            wikiHistoryNodes.add(new Node(new WebPage(curr.getPage().title, null), curr.getParents().get(0),
+            wikiHistoryNodes.add(Node.createNode(curr.getTitle(), null, curr.getParents().get(0),
                     curr.getChildren(), true));
 
             // Setting the parents and children for the clone...

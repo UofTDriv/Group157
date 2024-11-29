@@ -29,13 +29,13 @@ public class JourneyInteractor implements JourneyInputBoundary {
         else {
             String title = searchAccessObject.getTitle(subject);
             String content = WebPage.cleanWikipediaHTML(searchAccessObject.getHTML(subject));
-            WebPage newPage = new WebPage(title, content);
+
             ArrayList<String> links = searchAccessObject.getPageLinks(subject);
 
             Journey journey = journeyAccessObject.getJourney();
             Node parentNode = journey.getCurrentNode();
 
-            Node newNode = new Node(newPage, parentNode, links, true);
+            Node newNode = Node.createNode(title, content, parentNode, links, true);
 
             journey.addNode(newNode);
 

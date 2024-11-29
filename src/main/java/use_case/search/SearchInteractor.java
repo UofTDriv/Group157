@@ -29,10 +29,10 @@ public class SearchInteractor implements SearchInputBoundary {
         else {
             String title = searchAccessObject.getTitle(subject);
             String content = WebPage.cleanWikipediaHTML(searchAccessObject.getHTML(subject));
-            WebPage rootPage = new WebPage(title, content);
+
             ArrayList<String> links = searchAccessObject.getPageLinks(subject);
 
-            Node root = new Node(rootPage, null, links,true);
+            Node root = Node.createNode(title, content, null, links,true);
 
             journeyAccessObject.setRootNode(root);
 

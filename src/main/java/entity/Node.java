@@ -13,7 +13,7 @@ public class Node {
     private List<String> children;
     private boolean addedtoGraph;
 
-    public Node(WebPage page, Node parentNode, ArrayList<String> links, boolean addedtoGraph) {
+    private Node(WebPage page, Node parentNode, ArrayList<String> links, boolean addedtoGraph) {
         this.page = page;
         this.title = page.title;
         this.addedtoGraph = addedtoGraph;
@@ -21,6 +21,13 @@ public class Node {
         this.parents = new ArrayList<>();
         this.parents.add(parentNode);
         this.children = links;
+    }
+
+    public static Node createNode(String title, String pageContent,
+                                  Node parentNode, ArrayList<String> links,
+                                  boolean addedtoGraph) {
+        WebPage page = new WebPage(title, pageContent);
+        return new Node(page, parentNode, links, addedtoGraph);
     }
 
     public String getTitle() { return title; }
