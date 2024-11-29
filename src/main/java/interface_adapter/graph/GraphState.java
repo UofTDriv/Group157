@@ -44,7 +44,6 @@ public class GraphState {
         graphT.addEdge(nodeName1, nodeName2);
     }
 
-
     public void setAddError(String error) {
         this.addError = error;
     }

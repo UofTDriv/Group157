@@ -1,5 +1,6 @@
 package interface_adapter.add;
 
+import data_access.InMemoryJourneyDataAccessObject;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.graph.GraphState;
 import interface_adapter.graph.GraphViewModel;
@@ -12,12 +13,14 @@ public class AddPresenter implements AddOutputBoundary {
     private final GraphViewModel graphViewModel;
     private final ViewManagerModel viewManagerModel;
     private final JourneyViewModel journeyViewModel;
+    private final InMemoryJourneyDataAccessObject dao;
 
     public AddPresenter(GraphViewModel graphViewModel, ViewManagerModel viewManagerModel,
-                        JourneyViewModel journeyViewModel) {
+                        JourneyViewModel journeyViewModel, InMemoryJourneyDataAccessObject dao) {
         this.graphViewModel = graphViewModel;
         this.viewManagerModel = viewManagerModel;
         this.journeyViewModel = journeyViewModel;
+        this.dao = dao;
     }
 
     @Override
@@ -25,9 +28,8 @@ public class AddPresenter implements AddOutputBoundary {
         String title = outputData.getTitle();
         final GraphState graphState = graphViewModel.getState();
 
-        // If this is the start of the journey
+        dao.getWikiHistory().getNode(title).setAddedtoGraph(true);
         graphState.addNewNode(title);
-        // TODO: If this node is navigated from a previous node. This needs us to keep track of the previous page info.
 
         graphViewModel.setState(graphState);
         graphViewModel.firePropertyChanged();

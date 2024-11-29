@@ -145,7 +145,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addAddUseCase() {
-        final AddOutputBoundary addPresenter = new AddPresenter(graphViewModel, viewManagerModel, journeyViewModel);
+        final AddOutputBoundary addPresenter = new AddPresenter(graphViewModel, viewManagerModel, journeyViewModel, memoryDAO);
         final AddInputBoundary addInteractor = new AddInteractor(addPresenter);
         final AddController controller = new AddController(addInteractor);
         journeyView.setAddController(controller);
