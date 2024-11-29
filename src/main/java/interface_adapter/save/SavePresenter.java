@@ -34,6 +34,11 @@ public class SavePresenter implements SaveOutputBoundary {
 
     @Override
     public void prepareSuccessViewContinue(SaveOutputData saveOutputData) {
+        final OpenState openState = openViewModel.getState();
+        openState.updateHistory(saveOutputData.getSaveTitle(), saveOutputData.getWikiHistoryToBeSaved());
+        this.openViewModel.setState(openState);
+        openViewModel.firePropertyChanged("state");
+
         viewManagerModel.setState(journeyViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
@@ -69,7 +74,5 @@ public class SavePresenter implements SaveOutputBoundary {
         saveState.setRootArticleTitle(errorMessage);
         this.saveViewModel.setState(saveState);
         saveViewModel.firePropertyChanged("state");
-
-
     }
 }
