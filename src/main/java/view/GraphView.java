@@ -44,14 +44,13 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
         graphComponent.setEnabled(false);
 
         // positioning via jgraphx layouts
-        this.layout = new mxCircleLayout(jgxAdapter, 200);
-        this.layout.setMoveCircle(true);
+        this.layout = new mxCircleLayout(jgxAdapter);
+        int radius = 100;
+        layout.setX0((DEFAULT_SIZE.width / 2.0) - radius);
+        layout.setY0((DEFAULT_SIZE.height / 2.0) - radius);
+        layout.setRadius(radius);
+        layout.setMoveCircle(true);
 
-//        int radius = 100;
-//        layout.setX0((DEFAULT_SIZE.width / 2.0) - radius);
-//        layout.setY0((DEFAULT_SIZE.height / 2.0) - radius);
-//        layout.setRadius(radius);
-//        layout.setMoveCircle(true);
 
         layout.execute(jgxAdapter.getDefaultParent());
 
@@ -78,7 +77,7 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
-            layout.execute(jgxAdapter);
+            layout.execute(jgxAdapter.getDefaultParent());
 
         }
     }
