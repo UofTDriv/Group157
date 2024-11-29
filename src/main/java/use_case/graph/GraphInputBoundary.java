@@ -5,15 +5,6 @@ package use_case.graph;
  */
 public interface GraphInputBoundary {
 
-    /**
-     * Adds a node to the existing graph
-     */
-    void addNode(GraphInputData graphInputData);
-
-    void switchToRoot();
-
-//    void addEdge(NodeInputData nodeInputData);
-
-//    void getNode(NodeInputData nodeInputData);
+    void execute(GraphInputData inputData);
 
 }

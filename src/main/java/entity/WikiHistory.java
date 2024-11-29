@@ -26,7 +26,7 @@ public class WikiHistory {
         nodeLookup.put(node.toString(), node);
     }
 
-    public Node getNode(int id) {
+    public Node getNodeByIndex(int id) {
         return nodeHistory.get(id);
     }
 

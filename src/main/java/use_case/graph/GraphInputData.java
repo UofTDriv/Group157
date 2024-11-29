@@ -3,12 +3,19 @@ package use_case.graph;
 import entity.Node;
 import entity.WebPage;
 
-public class GraphInputData {
-    private final Node current;
-    private final Node parents;
 
-    public GraphInputData(Node current, Node parent) {
-        this.current = current;
-        this.parents = parent;
+/**
+ * Input data for the graph use case.
+ */
+public class GraphInputData {
+
+    private final String subject;
+
+    public GraphInputData(String subject) {
+        this.subject = subject;
+    }
+
+    public String getSubject() {
+        return this.subject;
     }
 }

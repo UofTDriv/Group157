@@ -13,14 +13,8 @@ public class GraphInteractor implements GraphInputBoundary {
     }
 
     @Override
-    public void addNode(GraphInputData newNode) {
+    public void execute(GraphInputData inputData) {
+        // TODO change Journey's currentNode to the one with the inputted title
 
     }
-
-    @Override
-    public void switchToRoot() {
-        graphPresenter.switchToRoot();
-    }
-
-
 }

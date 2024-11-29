@@ -1,6 +1,7 @@
 package interface_adapter.graph;
 
 import use_case.graph.GraphInputBoundary;
+import use_case.graph.GraphInputData;
 
 /**
  * Controller for the Graph use case.
@@ -13,7 +14,8 @@ public class GraphController {
         this.graphInteractor = graphInputBoundary1;
     }
 
-    public void switchToRoot() {
-        graphInteractor.switchToRoot();
+    public void execute(String clickedNode) {
+        GraphInputData inputData = new GraphInputData(clickedNode);
+        graphInteractor.execute(inputData);
     }
 }

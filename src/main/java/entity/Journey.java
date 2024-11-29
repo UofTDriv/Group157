@@ -1,34 +1,30 @@
 package entity;
 
-import java.util.ArrayList;
-
 public class Journey {
     private final Node rootNode;
-    private final String rootPageTitle;
     private final WikiHistory wikiHistory;
-    private int currentPageIndex;
+    private Node currentNode;
 
     public Journey(Node rootNode, WikiHistory wikiHistory) {
         this.rootNode = rootNode;
-        this.rootPageTitle = rootNode.toString();
         this.wikiHistory = wikiHistory;
-        this.currentPageIndex = 0;
+        this.currentNode = rootNode;
     }
 
     public Node getRootNode() {
         return rootNode;
     }
 
-    public String getRootPageTitle() {
-        return rootPageTitle;
-    }
-
     public void addNode(Node node) {
         wikiHistory.add(node);
-        currentPageIndex++;
+        currentNode = node;
     }
 
     public Node getCurrentNode() {
-        return wikiHistory.getNode(currentPageIndex);
+        return currentNode;
+    }
+
+    public void setCurrentNode(Node currentNode) {
+        this.currentNode = currentNode;
     }
 }

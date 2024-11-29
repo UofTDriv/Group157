@@ -29,6 +29,11 @@ public class InMemoryJourneyDataAccessObject implements JourneyDataAccessInterfa
     }
 
     @Override
+    public void setNewJourneyCurrentNode(Node node) {
+        journey.setCurrentNode(node);
+    }
+
+    @Override
     public Journey getJourney() {
         return journey;
     }

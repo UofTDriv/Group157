@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public interface AddDataAccessInterface {
 
-    public Node getNode(String title);
+    Node getNode(String title);
 
-    public Boolean containsAddedNodeTitle(String title);
+    Boolean containsAddedNodeTitle(String title);
 
 }

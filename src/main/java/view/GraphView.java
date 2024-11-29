@@ -61,8 +61,8 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
                 Object cell = graphComponent.getCellAt(e.getX(), e.getY());
                 if (cell != null)
                 {
-                    controller.switchToRoot();
-                    System.out.println("cell="+jgxAdapter.getLabel(cell));
+//                  System.out.println("cell="+jgxAdapter.getLabel(cell));
+                    controller.execute(jgxAdapter.getLabel(cell));
                 }
             }
         });
