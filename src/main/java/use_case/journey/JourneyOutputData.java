@@ -4,17 +4,20 @@ import entity.WebPage;
 
 public class JourneyOutputData {
 
-    private final WebPage page;
+    private final String pageTitle;
+    private final String pageContent;
 
-    public JourneyOutputData(WebPage page) {
-        this.page = page;
-    }
-
-    public WebPage getPage() {
-        return page;
+    public JourneyOutputData(String newPageTitle, String newPageContent) {
+        this.pageTitle = newPageTitle;
+        this.pageContent = newPageContent;
     }
 
     public String getTitle() {
-        return page.title;
+        return pageTitle;
     }
+
+    public String getPageContent() {
+        return pageContent;
+    }
+
 }

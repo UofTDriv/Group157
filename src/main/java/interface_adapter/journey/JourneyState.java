@@ -4,18 +4,27 @@ import entity.Journey;
 import entity.WebPage;
 
 public class JourneyState {
-    private Journey journey;
-    private WebPage currentPage;
+    private String currentPageTitle;
+    private String currentPageContent;
     private boolean addNewPages;
 
     public JourneyState() {
-        this.journey = null;
         this.addNewPages = false;
-        this.currentPage = new WebPage("No Journey Open", "");
+        this.currentPageTitle = "No Journey Open";
+        this.currentPageContent = "";
     }
 
-    public void setJourney(Journey journey) {
-        this.journey = journey;
+    public String getCurrentPageTitle() {
+        return currentPageTitle;
+    }
+
+    public String getCurrentPageContent() {
+        return currentPageContent;
+    }
+
+    public void setCurrentPage(String title, String content) {
+        this.currentPageTitle = title;
+        this.currentPageContent = content;
     }
 
     public boolean isAddNewPages() {
@@ -25,17 +34,4 @@ public class JourneyState {
     public void setAddNewPages(boolean addNewPages) {
         this.addNewPages = addNewPages;
     }
-
-    public String getCurrentPageContent() {
-        return currentPage.content;
-    }
-
-    public String getCurrentPageTitle() {
-        return currentPage.title;
-    }
-
-    public void setCurrentPage(WebPage currentPage) {
-        this.currentPage = currentPage;
-    }
-
 }

@@ -36,7 +36,7 @@ public class SearchInteractor implements SearchInputBoundary {
 
             journeyAccessObject.setRootNode(root);
 
-            SearchOutputData outputData = new SearchOutputData(rootPage, false);
+            SearchOutputData outputData = new SearchOutputData(title, content, false);
             presenter.prepareSuccessView(outputData);
         }
     }

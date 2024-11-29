@@ -15,6 +15,8 @@ import interface_adapter.navBar.NavBarViewModel;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.graph.GraphViewModel;
 import interface_adapter.journey.JourneyViewModel;
+import interface_adapter.open.OpenController;
+import interface_adapter.open.OpenPresenter;
 import interface_adapter.open.OpenViewModel;
 import interface_adapter.save.SaveController;
 import interface_adapter.save.SavePresenter;
@@ -34,6 +36,9 @@ import use_case.journey.JourneyOutputBoundary;
 import use_case.navBar.NavBarInputBoundary;
 import use_case.navBar.NavBarInteractor;
 import use_case.navBar.NavBarOutputBoundary;
+import use_case.open.OpenInputBoundary;
+import use_case.open.OpenInteractor;
+import use_case.open.OpenOutputBoundary;
 import use_case.save.SaveDataAccessInterface;
 import use_case.save.SaveInputBoundary;
 import use_case.save.SaveInteractor;
@@ -184,6 +189,15 @@ public class AppBuilder {
         final SearchInputBoundary searchInputBoundary = new SearchInteractor(searchPresenter, searchDAO, memoryDAO);
         final SearchController controller = new SearchController(searchInputBoundary);
         searchView.setSearchController(controller);
+        return this;
+    }
+
+    public AppBuilder addOpenUseCase() {
+        final OpenOutputBoundary openPresenter = new OpenPresenter(viewManagerModel, navBarViewModel,
+                openViewModel, journeyViewModel);
+        final OpenInputBoundary openInteractor = new OpenInteractor(openPresenter, saveDAO, memoryDAO);
+        final OpenController openController = new OpenController(openInteractor);
+        openView.setOpenController(openController);
         return this;
     }
 
