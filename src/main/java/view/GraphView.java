@@ -1,12 +1,14 @@
 package view;
 
 import com.mxgraph.layout.mxCircleLayout;
+import com.mxgraph.layout.mxCompactTreeLayout;
+import com.mxgraph.layout.mxGraphLayout;
 import com.mxgraph.swing.mxGraphComponent;
+import data_access.InMemoryJourneyDataAccessObject;
 import interface_adapter.graph.GraphController;
 import interface_adapter.graph.GraphViewModel;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.SimpleGraph;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,14 +44,14 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
         graphComponent.setEnabled(false);
 
         // positioning via jgraphx layouts
-        this.layout = new mxCircleLayout(jgxAdapter);
+        this.layout = new mxCircleLayout(jgxAdapter, 200);
+        this.layout.setMoveCircle(true);
 
-        // center the circle
-        int radius = 100;
-        layout.setX0((DEFAULT_SIZE.width / 2.0) - radius);
-        layout.setY0((DEFAULT_SIZE.height / 2.0) - radius);
-        layout.setRadius(radius);
-        layout.setMoveCircle(true);
+//        int radius = 100;
+//        layout.setX0((DEFAULT_SIZE.width / 2.0) - radius);
+//        layout.setY0((DEFAULT_SIZE.height / 2.0) - radius);
+//        layout.setRadius(radius);
+//        layout.setMoveCircle(true);
 
         layout.execute(jgxAdapter.getDefaultParent());
 
@@ -77,6 +79,7 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             layout.execute(jgxAdapter);
+
         }
     }
 
