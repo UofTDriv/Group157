@@ -134,7 +134,7 @@ public class WikipediaAccessObject implements SearchDataAccessInterface {
         for (int i = 0; i < links.length(); i++) {
             JSONObject link = links.getJSONObject(i);
             if (link.getInt("ns") == 0) {
-                result.add(link.getString("*").replace(" ", "_"));
+                result.add(link.getString("*"));
             }
         }
 

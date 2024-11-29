@@ -51,6 +51,7 @@ public class WikiAccessObjectTest {
 
     @Test
     void linksTest() {
+        // TODO fix this test
         WikipediaAccessObject wao = new WikipediaAccessObject();
         ArrayList<String> expected = new ArrayList<>(Arrays.asList("Ancient_Egypt","Bishop_of_Exeter","Canterbury_Tales","Cat","Consumer_IR","Cyprus","Dog","Dog_run","Early_modern_period","Electromagnet","England","English_literature","Excretion","Exeter_Cathedral","Feral_cat","French_language","Geoffrey_Chaucer","ISBN_(identifier)","Integrated_circuit","Ireland","Isaac_Newton","Medway","Microchip_implant_(animal)","Oxford_English_Dictionary","Permanent_magnet","Pet","Polyvinyl_chloride","Radio-frequency_identification","Rincón_de_Ademuz","Sliding_glass_door","Spanish_language","Stile","United_Kingdom","Urban_legend","Valencia,_Spain","Vaunage","Wildcat","William_Cotton_(bishop)"));
         ArrayList<String> actual = wao.getPageLinks("Pet_door");

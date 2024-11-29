@@ -35,7 +35,7 @@ public class JourneyInteractor implements JourneyInputBoundary {
             Journey journey = journeyAccessObject.getJourney();
             Node parentNode = journey.getCurrentNode();
 
-            Node newNode = Node.createNode(title, content, parentNode, links, true);
+            Node newNode = Node.createNode(title, content, parentNode, links, false);
 
             journey.addNode(newNode);
 

@@ -46,10 +46,6 @@ public class OpenInteractor implements OpenInputBoundary {
                 presenter.prepareFailView("You already have this journey open!");
             }
         } else {
-
-            OpenOutputData outputData = new OpenOutputData();
-            presenter.prepareSuccessView();
-
             OpenOutputData outputData = new OpenOutputData(wikiHistoryNodes);
             journeyDataAccessObject.setRootNode(wikiHistoryNodes.get(0));
 

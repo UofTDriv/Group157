@@ -1,40 +1,36 @@
 package entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WikiHistory {
-    public String getTitle() {
-        return title;
-    }
-
     public String title;
     public ArrayList<Node> nodeHistory;
+    private Map<String, Node> nodeLookup;
 
     public WikiHistory(Node rootNode) {
         this.title = rootNode.toString();
         this.nodeHistory = new ArrayList<>();
         nodeHistory.add(rootNode);
+        this.nodeLookup = new HashMap<>();
+        nodeLookup.put(rootNode.toString(), rootNode);
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void add(Node node) {
         nodeHistory.add(node);
+        nodeLookup.put(node.toString(), node);
     }
 
     public Node getNode(int id) {
         return nodeHistory.get(id);
     }
 
-    public ArrayList<Node> getWikiHistory() {
-        return (ArrayList<Node>) nodeHistory.clone();
-    }
-
     public Node getNode(String title) {
-        Node result = null;
-        for (Node node : nodeHistory) {
-            if (node.getTitle().equals(title)) {
-                result = node;
-            }
-        }
-        return result;
+        return nodeLookup.get(title);
     }
 }

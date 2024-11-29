@@ -50,7 +50,13 @@ public class Node {
 
     // These getters and setters are for processing the WikiHistory nodes for saving more efficiently
 
-    public List<Node> getParents() { return parents; }
+    public List<Node> getParents() {
+        return parents;
+    }
+
+    public void addParent(Node parentNode) {
+        parents.add(parentNode);
+    }
 
     public void setParents(List<Node> parents) { this.parents = parents; }
 
