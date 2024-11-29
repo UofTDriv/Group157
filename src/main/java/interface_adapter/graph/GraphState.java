@@ -1,12 +1,12 @@
 package interface_adapter.graph;
 
 import data_access.InMemoryJourneyDataAccessObject;
-import data_access.InMemorySaveDataAccessObject;
-import entity.Graph;
+import entity.Node;
 import org.jgrapht.ListenableGraph;
-import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.DefaultListenableGraph;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GraphState {
     private ListenableGraph<String, DefaultEdge> graphT;
@@ -26,22 +26,43 @@ public class GraphState {
         this.graphT = graphT;
     }
 
+//    /**
+//     * Add a new node to the graph.
+//     * @param nodeName name of the new node
+//     */
+//    public void addNewNode(String nodeName) {
+//        graphT.addVertex(nodeName);
+//    }
+
     /**
-     * Add a new node to the graph.
-     * @param nodeName name of the new node
+     * Add a new node to the graph and connect it to its parent nodes.
+     * @param nodeName name of the existing node
      */
     public void addNewNode(String nodeName) {
         graphT.addVertex(nodeName);
+        for(String parentName : getAddedParents(nodeName)) {
+            graphT.addEdge(parentName, nodeName);
+        }
     }
 
+
     /**
-     * Add a new node to the graph and connect it to an exising node.
-     * @param nodeName1 name of the existing node
-     * @param nodeName2 name of the new node
+     * Return all ancestors of the current node that are added to the graph
+     * @param nodeName name of the node
+     * @return title of ancestors that are added to the graph
      */
-    public void addNewNode(String nodeName1, String nodeName2) {
-        graphT.addVertex(nodeName2);
-        graphT.addEdge(nodeName1, nodeName2);
+    private List<String> getAddedParents(String nodeName) {
+        Node currentNode = dao.getWikiHistory().getNode(nodeName);
+        List<String> result = new ArrayList<>();
+        for (Node parent : currentNode.getParents()) {
+            if (parent.isAddedtoGraph()) {
+                result.add(parent.getTitle());
+            }
+            else {
+                result.addAll(getAddedParents(parent.getTitle()));
+            }
+        }
+        return result;
     }
 
     public void setAddError(String error) {
