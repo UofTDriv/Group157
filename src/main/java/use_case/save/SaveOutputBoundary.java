@@ -6,15 +6,12 @@ public interface SaveOutputBoundary {
      * Prepares success view
      * @param saveOutputData output data
      */
-    void prepareSuccessViewContinue(SaveOutputData saveOutputData);
+    void prepareSuccessView(SaveOutputData saveOutputData);
 
     /**
      * Prepares fail view
      * @param errorMessage message explaining usecase failure (failure to save Journey)
      */
-    void prepareFailViewContinue(String errorMessage);
+    void prepareFailView(String errorMessage);
 
-    void prepareSuccessViewClose(SaveOutputData saveOutputData);
-
-    void prepareFailViewClose(String errorMessage);
 }

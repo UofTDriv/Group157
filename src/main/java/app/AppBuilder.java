@@ -18,9 +18,7 @@ import interface_adapter.journey.JourneyViewModel;
 import interface_adapter.open.OpenController;
 import interface_adapter.open.OpenPresenter;
 import interface_adapter.open.OpenViewModel;
-import interface_adapter.save.SaveController;
-import interface_adapter.save.SavePresenter;
-import interface_adapter.save.SaveViewModel;
+import interface_adapter.save.*;
 import interface_adapter.search.SearchController;
 import interface_adapter.search.SearchPresenter;
 import interface_adapter.search.SearchViewModel;
@@ -166,9 +164,11 @@ public class AppBuilder {
     }
 
     public AppBuilder addSaveUseCase() {
-        final SaveOutputBoundary savePresenter = new SavePresenter(saveViewModel, viewManagerModel, navBarViewModel,
+        final SaveOutputBoundary closePresenter = new SavePresenterClose(saveViewModel, viewManagerModel, navBarViewModel,
                 openViewModel, journeyViewModel);
-        final SaveInputBoundary saveInteractor = new SaveInteractor(savePresenter, saveDAO, memoryDAO);
+        final SaveOutputBoundary continuePresenter = new SavePresenterContinue(saveViewModel, viewManagerModel, navBarViewModel,
+                openViewModel, journeyViewModel);
+        final SaveInputBoundary saveInteractor = new SaveInteractor(closePresenter, continuePresenter, saveDAO, memoryDAO);
         final SaveController controller = new SaveController(saveInteractor);
         saveView.setSaveController(controller);
         return this;
