@@ -1,8 +1,8 @@
 # CSC207 Final Project
 
 ## Group Members
-* Hrunt Tyler Jokakelian: https://github.com/jermag-vochkhar
-* Denis Divard: https://github.com/UofTDriv
+* Hrunt Jokakelian: https://github.com/jermag-vochkhar
+* Denis Rivard: https://github.com/UofTDriv
 * Zhe Wang: https://github.com/ZheWang7
 * Scott Angelides: https://github.com/JustCookieDough
 
@@ -72,3 +72,59 @@ The potential entities involved are `Node` (the node representing a webpage), an
 
 ### Save
 ![image](images/save_ca.png)
+
+### Usage Guide
+
+### License
+
+Distributed under the Creative Commons Zero v1.0 Universal License. Project is dedicated to the world-wide public domain. The creators of the project (Hrunt Jokakelian, Denis Rivard, Zhe Wang, Scott Angelides) disclaim responsibility for obtaining any necessary consents, permissions or other rights required for any use of this project. See LICENSE for more information.
+
+### Feedback
+
+Curious on giving feedback and or giving suggestions on how to improve the project? Send in a response to the following google form:
+https://forms.gle/M7uPDBEbZgMDvskc7
+
+What counts as valid feedback?
+- Written in English only
+- Should be aligned with project goals (i.e. the purpose of the project)
+- Provide actionalable suggestions (NOT vague or abstract critiques)
+
+Guidelines for what to expect when writing feedback?
+- Be clear and specific
+- Be professional and respectful
+- Aim for constructiveness (don't be overly critical)
+
+### Contributions
+
+How can users contribute to the project?
+Users can contribute in two ways:
+- Providing feedback via actionalable suggestions (as previously mentioned under 'Feedback')
+- Adding further use cases to the project
+     - NOTE: that this does not allow the mutation of already existing use cases
+
+How can users make a fork of this repo?
+ 1. Navigate to the home page of the repository
+ 2. In the top right of the page, click on 'Fork'
+ 3. Leave the 'Owner' selection as is. Change 'Repository Name' to the following format: {github username}_{fork number}, where 'fork number' specifies whether this is the first, second, third etc. fork you've made of this repo.
+ 4. Adding a description is not necessary
+ 5. Ensure that 'Copy the main branch only' is selected
+ 6. Click on 'Create fork'
+
+Guidlines for creating a good merge request.
+1. Write clear commit messages
+2. Ensure code quality (Follow some kind of linter e.g SolarLint)
+3. Appropriately use branching (i.e. create a branch when implementing a distinct feature or use case)
+4. Ensure that the merge quest description is thorough
+     - What does the merge request do?
+     - Why are the changes necessary?
+     - How were the changes implemented
+5. Provide evidence of successful testing (i.e. screenshots for changes to the UI) and adequate test coverage from provided test suite (at least 90% code coverage for core logic)
+
+Protocols for reviewing and merging contributions.
+1. Automatic testing: automatic tests will be run to ensure that code in the merge request is correct and compatible with the current codebase.
+2. Review. A review will be selected to review your merge request. Expect merge requests to be completed between 2 and 5 business days. Reviewers will take into consderation the aformentioned criteria/guidlines for a good merge request. 
+4. Feedback. The reviewer will provide any necessary feedback regarding the request (NOTE: any merge requests NOT following these guidelines will be ignored and DELETED)
+5. Approval mechanism. An additional reviewer may be called for a second opinion before merging.
+
+
+### 
