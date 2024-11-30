@@ -1,22 +1,36 @@
 # CSC207 Final Project
 
-## Group Members
+## Authors
 * Hrunt Jokakelian: https://github.com/jermag-vochkhar
 * Denis Rivard: https://github.com/UofTDriv
 * Zhe Wang: https://github.com/ZheWang7
 * Scott Angelides: https://github.com/JustCookieDough
 
-## TODOs by Fri 8 Nov
-1. [X] Use cases described and user interations identified - James
-2. [X] All the Views sketched - Denis
-3. [X] Entities decided - James
 
-## TODOs by Sun 17 Nov
-4. [ ] A first "team use case" implemented, tested, and pushed to repo - 
-   * Controller, input data, interactor, output data, presenter, in memory database (if needed)
-5. [ ] Be able to make calls to the API your team has chosen - 
-6. [ ] Functioning view and view model
+## Project Purpose
 
+Imagine diving into a completely unfamiliar field—let’s say “artificial intelligence.”
+You’re eager to explore, starting with its encyclopedia entry. But as you read, you're bombarded with unfamiliar terms: “statistics,” “computer science,” and more. 
+Each term sends you down a rabbit hole of new entries, which lead to even more unexplained concepts. 
+It quickly spirals into chaos! How are these ideas connected, and where should you even begin?
+
+The problem lies in the way traditional browsing history works—it’s a simple linear list, showing what you’ve clicked, but not how the concepts relate to one another.
+That’s why our team set out to create something different: a “graphical representation” for browsing history. 
+In this system, every page you visit becomes a node in a graph. When you explore a related concept, it forms a visible link between nodes. 
+This intuitive, hierarchical web of knowledge reveals the relationships between ideas, helping you navigate complex topics with clarity and confidence.
+
+
+## Table of Contents
+### 1. [Authors](#Authors)
+### 2. [Project Purpose](#Project-Purpose)
+### 3. [Software Features](#Software-Features)
+### 4. [Installation Instructions](#Installation-Instructions)
+### 5. [License](#License)
+### 6. [Usage Guide](#Usage-Guide)
+### 7. [Give us Feedback!](#Feedback)
+### 8. [How to Contribute?](#Contributions)
+
+## Software Features
 
 ## Project Blueprint
 ### Team Name: 
@@ -180,13 +194,13 @@ This project uses the following dependencies:
 - **junit:junit** - Version: `4.13.1` **License**: [Eclipse Public License 1.0](https://opensource.org/licenses/EPL-1.0) **Note**: This dependency is used for testing purposes only.
 - **org.junit.jupiter:junit-jupiter** - Version: `5.8.1` **License**: [Eclipse Public License 2.0](https://www.eclipse.org/legal/epl-2.0/) **Note**: This dependency is used for testing purposes only.
 
-### Usage Guide
+## Usage Guide
 
-### License
+## License
 
 Distributed under the Creative Commons Zero v1.0 Universal License. Project is dedicated to the world-wide public domain. The creators of the project (Hrunt Jokakelian, Denis Rivard, Zhe Wang, Scott Angelides) disclaim responsibility for obtaining any necessary consents, permissions or other rights required for any use of this project. See LICENSE for more information.
 
-### Feedback
+## Feedback
 
 Curious on giving feedback and or giving suggestions on how to improve the project? Send in a response to the following google form:
 https://forms.gle/M7uPDBEbZgMDvskc7
@@ -201,7 +215,7 @@ Guidelines for what to expect when writing feedback?
 - Be professional and respectful
 - Aim for constructiveness (don't be overly critical)
 
-### Contributions
+## Contributions
 
 How can users contribute to the project?
 Users can contribute in two ways:
