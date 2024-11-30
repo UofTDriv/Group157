@@ -45,7 +45,7 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
 
         // positioning via jgraphx layouts
         this.layout = new mxCircleLayout(jgxAdapter);
-        int radius = 100;
+        int radius = 150;
         layout.setX0((DEFAULT_SIZE.width / 2.0) - radius);
         layout.setY0((DEFAULT_SIZE.height / 2.0) - radius);
         layout.setRadius(radius);
