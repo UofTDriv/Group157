@@ -17,7 +17,7 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
     private final String viewName;
 
     private final SearchViewModel viewModel;
-    private final JTextField titleInputField = new JTextField(20);
+    private final JTextField titleInputField = SwingStyle.makeTextField("University of Toronto", 30);
 
     private SearchController searchController;
 
@@ -28,13 +28,15 @@ public class SearchView extends JPanel implements ActionListener, PropertyChange
         this.viewName = viewModel.getViewName();
         viewModel.addPropertyChangeListener(this);
 
-        final JLabel toptext = new JLabel(SearchViewModel.TOPTEXT_LABEL);
-        toptext.setFont(new Font("Times New Roman", Font.BOLD, 36));
+        // update it w/ default text
+        final SearchState currentState = viewModel.getState();
+        currentState.setTitle(titleInputField.getText());
+        viewModel.setState(currentState);
 
-        //final JLabel info = new JLabel(SearchViewModel.INFO);
-        titleInputField.setMaximumSize(titleInputField.getPreferredSize());
+        final JLabel toptext = SwingStyle.makeHeading(SearchViewModel.TOPTEXT_LABEL);
 
-        this.searchButton = new JButton(SearchViewModel.SEARCH_BUTTON_LABEL);
+        this.searchButton = SwingStyle.makeAccentButton(SearchViewModel.SEARCH_BUTTON_LABEL);
+
         searchButton.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {

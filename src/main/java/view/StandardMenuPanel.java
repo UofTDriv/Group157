@@ -26,5 +26,8 @@ public class StandardMenuPanel {
         contentPane.add(Box.createVerticalStrut(CENTER_BOTTOM_SPACING));
         contentPane.add(bottom);
         contentPane.add(Box.createVerticalGlue());
+
+        // yay pretty!
+        contentPane.setBackground(SwingStyle.background);
     }
 }
