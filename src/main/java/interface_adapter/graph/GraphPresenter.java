@@ -1,6 +1,8 @@
 package interface_adapter.graph;
 
+import entity.WebPage;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.journey.JourneyState;
 import interface_adapter.journey.JourneyViewModel;
 import use_case.graph.GraphOutputBoundary;
 import use_case.graph.GraphOutputData;
@@ -18,8 +20,10 @@ public class GraphPresenter implements GraphOutputBoundary {
 
     @Override
     public void prepareSuccessView(GraphOutputData data) {
-        // TODO implement this to change Journey view to the clicked Nodes page
-//        viewManagerModel.setState(journeyViewModel.getViewName());
-//        viewManagerModel.firePropertyChanged();
+        viewManagerModel.setState(journeyViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+
+        JourneyState journeyState = journeyViewModel.getState();
+        journeyState.setCurrentPage(data.getTitle(), data.getContent());
     }
 }

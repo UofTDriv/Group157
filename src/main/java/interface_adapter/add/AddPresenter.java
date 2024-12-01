@@ -1,16 +1,10 @@
 package interface_adapter.add;
 
-import data_access.InMemoryJourneyDataAccessObject;
-import entity.Node;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.graph.GraphState;
 import interface_adapter.graph.GraphViewModel;
 import interface_adapter.journey.JourneyViewModel;
 import use_case.add.AddOutputBoundary;
 import use_case.add.AddOutputData;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AddPresenter implements AddOutputBoundary {
 
@@ -28,9 +22,9 @@ public class AddPresenter implements AddOutputBoundary {
     @Override
     public void prepareSuccessView(AddOutputData outputData) {
         String title = outputData.getTitle();
-        final GraphState graphState = graphViewModel.getState();
-        graphState.addNewNode(title, outputData.getParents(), outputData.getChildren());
-        graphViewModel.setState(graphState);
+        final AddState addState = graphViewModel.getState();
+        addState.addNewNode(title, outputData.getParents(), outputData.getChildren());
+        graphViewModel.setState(addState);
         graphViewModel.firePropertyChanged();
     }
 
