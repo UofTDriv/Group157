@@ -42,18 +42,23 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
         articleContent.setEditable(false);
         articleContent.setContentType("text/html");
         articleContent.setText(viewModel.getState().getCurrentPageContent());
+        articleContent.setBackground(SwingStyle.background);
+        articleContent.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+
 
         articleContent.addHyperlinkListener(
             new HyperlinkListener() {
                 public void hyperlinkUpdate(HyperlinkEvent e) {
                     if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
                         controller.execute(e.getDescription());
+                        doAddPage();
                     }
                 }
             }
         );
 
         JScrollPane scrollPane = new JScrollPane(articleContent);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
 
         gbc.gridwidth = 3;
         gbc.ipady = 100;
@@ -73,6 +78,15 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
 
         this.addNewPages = new JCheckBox(JourneyViewModel.ADDPAGES_CHECK_LABEL);
         this.addNewPages.setSelected(viewModel.getState().isAddNewPages());
+
+        addNewPages.setOpaque(true);
+        addNewPages.setBackground(SwingStyle.backgroundLight);
+        addNewPages.setForeground(SwingStyle.text);
+        addNewPages.setBorder(BorderFactory.createEmptyBorder(0,20,0,0));
+        addNewPages.setFont(SwingStyle.fontBold);
+        addNewPages.setMinimumSize(new Dimension(100, 30));
+
+
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weighty = 0;
         gbc.gridwidth = 1;
@@ -82,7 +96,10 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
         gbc.gridy = 1;
         this.add(addNewPages, gbc);
 
-        this.addPage = new JButton(JourneyViewModel.ADDPAGE_BUTTON_LABEL);
+        this.addPage = SwingStyle.makeAccentButton(JourneyViewModel.ADDPAGE_BUTTON_LABEL);
+        addPage.setMinimumSize(new Dimension(100, 30));
+        addPage.setMaximumSize(addPage.getMinimumSize());
+
         gbc.gridwidth = 2;
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -91,15 +108,17 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
             new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     if (e.getSource().equals(addPage)) {
-                        final JourneyState state = viewModel.getState();
-
-                        String title = state.getCurrentPageTitle();
-
-                        addController.execute(title);
+                        doAddPage();
                     }
                 }
             });
         this.add(addPage, gbc);
+    }
+
+    public void doAddPage() {
+        final JourneyState state = viewModel.getState();
+        String title = state.getCurrentPageTitle();
+        addController.execute(title);
     }
 
     @Override
