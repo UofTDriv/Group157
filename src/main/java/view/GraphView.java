@@ -48,8 +48,6 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
 //        layout.setRadius(radius);
 //        layout.setMoveCircle(true);
 
-
-
         layout.execute(jgxAdapter.getDefaultParent());
 
         graphComponent.getGraphControl().addMouseListener(new MouseAdapter()
