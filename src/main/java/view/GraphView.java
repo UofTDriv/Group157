@@ -2,9 +2,8 @@ package view;
 
 import com.mxgraph.layout.mxCircleLayout;
 import com.mxgraph.layout.mxCompactTreeLayout;
-import com.mxgraph.layout.mxGraphLayout;
+import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
-import data_access.InMemoryJourneyDataAccessObject;
 import interface_adapter.graph.GraphController;
 import interface_adapter.graph.GraphViewModel;
 import org.jgrapht.ext.JGraphXAdapter;
@@ -25,7 +24,7 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
     private GraphController controller;
 
     private final JGraphXAdapter<String, DefaultEdge> jgxAdapter;
-    private mxCircleLayout layout;
+    private final mxCompactTreeLayout layout;
 
     private static final Dimension DEFAULT_SIZE = new Dimension(530, 320);
 
@@ -38,18 +37,17 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
 
         this.setPreferredSize(DEFAULT_SIZE);
 
-        Object parent = jgxAdapter.getDefaultParent();
-
         final mxGraphComponent graphComponent = new mxGraphComponent(jgxAdapter);
         graphComponent.setEnabled(false);
 
         // positioning via jgraphx layouts
-        this.layout = new mxCircleLayout(jgxAdapter);
-        int radius = 150;
-        layout.setX0((DEFAULT_SIZE.width / 2.0) - radius);
-        layout.setY0((DEFAULT_SIZE.height / 2.0) - radius);
-        layout.setRadius(radius);
-        layout.setMoveCircle(true);
+        this.layout = new mxCompactTreeLayout(jgxAdapter, false);
+//        int radius = 150;
+//        layout.setX0((DEFAULT_SIZE.width / 2.0) - radius);
+//        layout.setY0((DEFAULT_SIZE.height / 2.0) - radius);
+//        layout.setRadius(radius);
+//        layout.setMoveCircle(true);
+
 
 
         layout.execute(jgxAdapter.getDefaultParent());
@@ -61,8 +59,10 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
                 Object cell = graphComponent.getCellAt(e.getX(), e.getY());
                 if (cell != null)
                 {
-//                  System.out.println("cell="+jgxAdapter.getLabel(cell));
-                    controller.execute(jgxAdapter.getLabel(cell));
+                    mxCell check = (mxCell) cell;
+                    if (check.isVertex()) {
+                        controller.execute(jgxAdapter.getLabel(cell));
+                    }
                 }
             }
         });
@@ -78,7 +78,7 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             layout.execute(jgxAdapter.getDefaultParent());
-
+            jgxAdapter.getEdgeToCellMap().forEach((edge, cell) -> cell.setValue(null));
         }
     }
 

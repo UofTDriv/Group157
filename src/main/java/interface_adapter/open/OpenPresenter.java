@@ -25,7 +25,7 @@ public class OpenPresenter implements OpenOutputBoundary {
 
     @Override
     public void prepareSuccessView(OpenOutputData openOutputData) {
-        final NavBarState navBarState = navBarViewModel.getState();
+        NavBarState navBarState = navBarViewModel.getState();
         navBarState.setJourney(openOutputData.getWikiHistoryNodes().get(0).getTitle());
         this.navBarViewModel.setState(navBarState);
         navBarViewModel.firePropertyChanged("state");

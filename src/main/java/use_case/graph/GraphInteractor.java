@@ -30,9 +30,7 @@ public class GraphInteractor implements GraphInputBoundary {
         Node node = wikiHistory.getNode(inputData.getSubject());
         journey.setCurrentNode(node);
 
-        WebPage webPage = node.getPage();
-
-        GraphOutputData graphOutputData = new GraphOutputData(webPage.title, webPage.content);
+        GraphOutputData graphOutputData = new GraphOutputData(node.getTitle(), node.getPage().content);
         graphPresenter.prepareSuccessView(graphOutputData);
     }
 }
