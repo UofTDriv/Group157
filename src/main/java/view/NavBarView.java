@@ -35,7 +35,7 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
         c.fill = GridBagConstraints.BOTH;
         c.weightx = 0.2;
 
-        search = new JButton(viewModel.getState().getSearch());
+        search = SwingStyle.makeTab(viewModel.getState().getSearch());
 
         search.addActionListener(
             new ActionListener() {
@@ -45,7 +45,7 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
             }
         );
 
-        save = new JButton(viewModel.getState().getSave());
+        save = SwingStyle.makeTab(viewModel.getState().getSave());
         save.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -54,7 +54,7 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
             }
         );
 
-        open = new JButton(viewModel.getState().getOpen());
+        open = SwingStyle.makeTab(viewModel.getState().getOpen());
         open.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -63,7 +63,7 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
             }
         );
 
-        journey = new JButton(viewModel.getState().getJourney());
+        journey = SwingStyle.makeTab(viewModel.getState().getJourney());
         journey.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -72,7 +72,7 @@ public class NavBarView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        graph = new JButton(viewModel.getState().getGraph());
+        graph = SwingStyle.makeTab(viewModel.getState().getGraph());
         graph.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent e) {

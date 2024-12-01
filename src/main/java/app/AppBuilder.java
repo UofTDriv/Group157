@@ -1,7 +1,6 @@
 package app;
 
 
-import data_access.InMemorySaveDataAccessObject;
 import data_access.InMemoryJourneyDataAccessObject;
 import interface_adapter.add.AddController;
 import interface_adapter.add.AddPresenter;
@@ -214,6 +213,8 @@ public class AppBuilder {
 
         application.add(views, BorderLayout.CENTER);
         application.add(navBarView, BorderLayout.NORTH);
+
+        application.setBackground(SwingStyle.background);
 
         viewManagerModel.setState(searchView.getViewName());
         viewManagerModel.firePropertyChanged();
