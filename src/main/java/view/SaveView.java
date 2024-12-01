@@ -66,7 +66,6 @@ public class SaveView extends JPanel implements ActionListener, PropertyChangeLi
                 }
         );
 
-        StandardMenuPanel.standardUI(this, toptext, saveInput, saveAndCloseButton);
         saveAndCloseButton.addActionListener(
                 new ActionListener() {
                     @Override
