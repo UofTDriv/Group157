@@ -28,12 +28,13 @@ public class OpenView extends JPanel implements ActionListener, PropertyChangeLi
         this.viewName = viewModel.getViewName();
         viewModel.addPropertyChangeListener(this);
 
-        this.toptext = new JLabel(OpenViewModel.INFO_LABEL);
+        this.toptext = SwingStyle.makeHeading(OpenViewModel.INFO_LABEL);
 
         this.saves = new JPanel();
         saves.setLayout(new BoxLayout(saves, BoxLayout.Y_AXIS));
+        saves.setOpaque(false);
 
-        openLast = new JButton("Open Last: ");
+        openLast = SwingStyle.makeAccentButton("Open Last");
 
         // TODO add a for loop that iterates through the list of saved Journeys however we did that
         StandardMenuPanel.standardUI(this, toptext, saves, openLast);
@@ -49,9 +50,9 @@ public class OpenView extends JPanel implements ActionListener, PropertyChangeLi
         if (evt.getPropertyName().equals("state")) {
             final OpenState state = (OpenState) evt.getNewValue();
             String saveTitle = state.getWikiHistoryNodes().get(state.getWikiHistoryNodes().size() - 1).getFirst();
-            JButton newSave = new JButton(saveTitle);
-
+            JButton newSave = SwingStyle.makeButton(saveTitle);
             saves.add(newSave);
+            saves.add(Box.createRigidArea(new Dimension(0, 10)));
             newSave.addActionListener(
                     new ActionListener() {
                         @Override
