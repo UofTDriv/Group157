@@ -24,7 +24,7 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
     private GraphController controller;
 
     private final JGraphXAdapter<String, DefaultEdge> jgxAdapter;
-    private final mxCompactTreeLayout layout;
+    private final mxCircleLayout layout;
 
     private static final Dimension DEFAULT_SIZE = new Dimension(530, 320);
 
@@ -41,12 +41,12 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
         graphComponent.setEnabled(false);
 
         // positioning via jgraphx layouts
-        this.layout = new mxCompactTreeLayout(jgxAdapter, false);
-//        int radius = 150;
-//        layout.setX0((DEFAULT_SIZE.width / 2.0) - radius);
-//        layout.setY0((DEFAULT_SIZE.height / 2.0) - radius);
-//        layout.setRadius(radius);
-//        layout.setMoveCircle(true);
+        this.layout = new mxCircleLayout(jgxAdapter);
+        int radius = 150;
+        layout.setX0((DEFAULT_SIZE.width / 2.0) - radius);
+        layout.setY0((DEFAULT_SIZE.height / 2.0) - radius);
+        layout.setRadius(radius);
+        layout.setMoveCircle(true);
 
         layout.execute(jgxAdapter.getDefaultParent());
 
