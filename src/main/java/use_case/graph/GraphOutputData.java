@@ -1,5 +1,21 @@
 package use_case.graph;
 
+import entity.WebPage;
+
 public class GraphOutputData {
-    // TODO implement this to send Graph presenter the necessary data to change Journey view to a specific Nodes page
+    final private String title;
+    final private String content;
+
+    public GraphOutputData(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
 }

@@ -1,15 +1,14 @@
 package interface_adapter.graph;
 
-import data_access.InMemoryJourneyDataAccessObject;
-import entity.Graph;
 import interface_adapter.ViewModel;
+import interface_adapter.add.AddState;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-public class GraphViewModel extends ViewModel<GraphState> {
+public class GraphViewModel extends ViewModel<AddState> {
 
     public GraphViewModel(ListenableGraph<String, DefaultEdge> graph) {
         super("Graph");
-        setState(new GraphState(graph));
+        setState(new AddState(graph));
     }
 }
