@@ -2,6 +2,9 @@ package use_case.navBar;
 
 import use_case.journey.JourneyDataAccessInterface;
 
+/**
+ * The NavBar Interactor.
+ */
 public class NavBarInteractor implements NavBarInputBoundary {
     private final NavBarOutputBoundary navBarPresenter;
     private final JourneyDataAccessInterface journeyDataAccessInterface;

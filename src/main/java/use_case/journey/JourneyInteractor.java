@@ -7,6 +7,9 @@ import use_case.search.SearchDataAccessInterface;
 
 import java.util.ArrayList;
 
+/**
+ * The Journey Interactor.
+ */
 public class JourneyInteractor implements JourneyInputBoundary {
     private final SearchDataAccessInterface searchAccessObject;
     private final JourneyDataAccessInterface journeyAccessObject;

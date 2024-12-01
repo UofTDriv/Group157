@@ -6,6 +6,9 @@ import use_case.save.SaveDataAccessInterface;
 
 import java.util.List;
 
+/**
+ * The Open Interactor.
+ */
 public class OpenInteractor implements OpenInputBoundary {
     private final OpenOutputBoundary presenter;
     private final SaveDataAccessInterface saveDataAccessObject;

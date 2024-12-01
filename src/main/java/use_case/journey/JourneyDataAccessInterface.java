@@ -4,6 +4,9 @@ import entity.Journey;
 import entity.Node;
 import entity.WikiHistory;
 
+/**
+ * DAO for the fetching the current journey.
+ */
 public interface JourneyDataAccessInterface {
 
     /**
@@ -11,13 +14,18 @@ public interface JourneyDataAccessInterface {
      * @param rootNode the input data
      */
     void setRootNode(Node rootNode);
-
-    Journey getJourney();
-
-    WikiHistory getWikiHistory();
-
     /**
-     * Resets all of the attributes in the JourneyDAO - for when the user selects "save and close"
+     * Returns the current journey of the application.
+     * @return the journey object that's currently being used to display and keep track of the current page
+     */
+    Journey getJourney();
+    /**
+     * Returns the WikiHistory for the current journey of the application.
+     * @return the WikiHistory object containing all the previously opened pages as nodes.
+     */
+    WikiHistory getWikiHistory();
+    /**
+     * Resets all attributes in memory contributing to the current Journey - for when the user selects "save and close"
      */
     void reset();
 }

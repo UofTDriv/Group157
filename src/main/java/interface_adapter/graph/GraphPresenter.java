@@ -1,6 +1,5 @@
 package interface_adapter.graph;
 
-import entity.WebPage;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.journey.JourneyState;
 import interface_adapter.journey.JourneyViewModel;

@@ -2,6 +2,9 @@ package use_case.add;
 
 import java.util.List;
 
+/**
+ * Output Data for the Add Use Case.
+ */
 public class AddOutputData {
   
     private final String title;

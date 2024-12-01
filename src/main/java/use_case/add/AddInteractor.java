@@ -8,6 +8,9 @@ import use_case.journey.JourneyDataAccessInterface;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Add Interactor.
+ */
 public class AddInteractor implements AddInputBoundary {
     private final AddOutputBoundary presenter;
     private final AddDataAccessInterface dao;

@@ -1,7 +1,8 @@
 package use_case.graph;
 
-import entity.WebPage;
-
+/**
+ * Output Data for the Graph Use Case.
+ */
 public class GraphOutputData {
     final private String title;
     final private String content;

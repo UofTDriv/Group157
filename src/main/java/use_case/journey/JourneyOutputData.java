@@ -1,7 +1,8 @@
 package use_case.journey;
 
-import entity.WebPage;
-
+/**
+ * Output Data for the Journey Use Case.
+ */
 public class JourneyOutputData {
 
     private final String pageTitle;

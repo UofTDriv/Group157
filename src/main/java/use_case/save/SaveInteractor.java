@@ -8,6 +8,9 @@ import use_case.journey.JourneyDataAccessInterface;
 
 import java.util.ArrayList;
 
+/**
+ * The Save Interactor.
+ */
 public class SaveInteractor implements SaveInputBoundary {
 
     private final SaveOutputBoundary closePresenter;
