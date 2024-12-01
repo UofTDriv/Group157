@@ -31,6 +31,17 @@ This intuitive, hierarchical web of knowledge reveals the relationships between 
 ### 8. [How to Contribute?](#Contributions)
 
 ## Software Features
+### 1. Searching Wikipedia Article
+In the "Search Any Wikipedia Article!" page, type the subject you want to serach
+into the textbox and click on the `Start a new journey` button. \
+![image](images/search_article.png)
+The app will display the corresponding Wikipedia page if one exists.
+![image](images/wiki_page.png)
+By clicking the hyperlink on the Wikipedia Page, the app will navigate you to the corresponding
+page.
+
+### 2. Adding Current Page as a Node
+
 
 ## Project Blueprint
 ### Team Name: 
