@@ -31,4 +31,11 @@ public interface SearchDataAccessInterface {
      * @return the title of the page
      */
     ArrayList<String> getPageLinks(String page);
+
+    /**
+     * Returns a corrected version of the given title string
+     * @param page the erronius page title
+     * @return the corrected page title, or null if none were found
+     */
+    String autocomplete(String page);
 }
