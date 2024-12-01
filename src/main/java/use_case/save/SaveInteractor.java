@@ -10,13 +10,18 @@ import java.util.ArrayList;
 
 public class SaveInteractor implements SaveInputBoundary {
 
-    private final SaveOutputBoundary presenter;
+    private final SaveOutputBoundary closePresenter;
+    private final SaveOutputBoundary continuePresenter;
     private final SaveDataAccessInterface saveDataAccessObject;
     private final JourneyDataAccessInterface journeyDataAccessObject;
 
-    public SaveInteractor(SaveOutputBoundary presenter, SaveDataAccessInterface saveDataAccessObject,
+    public SaveInteractor(SaveOutputBoundary closePresenter,
+                          SaveOutputBoundary continuePresenter,
+                          SaveDataAccessInterface saveDataAccessObject,
                           JourneyDataAccessInterface journeyDataAccessObject) {
-        this.presenter = presenter;
+
+        this.closePresenter = closePresenter;
+        this.continuePresenter = continuePresenter;
         this.saveDataAccessObject = saveDataAccessObject;
         this.journeyDataAccessObject = journeyDataAccessObject;
     }
@@ -56,9 +61,9 @@ public class SaveInteractor implements SaveInputBoundary {
             SaveOutputData outputData = new SaveOutputData(saveTitle + " has been added", saveTitle, wikiHistoryNodes);
 
             if (continueOrClose.equals("continue")) {
-                presenter.prepareSuccessViewContinue(outputData);
+                continuePresenter.prepareSuccessView(outputData);
             } else if (continueOrClose.equals("close")) {
-                presenter.prepareSuccessViewClose(outputData);
+                closePresenter.prepareSuccessView(outputData);
                 // If the user clicked the "Save and Close" button, we want to reset whatever is in the JourneyDAO to null
                 journeyDataAccessObject.reset();
             }
@@ -66,17 +71,17 @@ public class SaveInteractor implements SaveInputBoundary {
         } else if (!condition.getFirst() && condition.getSecond()) {
             // you've already saved this history!
             if (continueOrClose.equals("continue")) {
-                presenter.prepareFailViewContinue("You've already saved this history");
+                continuePresenter.prepareFailView("You've already saved this history");
             } else if (continueOrClose.equals("close")) {
-                presenter.prepareFailViewClose("You've already saved this history");
+                closePresenter.prepareFailView("You've already saved this history");
             }
 
         } else {
             // history by that name already exists
             if (continueOrClose.equals("continue")) {
-                presenter.prepareFailViewContinue("History by that name already exists");
+                continuePresenter.prepareFailView("History by that name already exists");
             } else if (continueOrClose.equals("close")) {
-                presenter.prepareFailViewClose("History by that name already exists");
+                closePresenter.prepareFailView("History by that name already exists");
             }
         }
 
