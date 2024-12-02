@@ -1,6 +1,6 @@
 Priniples of Universal Design:
 
-1. Equitable Use - The program allows for users who are visual learners and have trouble keeping track of many events at once, to be able to visualize their wikipedia traversal by navigating to the ‘graph’ view. 
+1. Equitable Use - The program allows for users who are visual learners and have trouble keeping track of many events at once, to be able to visualize their wikipedia traversal by navigating to the ‘graph’ view. Our program also has an autocomplete/typo-correction for when the user intiates their journey in the 'search' view, making it easier for those with dyslexia or lower levels of English to use the program.
 
 2. Flexibility in Use - Doesn't apply to our program because there is not much room for preference to impact the funtionality of our program, except for some UI settings (i.e. dark mode) we could have implemented (time permitting)
 
