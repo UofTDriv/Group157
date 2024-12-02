@@ -13,19 +13,16 @@ import use_case.journey.JourneyDataAccessInterface;
 public class GraphInteractor implements GraphInputBoundary {
     private final GraphOutputBoundary graphPresenter;
     private final GraphDataAccessInterface graphDataAccessInterface;
-    private final JourneyDataAccessInterface journeyDataAccessInterface;
 
-    public GraphInteractor(GraphOutputBoundary graphPresenter, GraphDataAccessInterface graphDataAccessInterface,
-                           JourneyDataAccessInterface journeyDataAccessInterface) {
+    public GraphInteractor(GraphOutputBoundary graphPresenter, GraphDataAccessInterface graphDataAccessInterface) {
         this.graphPresenter = graphPresenter;
         this.graphDataAccessInterface = graphDataAccessInterface;
-        this.journeyDataAccessInterface = journeyDataAccessInterface;
     }
 
     @Override
     public void execute(GraphInputData inputData) {
-        Journey journey = journeyDataAccessInterface.getJourney();
-        WikiHistory wikiHistory = journeyDataAccessInterface.getWikiHistory();
+        Journey journey = graphDataAccessInterface.getJourney();
+        WikiHistory wikiHistory = graphDataAccessInterface.getWikiHistory();
 
         Node node = wikiHistory.getNode(inputData.getSubject());
         journey.setCurrentNode(node);

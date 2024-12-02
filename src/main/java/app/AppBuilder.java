@@ -140,7 +140,7 @@ public class AppBuilder {
 
     public AppBuilder addGraphUseCase() {
         final GraphOutputBoundary graphPresenter = new GraphPresenter(graphViewModel, viewManagerModel, navBarViewModel, journeyViewModel);
-        final GraphInputBoundary graphInputBoundary = new GraphInteractor(graphPresenter, memoryDAO, memoryDAO); // is this right?
+        final GraphInputBoundary graphInputBoundary = new GraphInteractor(graphPresenter, memoryDAO); // is this right?
         final GraphController controller = new GraphController(graphInputBoundary);
         graphView.setController(controller);
         return this;
