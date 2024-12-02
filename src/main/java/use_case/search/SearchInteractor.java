@@ -25,10 +25,17 @@ public class SearchInteractor implements SearchInputBoundary {
     @Override
     public void execute(SearchInputData inputData) {
         String subject = inputData.getSubject();
-        if(!searchAccessObject.pageExists(subject)) {
+        subject = searchAccessObject.autocomplete(subject);
+
+        if (subject == null) {
             presenter.prepareFailView("No matching result!");
         }
-        else {
+        else
+        {
+            String[] words = subject.split(" ");
+            subject = String.join("_", words);
+
+
             String title = searchAccessObject.getTitle(subject);
             String content = WebPage.cleanWikipediaHTML(searchAccessObject.getHTML(subject));
 

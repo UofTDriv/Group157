@@ -67,10 +67,12 @@ public class WikipediaAccessObject implements SearchDataAccessInterface {
         return (ArrayList<String>) (Object) response.getJSONArray(1).toList();
     }
 
+    @Override
     public String autocomplete(String searchString) {
         String encodedString = URLEncoder.encode(searchString, StandardCharsets.UTF_8);
         JSONArray response = makeSearchRequest(encodedString, 1, "fuzzy");
-        return response.getJSONArray(1).getString(0);
+        JSONArray results = response.getJSONArray(1);
+        return results.isEmpty() ? null : results.getString(0);
     }
 
     /**

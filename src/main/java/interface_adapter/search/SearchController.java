@@ -19,10 +19,7 @@ public class SearchController {
      * @param articleTitle the title of the wikipedia article that the user has provided
      */
     public void execute(String articleTitle) {
-        String[] words = articleTitle.split(" ");
-        String formatString = String.join("_", words);
-
-        final SearchInputData searchInputData = new SearchInputData(formatString);
+        final SearchInputData searchInputData = new SearchInputData(articleTitle);
 
         searchUsecaseInteractor.execute(searchInputData);
     }
