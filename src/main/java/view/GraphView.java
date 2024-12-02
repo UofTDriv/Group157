@@ -2,6 +2,7 @@ package view;
 
 import com.mxgraph.layout.mxCircleLayout;
 import com.mxgraph.layout.mxCompactTreeLayout;
+import com.mxgraph.layout.mxGraphLayout;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.swing.mxGraphComponent;
 import interface_adapter.graph.GraphController;
@@ -24,7 +25,10 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
     private GraphController controller;
 
     private final JGraphXAdapter<String, DefaultEdge> jgxAdapter;
-    private final mxCircleLayout layout;
+    private mxGraphLayout layout;
+    private final mxCircleLayout circleLayout;
+
+    final JButton compactTreeLayoutButton;
 
     private static final Dimension DEFAULT_SIZE = new Dimension(530, 320);
 
@@ -32,6 +36,7 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
         this.viewModel = viewModel;
         this.viewName = viewModel.getViewName();
         viewModel.addPropertyChangeListener(this);
+        this.setLayout(new BorderLayout());
 
         this.jgxAdapter = new JGraphXAdapter<>(viewModel.getState().getGraphT());
 
@@ -41,12 +46,14 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
         graphComponent.setEnabled(false);
 
         // positioning via jgraphx layouts
-        this.layout = new mxCircleLayout(jgxAdapter);
+        this.circleLayout = new mxCircleLayout(jgxAdapter);
         int radius = 150;
-        layout.setX0((DEFAULT_SIZE.width / 2.0) - radius);
-        layout.setY0((DEFAULT_SIZE.height / 2.0) - radius);
-        layout.setRadius(radius);
-        layout.setMoveCircle(true);
+        circleLayout.setX0((DEFAULT_SIZE.width / 2.0) - radius);
+        circleLayout.setY0((DEFAULT_SIZE.height / 2.0) - radius);
+        circleLayout.setRadius(radius);
+        circleLayout.setMoveCircle(true);
+
+        this.layout = circleLayout;
 
         layout.execute(jgxAdapter.getDefaultParent());
 
@@ -64,7 +71,23 @@ public class GraphView extends JPanel implements ActionListener, PropertyChangeL
                 }
             }
         });
-        this.add(graphComponent);
+        this.add(graphComponent, BorderLayout.CENTER);
+
+        this.compactTreeLayoutButton = SwingStyle.makeButton("Use Compact Tree Layout");
+
+        compactTreeLayoutButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(compactTreeLayoutButton)) {
+                            layout = new mxCompactTreeLayout(jgxAdapter, false);
+                            layout.execute(jgxAdapter.getDefaultParent());
+                        }
+                    }
+                }
+        );
+
+        this.add(compactTreeLayoutButton, BorderLayout.SOUTH);
     }
 
     @Override

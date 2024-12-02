@@ -9,21 +9,18 @@ public interface SearchDataAccessInterface {
      * @return true iff there is a Wikipedia page for the subject
      */
     Boolean pageExists(String page);
-
     /**
      * Returns the web page of the Wikipedia subject in HTML.
      * @param page the page to be searched
      * @return HTML of the corresponding webpage
      */
     String getHTML(String page);
-
     /**
      * Returns the title of the Wikipedia page.
      * @param page the page to be searched
      * @return title of the corresponding webpage
      */
     String getTitle(String page);
-
     /**
      * Return the links contained in a given page
      * Precondition: the page exists

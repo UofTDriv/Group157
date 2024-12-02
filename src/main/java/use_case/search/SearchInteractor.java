@@ -14,7 +14,9 @@ public class SearchInteractor implements SearchInputBoundary {
     private final JourneyDataAccessInterface journeyAccessObject;
     private final SearchOutputBoundary presenter;
 
-    public SearchInteractor(SearchOutputBoundary presenter, SearchDataAccessInterface searchAccessObject, JourneyDataAccessInterface journeyAccessObject) {
+    public SearchInteractor(SearchOutputBoundary presenter,
+                            SearchDataAccessInterface searchAccessObject,
+                            JourneyDataAccessInterface journeyAccessObject) {
         this.searchAccessObject = searchAccessObject;
         this.journeyAccessObject = journeyAccessObject;
         this.presenter = presenter;

@@ -5,7 +5,6 @@ import entity.Node;
 import entity.WikiHistory;
 
 public interface JourneyDataAccessInterface {
-
     /**
      * Executes the Search use case: starts a new journey
      * @param rootNode the input data
