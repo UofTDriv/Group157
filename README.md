@@ -31,6 +31,7 @@ This intuitive, hierarchical web of knowledge reveals the relationships between 
 ### 8. [How to Contribute?](#Contributions)
 
 ## Software Features
+
 ### 1. Searching Wikipedia Article
 In the "Search Any Wikipedia Article!" page, type the subject you want to serach
 into the textbox and click on the `Start a new journey` button. \
@@ -41,62 +42,30 @@ By clicking the hyperlink on the Wikipedia Page, the app will navigate you to th
 page.
 
 ### 2. Adding Current Page as a Node
+When the user `Start a new journey`, the subject is automatically added as a node.
+After navigating to a new page, the user can click `Add Current Page to Graph` to
+add the page as a new node. \
+The user can check the `Add New Pages Automatically` checkbox to make the app automatically
+adds a new node once we navigate to a new page. \
+(As the screenshot above)\
+The graph links an article with its closest articles that has been added.
+![image](images/cat_graph.png)
 
+### 3. Navigating Back to an Article
+The user can return to an "Added" Wikipedia page by clicking the corresponding
+node in the graph.
 
-## Project Blueprint
-### Team Name: 
-WSHD
-### Domain: 
-Graphing Wikipedia Rabbit Holes
-### Software Specification:
-A program that makes a graph of what you have seen as you search through Wikipedia. 
-As you click links in existing articles to new articles it creates a new node for said article on the map.  
-### Features to be implemented (User Stories)
-1. [X] Type in a subject and click on `Search`: the program will display the page and create a new node. (Team Use Case) 
-2. [ ] Journey UseCase: Display the searched article as the root and be able to `Click` the links in the page: the program will display that page. (Denis)
-3. [ ] The searched article is added as the root node to the Graph of your current journey, any new articles you `click` will be added and linked to the previous node. (Zhe Wang)
-4. [ ] As you explore more pages you can see a list of past pages visited but the program also automatically `adds links` between nodes that were not originally connected by traversal. (Scott)
-5. [ ] `Save` and `Open` your research journeys at another time by saving your current journey to a human-readable file that can be imported. (Hrunt)
+### 4. Saving the Browsing History
+The user can save the current browsing history in the "Save" window.
+After starting a journey, type in a file name and click `Save and Continue`
+or `Save and Close`.
+![image](images/save.png)
 
-**(Complexity Requirements already satisfied. Additional Features to make the project outstanding)**
+### 5. Opening Past Journey
+To open a saved Journey the user can go to the "Open" window.
+Click on the name of the file or `Open Last` to open a saved Journey.
+![image](images/open.png)
 
-6. [ ] During your exploring there may be articles you have not clicked on but are linked to by more than 2 articles you have visited.
-The program will create `Ghost Nodes` for these articles.
-7. [ ] `Switch` the history between **graph** and **chronological list**
-### Proposed API for the Domain
-#### [MediaWiki Action API](https://www.mediawiki.org/wiki/API:Main_page)
-* Allows us to easily interact with MediaWiki-based online resources like English Wikipedia.
-* Pulling down the HTML of English Wikipedia for display using swing.
-* Accessing the MediaWiki `pagelinks` database, which stores all of the links between Wikipedia articles.
-* Abstracts away difficult to handle features of MediaWiki sites such as redirects or deprecated pages.
-#### [Another API for graph (TBD)]()
-(Add once determined)
-
-
-## CA Structures of Use Cases
-### Search
-![image](images/search_ca.png)
-1. When the user types in the subject in the textbox and click **Search**, the content in the textbox
-will be passed to the `SearchController`.
-2. The `SearchController` will wrap the input into a `SearchInputData` object,
-which will be used by the `SearchInputBoundary` interface.
-
-**(I'm not sure if the `SearchInputData` is necessary because the data is really just a String of the subject name.
-I'll ask the TA on Monday)**
-
-3. `SearchInteractor` implements the `SearchInputBoundary` interface, which calls the MediaWiki API.
-to fetch the corresponding webpage. The fetched result will be stored in `Webpage`.
-4. `SearchInteractor` then returns `SearchOutputBoundary`.
-5. `SearchPresenter`, which implements the `SearchOutputBoundary` interface, will then update the `ViewModel`.
-6. `ViewModel` fires the changes to display the webpage on the `View`.
-
-### Add
-The structure of the **Add** use case would be similar to that of **Search**.
-The potential entities involved are `Node` (the node representing a webpage), and
-`WikiHistory` (storing the Wikipedia Rabbit Hole).
-
-### Save
-![image](images/save_ca.png)
 
 =======
 ## Installation Instructions
@@ -206,6 +175,20 @@ This project uses the following dependencies:
 - **org.junit.jupiter:junit-jupiter** - Version: `5.8.1` **License**: [Eclipse Public License 2.0](https://www.eclipse.org/legal/epl-2.0/) **Note**: This dependency is used for testing purposes only.
 
 ## Usage Guide
+### Step 1:
+To use the software, make sure you have followed the instructions in the [Installation Instructions](#installation-instructions)
+section if you haven't have the packages and dependencies ready.
+### Step 2:
+Clone the project or download the zip file in [Our GitHub Repository](https://github.com/UofTDriv/Group157)
+Open the project in your IDE.
+![Image](images/github_repo.png)
+### Step 3:
+In **src/main/java/app**, find the file named `Main`.
+Rightclick the file and click **Run** or open the file to run it.
+![Image](images/project_main.png)
+### Step 4:
+Seeing the App displayed and you are ready to start your journey!
+(See the [Software Features](#software-features) section for a tutorial of the app)
 
 ## License
 
