@@ -130,6 +130,12 @@ public class JourneyView extends JPanel implements ActionListener, PropertyChang
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             articleContent.setText(viewModel.getState().getCurrentPageContent());
+        } else if (evt.getPropertyName().equals("Bad Wiki Request Exception")) {
+            JOptionPane.showMessageDialog(this,"Bad Wiki Request Exception");
+        } else if (evt.getPropertyName().equals("Not a Wikipedia article link")) {
+            JOptionPane.showMessageDialog(this,"Not a Wikipedia article link");
+        } else if (evt.getPropertyName().equals("No matching result!")) {
+            JOptionPane.showMessageDialog(this,"No matching result!");
         } else if (evt.getPropertyName().equals("Add Success")) {
             JOptionPane.showMessageDialog(this,"Current page added as node to graph");
         } else if (evt.getPropertyName().equals("Add Failure")) {

@@ -18,8 +18,6 @@ public class JourneyController {
      * @param link the link to the wikipedia article that the user has clicked on
      */
     public void execute(String link) {
-        link = link.replaceAll("^/wiki/", "");
-
         final JourneyInputData journeyInputData = new JourneyInputData(link);
 
         journeyInteractor.execute(journeyInputData);

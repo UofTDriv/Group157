@@ -1,5 +1,6 @@
 package use_case.journey;
 
+import data_access.BadWikiRequestException;
 import entity.Journey;
 import entity.Node;
 import entity.WebPage;
@@ -22,26 +23,35 @@ public class JourneyInteractor implements JourneyInputBoundary {
 
     @Override
     public void execute(JourneyInputData inputData) {
-        String subject = inputData.getSubject();
-        if(Boolean.FALSE.equals(searchAccessObject.pageExists(subject))) {
-            presenter.prepareFailView("No matching result!");
+
+        if(!inputData.getSubject().contains("/wiki/")) {
+            presenter.prepareFailView("Not a Wikipedia article link");
         }
-        else {
-            String title = searchAccessObject.getTitle(subject);
-            String content = WebPage.cleanWikipediaHTML(searchAccessObject.getHTML(subject));
 
-            ArrayList<String> links = searchAccessObject.getPageLinks(subject);
+        String subject = inputData.getSubject().replaceAll("^/wiki/", "");
+        try {
+            if (Boolean.FALSE.equals(searchAccessObject.pageExists(subject))) {
+                presenter.prepareFailView("No matching result!");
+            } else {
 
-            Journey journey = journeyAccessObject.getJourney();
-            Node parentNode = journey.getCurrentNode();
+                String title = searchAccessObject.getTitle(subject);
+                String content = WebPage.cleanWikipediaHTML(searchAccessObject.getHTML(subject));
 
-            Node newNode = Node.createNode(title, content, parentNode, links, false);
+                ArrayList<String> links = searchAccessObject.getPageLinks(subject);
 
-            journey.addNode(newNode);
+                Journey journey = journeyAccessObject.getJourney();
+                Node parentNode = journey.getCurrentNode();
 
-            JourneyOutputData outputData = new JourneyOutputData(title, content);
+                Node newNode = Node.createNode(title, content, parentNode, links, false);
 
-            presenter.prepareSuccessView(outputData);
+                journey.addNode(newNode);
+
+                JourneyOutputData outputData = new JourneyOutputData(title, content);
+
+                presenter.prepareSuccessView(outputData);
+            }
+        } catch (BadWikiRequestException exception) {
+            presenter.prepareFailView("Bad Wiki Request Exception");
         }
     }
 }

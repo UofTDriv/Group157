@@ -30,6 +30,6 @@ public class JourneyPresenter implements JourneyOutputBoundary {
 
     @Override
     public void prepareFailView(String errorMessage) {
-
+        journeyViewModel.firePropertyChanged(errorMessage);
     }
 }
